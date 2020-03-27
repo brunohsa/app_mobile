@@ -9,19 +9,21 @@ import {
     Modal
 } from 'react-native';
 
-export default class Cadastro extends Component{
-    constructor(props){
-        super(props);
-    }
+const convert = (props) =>{
+  console.log('aa')
+  if(props.visible  == 'true')
+    return true;
+  else
+    return false;
+}
 
-    render(){
-        return(
-            <>
+export default function Cad_login (props) {
+    return(
         <View>     
           <Modal
             animationType="slide"
             transparent={false}
-            visible={true}>
+            visible={convert(props)}>
             <View>
               <TextInput
                 textContentType='emailAddress' 
@@ -44,7 +46,5 @@ export default class Cadastro extends Component{
             </View>
           </Modal>
         </View>
-            </>
-        );
-    }
+    );
 }
