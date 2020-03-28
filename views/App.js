@@ -11,13 +11,13 @@ import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
-  Modal,
   View,
   Text,
   StatusBar,
   TextInput,
   TouchableOpacity
 } from 'react-native';
+import Modal from 'react-native-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
@@ -34,22 +34,29 @@ class App extends Component {
 
   
   render = () =>{
+   
     return (    
       <>
-        <StatusBar barStyle="dark-content" backgroundColor='#dcdcde' translucent/>
+        <StatusBar barStyle="dark-content" backgroundColor='rgba(0,0,0,0)' translucent={true} />
         <SafeAreaView style={styles.body}>
-            
             <Modal
-              animationType="slide"
-              transparent={true}
-              visible={this.state.isVisible}
+              backdropColor="#000"
+              backdropOpacity={0.8}
+              animationIn="slideInUp"
+              animationOut="slideOutDown"
+              animationInTiming={600}
+              animationOutTiming={600}
+              backdropTransitionInTiming={600}
+              backdropTransitionOutTiming={600}
+              isVisible={this.state.isVisible}
               onRequestClose={() => {
                 this.setVisibility(false);
               }}
               >
-              <View style={styles.modalView}>  
+              <View style={styles.modalView} >
                 <View>
                   <TextInput
+                    style={styles.input}
                     textContentType='emailAddress' 
                     placeholder='Digite seu email' 
                     onChangeName ={text => onChangeText(text)} 
@@ -57,6 +64,7 @@ class App extends Component {
                 </View>
                 <View>
                   <TextInput
+                    style={styles.input}
                     textContentType='password'
                     secureTextEntry 
                     placeholder='Digite sua senha' 
@@ -70,7 +78,7 @@ class App extends Component {
                 </View>
               </View>
             </Modal>
-          
+
 
           <View style={styles.titleContainer}>
             <Text style={styles.sectionTitle}>LOGO</Text>
@@ -97,8 +105,8 @@ class App extends Component {
   const styles = StyleSheet.create({
     body: {
       flex:1,
-      backgroundColor: '#dcdcde',
-      paddingBottom: 15,
+      backgroundColor: '#fff',
+      margin:0
       
     },
     titleContainer: {
@@ -114,17 +122,17 @@ class App extends Component {
       fontSize: 24,
       fontWeight: '600',
       alignSelf: 'center',
-      color: 'white',
+      color: '#f00',
     },
     input: {
-      borderColor: '#fff',
-      borderRadius:3,
+      borderColor: '#f00',
+      borderRadius:5,
       borderWidth: 1,
       backgroundColor:'#fff',
       color: '#000',
     },
     button: {
-      backgroundColor: '#fff',
+      backgroundColor: '#f00',
       padding: 8,
       borderRadius:3,
     },
@@ -135,12 +143,12 @@ class App extends Component {
       fontWeight: 'bold'
     },
     modalView :{
-      flex:1,
-      marginTop:100,
-      justifyContent:'flex-start',
-      backgroundColor:"#e3e4e6",
+      width:'100%',
+      height:'70%',
+      borderRadius:15,
+      backgroundColor:'#fff',
       padding: 30,
-      borderRadius:13,
+      margin:0
     }
   });
 
