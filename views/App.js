@@ -37,7 +37,7 @@ class App extends Component {
    
     return (    
       <>
-        <StatusBar barStyle="dark-content" backgroundColor='rgba(0,0,0,0)' translucent={true} />
+        <StatusBar barStyle="dark-content" backgroundColor='#fff' />
         <SafeAreaView style={styles.body}>
             <Modal
               backdropColor="#000"
@@ -54,26 +54,14 @@ class App extends Component {
               }}
               >
               <View style={styles.modalView} >
-                <View>
-                  <TextInput
-                    style={styles.input}
-                    textContentType='emailAddress' 
-                    placeholder='Digite seu email' 
-                    onChangeName ={text => onChangeText(text)} 
-                  />
+                <View style={{marginTop:15}}>
+                  <TouchableOpacity style={styles.button} onPress={() => {this.setVisibility(true)} } >
+                     <Text style={styles.buttonText}><FontAwesomeIcon icon={faEnvelope} style={{color:'#fff'}}/> Cadastre-se por e-mail</Text>
+                  </TouchableOpacity>
                 </View>
-                <View>
-                  <TextInput
-                    style={styles.input}
-                    textContentType='password'
-                    secureTextEntry 
-                    placeholder='Digite sua senha' 
-                    onChangePass ={text => onChangeText(text)} 
-                  />
-                </View>
-                <View>
-                  <TouchableOpacity>
-                    <Text>Entrar</Text>
+                <View style={{marginTop:15}}>
+                  <TouchableOpacity style={styles.button} onPress={() => {this.setVisibility(true)} } >
+                    <Text style={styles.buttonText}><FontAwesomeIcon icon={faFacebookSquare} style={{color:'#fff'}}/> Cadastre-se por Facebook</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -84,17 +72,19 @@ class App extends Component {
             <Text style={styles.sectionTitle}>LOGO</Text>
           </View>
           <View style={styles.contContainer}>
-            <Text>Faça já seu cadastro</Text>
-          </View>
-          <View style={styles.contContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => {this.setVisibility(true)} } >
-              <Text>Opções de cadastro</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.contContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => {this.setVisibility(true)} } >
-              <Text>Já possui login?</Text>
-            </TouchableOpacity>
+            <View>
+              <Text style={styles.txt}>Faça já seu cadastro</Text>
+            </View>
+            <View style={styles.container}>
+              <TouchableOpacity style={styles.button} onPress={() => {this.setVisibility(true)} } >
+                <Text style={styles.buttonText}>Opções de cadastro</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.container}>
+              <TouchableOpacity style={styles.button} onPress={() => {this.setVisibility(true)} } >
+                <Text style={styles.buttonText}>Já possui cadastro?</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </SafeAreaView>
       </>
@@ -107,42 +97,55 @@ class App extends Component {
       flex:1,
       backgroundColor: '#fff',
       margin:0
-      
     },
     titleContainer: {
+      justifyContent:'center',
+      flex:2,
+      backgroundColor: '#fff',
       marginTop: 100,
-      marginBottom:75,
+      marginBottom:55,
+      alignSelf: 'center',
       paddingHorizontal: 24,
     },
+    container:{
+      marginTop:20,
+    },
     contContainer: {
-      marginTop: 20,
+      backgroundColor: '#fff',
+      flex:2,
+      marginTop: 5,
       paddingHorizontal: 24,
+    },
+    txt: {
+      fontSize:20,
+      color:'#000',
+      fontWeight: 'bold',
     },
     sectionTitle: {
       fontSize: 24,
-      fontWeight: '600',
+      fontWeight: 'bold',
       alignSelf: 'center',
       color: '#f00',
     },
-    input: {
-      borderColor: '#f00',
-      borderRadius:5,
-      borderWidth: 1,
-      backgroundColor:'#fff',
-      color: '#000',
-    },
     button: {
+      flexDirection:'row',
       backgroundColor: '#f00',
       padding: 8,
-      borderRadius:3,
+      borderRadius:8,
+       elevation: 3,
+      shadowOffset: {width: 5, height:5},
+      shadowColor: '#000',
+      shadowOpacity: 1,
+      shadowRadius: 2
     },
     buttonText: {
-      color: '#dcdcde',
+      color: '#fff',
       alignSelf: 'center',
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: 'bold'
     },
     modalView :{
+      justifyContent:'flex-end',
       width:'100%',
       height:'70%',
       borderRadius:15,
