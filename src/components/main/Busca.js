@@ -13,22 +13,26 @@ import {
   ThemeProvider,
   Header
 } from 'react-native-elements';
-import Filter from './Filtro';
 import { ScrollView } from 'react-native-gesture-handler';
 
 class Busca extends Component{
     
   constructor(props){
     super(props);
-  
+    
+    this.state = {hasProduts:0,
+                  search: ''}
+
     this.arrayholder = [];
   }
 
   async getCardapio(){
-    url="http://192.168.15.72:3001/cardapio";
+    url=`http://192.168.15.72:3001/cardapio/`;
     await axios.get(url)
       .then(response => response.json())
-      .then(responseJson => {this.setState({dataSource}, function(){this.arrayholder = responseJson})})
+      .then(responseJson => {this.setState({hasProduts: responseJson.data.length,
+                                            dataSource: responseJson},
+                            function(){this.arrayholder = responseJson})})
       .catch(err => {console.log("Falhou o get")});
   }
 
@@ -44,12 +48,56 @@ class Busca extends Component{
     );
   }
 
+  updateSearch(){
+    this.setState({
+      search:text
+    });
+  }
+
+  renderSearchBar(){
+    return(
+    <SearchBar 
+        placeholder="Digite sua busca..."
+        onChangeText={this.updateSearch}
+        lightTheme
+        round
+        containerStyle={{backgroundColor:'#ffffff'}}
+        searchIcon={<Icon
+            name="search"
+            color="#7a7a7a"
+            size={20}
+          />}
+        value={this.state.dataSource}
+    />
+    );
+  }
+
   renderCategorias(){
     return(
       <View>
         
       </View>
     );
+  }
+
+  renderItens(){
+    return(
+      <ScrollView>
+        <View style={{marginHorizontal:8}}>
+          {this.state.dataSource.map(function(item){
+            return (
+              <View>
+                <View key={item.id} style={{marginHorizontal:12}}>
+                  <Text h2Style style={{color:'#000000', fontSize:18}}>{item.nome}</Text>
+                  <Text h4Style style={{color:'#7a7a7a', fontSize:13, marginTop:5, marginHorizontal:7}}>{item.descricao}</Text>
+                  <Text h3Style style={{color:'#ff0000', fontSize:15, marginTop:7} }>{item.valor}</Text>
+                </View>
+                <Divider />
+              </View>
+            )})}
+        </View>
+      </ScrollView>
+    )
   }
 
   render(){
@@ -61,23 +109,8 @@ class Busca extends Component{
             backgroundColor: '#ffffff',
             justifyContent: 'space-around',
           }} />
-        <Filter />
+        {renderSearchBar()}
         {/*Render itens do cardapio*/}
-        <ScrollView>
-          <View style={{marginHorizontal:8}}>
-            {this.state.itens.map(function(item){
-              return (
-                <View>
-                  <View key={item.id} style={{marginHorizontal:12}}>
-                    <Text h2Style style={{color:'#000000', fontSize:18}}>{item.nome}</Text>
-                    <Text h4Style style={{color:'#7a7a7a', fontSize:13, marginTop:5, marginHorizontal:7}}>{item.descricao}</Text>
-                    <Text h3Style style={{color:'#ff0000', fontSize:15, marginTop:7} }>{item.valor}</Text>
-                  </View>
-                  <Divider />
-                </View>
-              )})}
-          </View>
-        </ScrollView>
       </View>
     </ThemeProvider>
     );
