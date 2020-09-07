@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "name": "Bruno",
+      "email": "bruno@cardapio.com",
+      "senha": "12345",
+      "id": 0
+    },
+    {
+      "name": "Caique Fernando da Silva Souza",
+      "email": "caiquefssouza.98@gmail.com",
+      "senha": "123456",
+      "id": 1
+    },
+    {
+      "name": "Caique Fernando da Silva Souza",
+      "email": "caiquefssouza.98@gmail.com",
+      "senha": "123456",
+      "id": 2
+    },
+    {
+      "name": "Eric",
+      "email": "eric@cardapio.com",
+      "senha": "12345",
+      "id": 3
+    },
+    {
+      "name": "pandolfo",
+      "email": "pandolfo@cardapio.com",
+      "senha": "1234",
+      "id": 4
+    },
+    {
+      "name": "nicolas",
+      "email": "nicolas@cardapio.com",
+      "senha": "nick",
+      "id": 5
+    }
+  ]
+}

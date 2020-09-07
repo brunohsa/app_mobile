@@ -3,7 +3,6 @@ import {
   SafeAreaView,
   StyleSheet,
   View,
-  StatusBar,
   TouchableOpacity
 } from 'react-native';
 import axios from 'axios';
@@ -11,8 +10,10 @@ import {
   Text,
   Divider,
   ThemeProvider,
-  Header
+  Header,
+  SearchBar
 } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { ScrollView } from 'react-native-gesture-handler';
 
 class Busca extends Component{
@@ -20,24 +21,20 @@ class Busca extends Component{
   constructor(props){
     super(props);
     
-    this.state = {hasProduts:0,
+    this.state = {isSearching:true,
                   search: ''}
 
     this.arrayholder = [];
   }
 
   async getCardapio(){
-    url=`http://192.168.15.72:3001/cardapio/`;
+    url="http://192.168.15.72:3001/cardapio/";
     await axios.get(url)
-      .then(response => response.json())
-      .then(responseJson => {this.setState({hasProduts: responseJson.data.length,
+      .then(responseJson => {this.setState({isSearching:false,
                                             dataSource: responseJson},
                             function(){this.arrayholder = responseJson})})
-      .catch(err => {console.log("Falhou o get")});
-  }
-
-  componentDidMount(){
-    this.getCardapio();
+      .catch(err => {console.log(err)});
+      console.log(this.arrayholder)
   }
 
   renderHistoricoPesquisa(){
@@ -48,17 +45,31 @@ class Busca extends Component{
     );
   }
 
-  updateSearch(){
-    this.setState({
-      search:text
-    });
+  componentDidMount(){
+    this.getCardapio();
+  }
+
+  search = text => {
+    console.log(text);
+  }
+
+  clear = () => {
+    this.search.clear();
+  }
+
+  updateSearch(text){
+      this.setState({
+        isSearching:true,
+        search:text
+      });
+      this.getCardapio();
   }
 
   renderSearchBar(){
     return(
-    <SearchBar 
+      <SearchBar 
         placeholder="Digite sua busca..."
-        onChangeText={this.updateSearch}
+        onChangeText={text => this.updateSearch(text)}
         lightTheme
         round
         containerStyle={{backgroundColor:'#ffffff'}}
@@ -67,50 +78,65 @@ class Busca extends Component{
             color="#7a7a7a"
             size={20}
           />}
-        value={this.state.dataSource}
-    />
+        value={this.state.search}
+      />
     );
   }
 
   renderCategorias(){
     return(
       <View>
-        
+        <Text>Categorias</Text>
       </View>
     );
   }
 
   renderItens(){
-    return(
-      <ScrollView>
-        <View style={{marginHorizontal:8}}>
-          {this.state.dataSource.map(function(item){
-            return (
-              <View>
-                <View key={item.id} style={{marginHorizontal:12}}>
-                  <Text h2Style style={{color:'#000000', fontSize:18}}>{item.nome}</Text>
-                  <Text h4Style style={{color:'#7a7a7a', fontSize:13, marginTop:5, marginHorizontal:7}}>{item.descricao}</Text>
-                  <Text h3Style style={{color:'#ff0000', fontSize:15, marginTop:7} }>{item.valor}</Text>
+    if(this.state.isSearching && this.arrayholder.length != 0){
+      return(
+        <ScrollView>
+          <View style={{marginHorizontal:8}}>
+            {this.state.dataSource.map(function(item){
+              return (
+                <View>
+                  <Card >
+                    <View key={item.id} style={{marginHorizontal:12}}>
+                      <Text h2Style style={{color:'#000000', fontSize:18}}>{item.nome}</Text>
+                      <Text h4Style style={{color:'#7a7a7a', fontSize:13, marginTop:5, marginHorizontal:7}}>{item.descricao}</Text>
+                      <Text h3Style style={{color:'#ff0000', fontSize:15, marginTop:7} }>{item.valor}</Text>
+                    </View>
+                  </Card>
                 </View>
-                <Divider />
-              </View>
-            )})}
+              )})}
+          </View>
+        </ScrollView>
+      )
+    } 
+    else if(this.state.isSearching && this.arrayholder.length == 0){
+      return(
+        <View>
+          <Text>
+            Infelizmente não encontramos sua pesquisa :(
+          </Text>
         </View>
-      </ScrollView>
-    )
+      );
+    }
+    else {
+      return(
+        <View>
+          {this.renderCategorias()}
+        </View>
+      );
+    }
   }
 
   render(){
     return(
     <ThemeProvider>
       <View>
-        <Header centerComponent={{ text: 'Busca', style: { color: '#f00' , fontSize:22} }}
-          containerStyle={{
-            backgroundColor: '#ffffff',
-            justifyContent: 'space-around',
-          }} />
-        {renderSearchBar()}
         {/*Render itens do cardapio*/}
+        {this.renderSearchBar()}
+        {this.renderItens()}
       </View>
     </ThemeProvider>
     );

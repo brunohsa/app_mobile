@@ -1,0 +1,22 @@
+{
+    "id": "5dd57b831077f83e28d9b328",
+    "itens": [ 
+        { 
+        "produto": { 
+             "id": "5dd5848d1077f822f47452f6", 
+             "nome": "Produto Novo 3",
+             "valor": "151.00" 
+             }, 
+            "quantidade": 5,
+            "observacoes": "Testando 2" 
+        }, 
+        { "produto": { 
+            "id": "5dd5796d1077f80678635725", 
+            "nome": "Produto Novo 2", 
+            "valor": "100000.00" }, 
+            "quantidade": 7, 
+            "observacoes": "Testando" 
+        }
+    ],
+             "valor_total": 700755.00
+}

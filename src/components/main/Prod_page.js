@@ -11,6 +11,7 @@ import {
 } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+
 class Produto extends Component {
   constructor(props){
     super(props);
