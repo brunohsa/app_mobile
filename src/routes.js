@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Busca from './components/main/Busca';
 import {Text} from 'react-native-elements';
 import Pedidos from './components/main/Pedidos';
+import Produto from './components/main/Prod_page';
 
 class TabIcon extends Component{
    render(){
@@ -76,6 +77,14 @@ class Routes extends Component {
                      back={false}
                   />
                </Scene>
+               <Scene
+                     key="product"
+                     title="Produto"
+                     component={Produto}
+                     navTransparent={true}
+                     hideNavBar
+                     back={true}
+               />
             </Stack>
          </Router>
       );

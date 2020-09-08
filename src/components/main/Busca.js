@@ -8,12 +8,14 @@ import {
 import axios from 'axios';
 import {
   Text,
+  Card,
   Divider,
   ThemeProvider,
   Header,
   SearchBar
 } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Actions } from "react-native-router-flux";
 import { ScrollView } from 'react-native-gesture-handler';
 
 class Busca extends Component{
@@ -32,9 +34,8 @@ class Busca extends Component{
     await axios.get(url)
       .then(responseJson => {this.setState({isSearching:false,
                                             dataSource: responseJson},
-                            function(){this.arrayholder = responseJson})})
+                            function(){this.arrayholder = responseJson.data})})
       .catch(err => {console.log(err)});
-      console.log(this.arrayholder)
   }
 
   renderHistoricoPesquisa(){
@@ -92,20 +93,22 @@ class Busca extends Component{
   }
 
   renderItens(){
-    if(this.state.isSearching && this.arrayholder.length != 0){
+    if(this.arrayholder.length != 0){
       return(
         <ScrollView>
           <View style={{marginHorizontal:8}}>
-            {this.state.dataSource.map(function(item){
+            {this.arrayholder.map(function(item){
               return (
                 <View>
-                  <Card >
-                    <View key={item.id} style={{marginHorizontal:12}}>
-                      <Text h2Style style={{color:'#000000', fontSize:18}}>{item.nome}</Text>
-                      <Text h4Style style={{color:'#7a7a7a', fontSize:13, marginTop:5, marginHorizontal:7}}>{item.descricao}</Text>
-                      <Text h3Style style={{color:'#ff0000', fontSize:15, marginTop:7} }>{item.valor}</Text>
-                    </View>
-                  </Card>
+                  <TouchableOpacity onPress={() => {Actions.product({prodId:item.id})}} pointerEvents="none">
+                    <Card>
+                      <View key={item.id} style={{marginHorizontal:12}}>
+                        <Text h2Style style={{color:'#000000', fontSize:18}}>{item.nome}</Text>
+                        <Text h4Style style={{color:'#7a7a7a', fontSize:13, marginTop:5, marginHorizontal:7}}>{item.descricao}</Text>
+                        <Text h3Style style={{color:'#ff0000', fontSize:15, marginTop:7} }>{item.valor}</Text>
+                      </View>
+                    </Card>
+                  </TouchableOpacity>
                 </View>
               )})}
           </View>

@@ -9,6 +9,7 @@ import {
   Input,
   ThemeProvider
 } from 'react-native-elements';
+import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -17,8 +18,17 @@ class Produto extends Component {
     super(props);
   }
 
+  componentDidMount(){
+    url="http://192.168.15.72:3001/cardapio/"+this.props.prodId;
+    axios.get(url)
+      .then(responseJson => {this.setState({isSearching:false,
+                                            dataSource: responseJson},
+                            function(){this.arrayholder = responseJson.data})})
+      .catch(err => {console.log(err)});
+  }
+
   render(){
-    <View>
+    return(
       <View>
         <Text>X-Bacon</Text>
         <Text>
@@ -50,8 +60,7 @@ class Produto extends Component {
           />
         </View>
       </View>
-    </View>
-    }
-
-
+    )}
 }
+
+export default Produto;
