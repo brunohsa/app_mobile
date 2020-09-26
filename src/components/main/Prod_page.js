@@ -20,7 +20,8 @@ class Produto extends Component {
     super(props);
     
     this.state = {desc: '',
-                  prod:{}}
+                  prod:{},
+                  quantidade:0}
   }
 
   async getProduct(){
@@ -32,6 +33,18 @@ class Produto extends Component {
   
   componentDidMount(){
     this.getProduct();
+  }
+
+  aumentarQuantidade(){
+    let qttd = this.state.quantidade + 1;
+    this.setState({quantidade:qttd});
+  }
+
+  diminuirQuantidade(){
+    if(this.state.quantidade > 0){
+      let qttd = this.state.quantidade - 1;
+      this.setState({quantidade:qttd})
+    }
   }
 
   render(){
@@ -48,6 +61,7 @@ class Produto extends Component {
             <View style={{ flexDirection:"row" }}>
               <Button
                 containerStyle={{position:'relative'}}
+                onPress={this.aumentarQuantidade()}
                 icon={
                   <Icon
                     name="plus"
@@ -57,9 +71,12 @@ class Produto extends Component {
                 }
               />
               <Input 
+                disabled
+                value={this.state.quantidade}
               />
               <Button
                 containerStyle={{position:'relative'}}
+                onPress={this.diminuirQuantidade()}
                 icon={
                   <Icon
                     name="minus"
@@ -70,6 +87,11 @@ class Produto extends Component {
               />
             </View>
           </Card>
+          <View>
+            <Button
+              title="Adicionar no carrinho"
+            />
+          </View>
         </View>
       </ThemeProvider>
     )}

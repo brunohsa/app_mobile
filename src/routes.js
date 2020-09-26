@@ -9,6 +9,7 @@ import Busca from './components/main/Busca';
 import {Text} from 'react-native-elements';
 import Pedidos from './components/main/Pedidos';
 import Produto from './components/main/Prod_page';
+import Configure from './components/main/Configurar';
 
 class TabIcon extends Component{
    render(){
@@ -73,6 +74,16 @@ class Routes extends Component {
                      navTransparent={true}
                      hideNavBar
                      iconName="file-text-o"
+                     icon={TabIcon}
+                     back={false}
+                  />
+                  <Scene 
+                     key="config"
+                     title="User"
+                     component={Configure}
+                     navTransparent={true}
+                     hideNavBar
+                     iconName="gear"
                      icon={TabIcon}
                      back={false}
                   />
