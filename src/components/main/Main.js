@@ -25,13 +25,29 @@ class MainPage extends Component{
   }
 
   renderFavs(){
+    return(
+      <View>
 
+      </View>
+    );
+  }
+
+  renderCategorias(){
+    return(
+      <View>
+      </View>
+    );
   }
 
   render(){
     return(
       <View>
-        
+        <Text>Categorias</Text>
+        <Text>Tops da região</Text>
+        {renderTops()}
+        <Text>Favoritos</Text>
+        {renderFavs()}
+
 
       </View>
     );

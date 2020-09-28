@@ -79,11 +79,11 @@ class Routes extends Component {
                   />
                   <Scene 
                      key="config"
-                     title="User"
+                     title="Conta"
                      component={Configure}
                      navTransparent={true}
                      hideNavBar
-                     iconName="gear"
+                     iconName="user"
                      icon={TabIcon}
                      back={false}
                   />

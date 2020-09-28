@@ -2,57 +2,75 @@
     "produtos": [
             {
                 "id": "5f1872a4b8e1f42795a2b6a7",
-                "nome": "X-Bacon",
-                "descricao": "Lanche com bacon",
-                "valor": "13.00"
+                "nome": "X-Tudo",
+                "descricao": "Pão , hamburguer , presunto , queijo , catchup , calabresa , ovo , bacon , milho , alface e tomate.",
+                "valor": "17.00",
+                "compras":50,
+                "nota":9
             },
             {
                 "id": "5f1872a4b8e1f42795a2b6a2",
-                "nome": "X-Bacon",
-                "descricao": "Lanche com bacon",
-                "valor": "13.00"
+                "nome": "X-Salada",
+                "descricao": "Pão , hamburguer , presunto , queijo , catchup , alface e tomate.",
+                "valor": "11.00",
+                "compras":10,
+                "nota":7.5
             },
             {
                 "id": "5f1872a4b8e1f42795a2b6a3",
-                "nome": "X-Bacon",
-                "descricao": "Lanche com bacon",
-                "valor": "13.00"
+                "nome": "X-Burguer",
+                "descricao": "Pão , hamburguer , presunto , queijo , catchup.",
+                "valor": "10.00",
+                "compras":20,
+                "nota":8
             },
             {
                 "id": "5f1872a4b8e1f42795a2b6a4",
-                "nome": "X-Bacon",
-                "descricao": "Lanche com bacon",
-                "valor": "13.00"
+                "nome": "X-Egg",
+                "descricao": "Pão , hamburguer , presunto , queijo , catchup , ovo , alface e tomate.",
+                "valor": "13.00",
+                "compras":5,
+                "nota":8
             },
             {
                 "id": "5f1872a4b8e1f42795a2b6a5",
                 "nome": "X-Bacon",
-                "descricao": "Lanche com bacon",
-                "valor": "13.00"
+                "descricao": "Pão , hamburguer , presunto , queijo , catchup e bacon.",
+                "valor": "15.00",
+                "compras":5,
+                "nota":8
             },
             {
                 "id": "5f1872a4b8e1f42795a2b6a6",
-                "nome": "X-Bacon",
-                "descricao": "Lanche com bacon",
-                "valor": "13.00"
-            },
-            {
-                "id": "5f1872a4b8e1f42795a2b6a9",
-                "nome": "X-Bacon",
-                "descricao": "Lanche com bacon",
-                "valor": "13.00"
+                "nome": "X-Calabresa",
+                "descricao": "Pão , hamburguer , presunto , queijo , catchup , calabresa , alface e tomate.",
+                "valor": "13.00",
+                "compras":5,
+                "nota":8
             },
             {
                 "id": "5f1872a4b8e1f42795a2b6a8",
-                "nome": "X-Bacon",
-                "descricao": "Lanche com bacon",
-                "valor": "13.00"
+                "nome": "X-Frango",
+                "descricao": "Pão , frango , presunto , queijo , catchup.",
+                "valor": "13.00",
+                "compras":5,
+                "nota":8
+            },
+            {
+                "id": "5f1872a4b8e1f42795a2b6a9",
+                "nome": "Hot-dog",
+                "descricao": "Pão de hot dog , pure , salsicha , batata palha , milho , ervilha , maionese e catchup",
+                "valor": "11.00",
+                "compras":5,
+                "nota":8
             },
             {
                 "id": "5f1872a4b8e1f42795a2b6b7",
-                "nome": "X-Bacon",
-                "descricao": "Lanche com bacon",
-                "valor": "13.00"
+                "nome": "Hot-dog completo",
+                "descricao": "Pão de hamburguer , pure , salsicha , batata palha ,calabresa , bacon milho , ervilha , maionese e catchup",
+                "valor": "13.00",
+                "compras":5,
+                "nota":8
             }
         ] 
 }
