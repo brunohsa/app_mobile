@@ -20,14 +20,15 @@ class Produto extends Component {
     super(props);
     
     this.state = {desc: '',
-                  prod:{},
                   quantidade:0}
+
+    this.prod = {};
   }
 
   async getProduct(){
     url="http://192.168.15.72:3001/cardapio/"+this.props.prodId;
     await axios.get(url)
-    .then(responseJson => {this.setState({prod: responseJson.data})})
+    .then(responseJson => this.prod = responseJson.data)
     .catch(err => {console.log(err)});
   }
   

@@ -11,37 +11,44 @@ import {
   Card
 } from 'react-native-elements';
 import axios from 'axios';
-import {List} from 'react-native-paper';
+import {List, TextInput} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-class Configure extends Component {
+class Configure extends React.Component {
   constructor(props){
     super(props);
-  }
 
-  renderUserConfig(){
-    const [expanded, setExpanded] = React.useState(true);
-    const handlePress = () => setExpanded.(!expanded);
-
-    return(
-      <List.Section title="Configuração de conta">
-        <List.Accordion
-          title="Dados Pessoais"
-          left={props => <List.Icon {...props} icon="caret-right"/>}
-          expanded={expanded}
-          onPress={handlePress}
-        >
-        <List.Item>
-        </List.Item>
-        </List.Accordion>
-      </List.Section>
-    );
+    this.state = {
+      expanded:true,
+      nome:'',
+      telefone:'',
+      senha:''
+    }
   }
 
   render(){
     return(
       <View>
-        {this.renderUserConfig()}
+        <TextInput 
+          label="Nome"
+          value={this.state.nome}
+          onChangeText={text => this.setState({nome:text})}
+          mode="outlined"/>
+        <TextInput 
+          label="Telefone"
+          value={this.state.telefone}
+          onChangeText={text => this.setState({telefone:text})}
+          mode="outlined"/>
+        <TextInput 
+          label="Nova senha"
+          value={this.state.telefone}
+          onChangeText={text => this.setState({senha:text})}
+          mode="outlined"/>
+        <TextInput 
+          label="Digite novamente a senha"
+          value={this.state.telefone}
+          onChangeText={text => this.setState({senha:text})}
+          mode="outlined"/>
       </View>
     );
   }
