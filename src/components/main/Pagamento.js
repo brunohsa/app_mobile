@@ -13,25 +13,16 @@ import {
 import axios from 'axios';
 import {
   List,
-  TextInput
+  TextInput,
+  Switch,
+  Divider,
+  Button
   } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-class Pagamento extends React.Component {
-  constructor(props){
-    super(props);
-  }
-
-
-
-  render(){
-    const credit_card = ["Visa", "Mastercard","Elo"];
-    const [numcard, titular, validade, cvv] = React.useState('');
+  function Pagamento(){
     return(
       <View>
-        <View>
-          {/* Drop down para o tipo de cartao*/}
-        </View>
         <View>
           <TextInput 
             label="Número do cartão"
@@ -45,6 +36,25 @@ class Pagamento extends React.Component {
             onChangeText={text => setText(text)}
             mode="outline"
           />
+          <TextInput 
+            label="Validade"
+            value={validade}
+            onChangeText={text => setText(text)}
+            mode="outline"
+          />
+          <TextInput 
+            label="CVV"
+            value={cvv}
+            onChangeText={text => setText(text)}
+            mode="outline"
+          />
+          <Divider />
+          <Button 
+            mode="contained"
+            onPress={() => console.log("pagamento")}
+          >
+            Finalizar compra
+          </Button>
         </View>
       </View>
     );

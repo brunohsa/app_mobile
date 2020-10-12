@@ -15,6 +15,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.12.1",
     "@fortawesome/react-native-fontawesome": "^0.2.3",
     "axios": "^0.19.2",
+    "formik": "^2.2.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-elements": "^2.0.4",
@@ -27,7 +28,8 @@
     "react-native-svg": "^12.0.3",
     "react-native-vector-icons": "^7.0.0",
     "react-redux": "^7.2.1",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "yup": "^0.29.3"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",

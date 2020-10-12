@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useRef} from 'react';
 import {
   View,
   StyleSheet,
@@ -9,51 +9,73 @@ import {
   Input,
   ThemeProvider
 } from 'react-native-elements';
+import {Formik} from 'formik';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { 
+  TextInput
+} from "react-native-paper";
 import { Actions } from 'react-native-router-flux';
+import * as Yup from 'yup';
 
-class ModalLoginCadastro extends Component{
-
-  goToMain(){
+  function goToMain(){
     Actions.index();
   }
 
-  renderLogin(){
+  function renderLogin(){
+    const email = useRef(null);
+    const senha = useRef(null);
+    
+    const FormSchema = Yup.object().shape({
+      email: Yup.string().required('Campo obrigatório'),
+      senha: Yup.string().required('Campo obrigatório').min(8, 'Digite pelo menos 8 caracteres'),
+    });
+
     return(
-      <ThemeProvider theme={theme}>
+      <Formik
+        initialValues={{
+          email:'',
+          senha:'',
+        }}
+        onSubmit={values => {console.log(values);}}
+        validationSchema={FormSchema}
+        >
+        {({values,
+           handleChange,
+           handleSubmit,
+           errors,
+           touched,
+           setFieldTouched}) => (
         <View style={styles.modalView}>
         <Text>Entrar</Text>
           <View style={{marginTop:15}}>
-            <Input 
+            <TextInput 
+              ref={email}
+              label="E-mail"
               keyboardType='email-address'
-              autoCompleteType='email'
-              maxLength={40} 
               placeholder="Digite o seu e-mail"
-              leftIcon={
-                <Icon
-                  name='envelope-o'
-                  size={24}
-                  color='black'
-                />
-              }
-            />
-            <Input 
-              maxLength={40} 
+              left={props => <TextInput.Icon {...props} icon="envelope-o" />}
+              value={values.email}
+              onChangeText={handleChange('email')}
+              onBlur={() => setFieldTouched('email', true)}
+              />
+            {errors.email && touched.email && <Text>{errors.email}</Text>}
+            <TextInput 
+              ref={senha}
+              label='Senha'
               secureTextEntry 
               placeholder="Digite a senha" 
-              leftIcon={
-                <Icon
-                  name='lock'
-                  size={24}
-                  color='black'
-                />
-              }
+              value={values.senha}
+              left={props => <TextInput.Icon {...props} icon="lock" />}
+              onChangeText={handleChange('senha')}
+              onBlur={() => setFieldTouched('senha', true)}
             />
+             {errors.senha && touched.senha && (<Text>{errors.senha}</Text>)}
             <Button 
               title="Fazer login"
               raised
               type="solid"
-              onPress={() => this.goToMain()}
+              onPress={handleSubmit}
+              //onPress={() => goToMain()}
             />
           </View>
           <View style={{marginTop:15}}>
@@ -61,6 +83,7 @@ class ModalLoginCadastro extends Component{
                 title="            Entrar pelo Facebook            "
                 raised
                 type="solid"
+                onPress={() => goToMain()}
                 icon={
                   <Icon
                     name="facebook-square"
@@ -71,56 +94,80 @@ class ModalLoginCadastro extends Component{
             />
           </View>
         </View>
-      </ThemeProvider>
+        )}
+        </Formik>
     );
   }
 
-  renderCadastro(){
+  function renderCadastro(){
+    const email = useRef(null);
+    const user = useRef(null);
+    const senha = useRef(null);
+    
+    const FormSchema = Yup.object().shape({
+      email:  Yup.string().required('Campo obrigatório'),
+      user:   Yup.string().required('Campo obrigatório'),
+      senha:  Yup.string().required('Campo obrigatório').min(8, 'Digite pelo menos 8 caracteres'),
+    });
+
     return(
-      <ThemeProvider theme={theme}>
+      <Formik
+        initialValues={{
+          email:'',
+          user:'',
+          senha:'',
+        }}
+        onSubmit={values => {console.log(values);}}
+        validationSchema={FormSchema}
+        >
+        {({values,
+           handleChange,
+           handleSubmit,
+           errors,
+           touched,
+           setFieldTouched}) => (
         <View style={styles.modalView} >
           <Text>Cadastro</Text>
           <View style={{marginTop:15}}>
-            <Input 
+            <TextInput 
+              ref={email}
+              label="E-mail"
               keyboardType='email-address'
-              maxLength={40} 
               placeholder="Digite o seu e-mail"
-              leftIcon={
-                <Icon
-                  name='envelope-o'
-                  size={24}
-                  color='black'
-                />
-              }
+              left={props => <TextInput.Icon {...props} icon="envelope-o" />}
+              value={values.email}
+              onChangeText={handleChange('email')}
+              onBlur={() => setFieldTouched('email', true)}
             />
-            <Input 
-              maxLength={40} 
-              placeholder="Digite o seu nome"
-              leftIcon={
-                <Icon
-                  name='user'
-                  size={24}
-                  color='black'
-                />
-              }
-              />
-            <Input 
-              maxLength={40} 
+            {errors.email && touched.email && <Text>{errors.email}</Text>}
+            <TextInput 
+              ref={user}
+              label='Senha'
+              secureTextEntry 
+              placeholder="Digite seu nome" 
+              value={values.user}
+              left={props => <TextInput.Icon {...props} icon="user" />}
+              onChangeText={handleChange('user')}
+              onBlur={() => setFieldTouched('user', true)}
+            />
+             {errors.user && touched.user && (<Text>{errors.user}</Text>)}
+            <TextInput 
+              ref={senha}
+              label='Senha'
               secureTextEntry 
               placeholder="Digite a senha" 
-              leftIcon={
-                <Icon
-                  name='lock'
-                  size={24}
-                  color='black'
-                />
-              }
+              value={values.senha}
+              left={props => <TextInput.Icon {...props} icon="lock" />}
+              onChangeText={handleChange('senha')}
+              onBlur={() => setFieldTouched('senha', true)}
             />
+             {errors.senha && touched.senha && (<Text>{errors.senha}</Text>)}
             <Button 
               title="Fazer cadastro"
               raised
               type="solid"
-              onPress={() => this.goToMain()}
+              onPress={handleSubmit}
+              //onPress={() => goToMain()}
             />
           </View>
           <View style={{marginTop:15}}>
@@ -128,6 +175,7 @@ class ModalLoginCadastro extends Component{
               title="         Cadastre-se pelo Facebook         "
               raised
               type="solid"
+              onPress={() => goToMain()}
               containerStyle={{position:'relative'}}
               iconContainerStyle={{position:'absolute', right: 20}}
               icon={
@@ -140,20 +188,19 @@ class ModalLoginCadastro extends Component{
             />
           </View>
         </View>
-      </ThemeProvider>
+        )}
+        </Formik>
     );
   }
 
-  render(){
-    if (this.props.opc == 'login'){
-      return this.renderLogin();
+  function ModalLoginCadastro(props){
+    if (props.opc == 'login'){
+      return renderLogin();
     }
-    else if(this.props.opc == 'cadastro'){
-      return this.renderCadastro();
+    else if(props.opc == 'cadastro'){
+      return renderCadastro();
     }   
   }
-
-} 
 
 const styles = StyleSheet.create({
   button: {
