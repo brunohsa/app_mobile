@@ -7,6 +7,10 @@ import {
   StatusBar,
   TouchableOpacity
 } from 'react-native';
+import {
+  Card,
+  Divider
+} from 'react-native-paper';
 import axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -15,7 +19,9 @@ class MainPage extends Component{
   constructor(props){
       super(props);
 
-      this.state = {};
+      this.state = {
+        dataSource:[]
+      };
 
       this.arrayholder =[];
   }
@@ -23,7 +29,7 @@ class MainPage extends Component{
   async getProduct(){
     let url="http://192.168.15.72:3001/cardapio/";
     await axios.get(url)
-    .then(responseJson => this.arrayholder = responseJson.data)
+    .then(responseJson => {this.setState({dataSource:responseJson.data})})
     .catch(err => {console.log(err)});
   }
 
@@ -32,11 +38,12 @@ class MainPage extends Component{
   }
 
   renderTops() {
-    console.log(this.arrayholder)
+    this.state.dataSource.sort(function(a,b){
+      return a.nota-b.nota;
+    });
     return(
       <View>
-        <ScrollView>
-        {this.arrayholder.map(function(item){
+        {this.state.dataSource.map(function(item){
           return(
             <View>
               <TouchableOpacity onPress={() => {Actions.product({prodId:item.id})}} pointerEvents="none">
@@ -47,10 +54,10 @@ class MainPage extends Component{
                     <Text h3Style style={{color:'#ff0000', fontSize:15, marginTop:7} }>{item.valor}</Text>
                   </View>
                 </Card>
+                <Divider />
               </TouchableOpacity>
             </View>
           )})}      
-        </ScrollView>
       </View>
     );
   }
@@ -72,13 +79,17 @@ class MainPage extends Component{
 
   render(){
     return(
-      <View>
-        <Text>Categorias</Text>
-        {this.renderCategorias()}
-        <Text>Tops da região</Text>
-        {this.renderTops()}
-        <Text>Favoritos</Text>
-        {this.renderFavs()}
+      <View style={{position:"relative"}}>
+        <ScrollView>
+          <View style={{position:"relative"}}>
+            <Text>Categorias</Text>
+            {this.renderCategorias()}
+          </View>
+          <View style={{position:"relative"}}>  
+            <Text>Tops da região</Text>
+            {this.renderTops()}
+          </View>
+        </ScrollView>
       </View>
     );
   }  

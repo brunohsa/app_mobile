@@ -24,6 +24,7 @@ class TabIcon extends Component{
 class Routes extends Component {
    render(){
       return(
+      <View style={{flex:1}}>
          <Router>
             <Stack key="root">
                <Scene
@@ -37,7 +38,8 @@ class Routes extends Component {
                   component={ModalLoginCadastro} 
                   navTransparent={true}
                />
-               <Scene key="tabbar"
+               <Scene 
+                  key="tabbar"
                   tabs={true}
                   swipeEnabled
                   tabBarStyle={{backgroundColor:'#fff'}}
@@ -98,6 +100,7 @@ class Routes extends Component {
                />
             </Stack>
          </Router>
+      </View>
       );
    }
 }

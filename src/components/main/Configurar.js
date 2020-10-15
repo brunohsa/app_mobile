@@ -47,8 +47,7 @@ import * as Yup from 'yup';
            handleChange,
            handleSubmit,
            errors,
-           touched,
-           setFieldTouched}) => (
+           touched}) => (
         <View>
           <TextInput 
             label="Nome"
