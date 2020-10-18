@@ -13,6 +13,7 @@ import {
 } from 'react-native-paper';
 import axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler';
+import Categoria from './Categorias';
 
 class MainPage extends Component{
     
@@ -83,7 +84,7 @@ class MainPage extends Component{
         <ScrollView>
           <View style={{position:"relative"}}>
             <Text>Categorias</Text>
-            {this.renderCategorias()}
+            <Categoria />
           </View>
           <View style={{position:"relative"}}>  
             <Text>Tops da região</Text>

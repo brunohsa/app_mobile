@@ -17,6 +17,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from "react-native-router-flux";
 import { ScrollView } from 'react-native-gesture-handler';
+import Categoria from './Categorias';
 
 class Busca extends Component{
     
@@ -96,7 +97,6 @@ class Busca extends Component{
     if(this.arrayholder.length != 0){
       return(
         <View>
-          <ScrollView>
             <View style={{marginHorizontal:8}}>
               {this.arrayholder.map(function(item){
                 return (
@@ -113,7 +113,6 @@ class Busca extends Component{
                   </View>
                 )})}
             </View>
-          </ScrollView>
         </View>
       )
     } 
@@ -129,7 +128,7 @@ class Busca extends Component{
     else {
       return(
         <View>
-          {this.renderCategorias()}
+          <Categoria />
         </View>
       );
     }
@@ -139,9 +138,14 @@ class Busca extends Component{
     return(
     <ThemeProvider>
       <View style={{position:"relative"}}>
-        {/*Render itens do cardapio*/}
-        {this.renderSearchBar()}
-        {this.renderItens()}
+        <ScrollView>
+          <View style={{position:"relative"}}>
+            {this.renderSearchBar()}
+          </View>
+          <View style={{position:"relative", marginBottom:15}}>
+              {this.renderItens()}
+          </View>
+        </ScrollView>
       </View>
     </ThemeProvider>
     );
