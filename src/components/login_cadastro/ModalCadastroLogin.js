@@ -53,7 +53,8 @@ import * as Yup from 'yup';
               label="E-mail"
               keyboardType='email-address'
               placeholder="Digite o seu e-mail"
-              left={props => <TextInput.Icon {...props} icon="envelope-o" />}
+              left={props => <TextInput.Icon {...props} icon="email" />}
+              icon="email"
               value={values.email}
               onChangeText={handleChange('email')}
               onBlur={() => setFieldTouched('email', true)}
@@ -66,6 +67,7 @@ import * as Yup from 'yup';
               placeholder="Digite a senha" 
               value={values.senha}
               left={props => <TextInput.Icon {...props} icon="lock" />}
+              icon="lock"
               onChangeText={handleChange('senha')}
               onBlur={() => setFieldTouched('senha', true)}
             />
@@ -134,7 +136,8 @@ import * as Yup from 'yup';
               label="E-mail"
               keyboardType='email-address'
               placeholder="Digite o seu e-mail"
-              left={props => <TextInput.Icon {...props} icon="envelope-o" />}
+              left={props => <TextInput.Icon {...props} icon="email" />}
+              icon="email"
               value={values.email}
               onChangeText={handleChange('email')}
               onBlur={() => setFieldTouched('email', true)}
@@ -142,11 +145,12 @@ import * as Yup from 'yup';
             {errors.email && touched.email && <Text>{errors.email}</Text>}
             <TextInput 
               ref={user}
-              label='Senha'
+              label='Nome'
               secureTextEntry 
               placeholder="Digite seu nome" 
               value={values.user}
               left={props => <TextInput.Icon {...props} icon="user" />}
+              icon="user"
               onChangeText={handleChange('user')}
               onBlur={() => setFieldTouched('user', true)}
             />
@@ -158,6 +162,7 @@ import * as Yup from 'yup';
               placeholder="Digite a senha" 
               value={values.senha}
               left={props => <TextInput.Icon {...props} icon="lock" />}
+              icon="lock"
               onChangeText={handleChange('senha')}
               onBlur={() => setFieldTouched('senha', true)}
             />

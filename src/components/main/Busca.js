@@ -14,6 +14,9 @@ import {
   Header,
   SearchBar
 } from 'react-native-elements';
+import {
+  Chip
+} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Actions } from "react-native-router-flux";
 import { ScrollView } from 'react-native-gesture-handler';
@@ -46,6 +49,15 @@ class Busca extends Component{
       </View>
     );
   }
+
+  renderFiltros(){
+    return(
+      <View>
+      <Chip> </Chip>
+      </View>
+    );
+  }
+
 
   componentDidMount(){
     this.getCardapio();

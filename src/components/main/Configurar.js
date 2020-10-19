@@ -33,6 +33,7 @@ import * as Yup from 'yup';
     });
 
     return(
+      <View>
       <Formik
         initialValues={{
         nome:'',
@@ -83,6 +84,16 @@ import * as Yup from 'yup';
         </View>
         )}
       </Formik>
+      <View>
+        <Button 
+          title="Sair"
+          raised
+          type="solid"
+          //onPress={handleSubmit}
+          onPress={() => goToMain()}
+        />
+        </View>
+      </View>
     );
   }
 
