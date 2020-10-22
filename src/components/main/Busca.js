@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React,{Component} from 'react';
 import {
   SafeAreaView,
@@ -34,7 +35,7 @@ class Busca extends Component{
   }
 
   async getCardapio(){
-    url="http://192.168.15.72:3001/cardapio/";
+    var url="http://192.168.15.72:3001/cardapio/";
     await axios.get(url)
       .then(responseJson => {this.setState({isSearching:false,
                                             dataSource: responseJson},
