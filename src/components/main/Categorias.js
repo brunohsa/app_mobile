@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import {
   View,
-  StyleSheet,
+  Image
 } from 'react-native';
 import {
-  Text,
-  ThemeProvider,
-  Card
+  Text
 } from 'react-native-elements';
 import {
   Button,
@@ -22,18 +20,21 @@ Categoria = () => {
                       "Comida Brasileira",
                       "Comida Italiana",
                       "Comida Chinesa",
-                      "Comida Árabe",
+                      "Comida Arabe",
                       "Combos",
                       "Bebidas",
                       "Caldos",
                       "Outros"];
-
   console.log(categorias);
   return (
     <View>
       {categorias.map(element => {
+        var cat = element.trim();
+        console.log(cat);
+        var x = x ? "" : "";
         return(
           <View>
+            <Image source={require(`../../static/images/icones/bebidas.png`)} />
             <Text>{element}</Text>
           </View>
         );

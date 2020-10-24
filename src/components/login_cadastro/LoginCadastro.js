@@ -3,7 +3,8 @@ import {
   SafeAreaView,
   StyleSheet,
   View,
-  StatusBar
+  StatusBar,
+  Image
 } from 'react-native';
 import {
   Text,
@@ -30,7 +31,9 @@ class App extends Component {
         <StatusBar barStyle="light-content" backgroundColor='#fff' />
         <SafeAreaView style={styles.body}>
           <View style={styles.titleContainer}>
-            <Text style={styles.sectionTitle}>LOGO</Text>
+            <Image source={require("../../static/images/logo.png")}
+                   style={{width:400,
+                           height:400}}/>
           </View>
           <View style={styles.contContainer}>
             <View style={styles.container}>

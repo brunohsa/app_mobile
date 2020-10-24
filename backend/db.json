@@ -29,12 +29,6 @@
       "email": "pandolfo@cardapio.com",
       "senha": "1234",
       "id": 4
-    },
-    {
-      "name": "nicolas",
-      "email": "nicolas@cardapio.com",
-      "senha": "nick",
-      "id": 5
     }
   ]
 }
