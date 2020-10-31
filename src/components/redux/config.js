@@ -5,6 +5,7 @@ const configuracao = {
   URL_CARRINHO: '',
   URL_LOGIN: '',
   URL_CADASTRO: '',
+  URL_PAGAMENTO: '',
 };
 
 export default configuracao;

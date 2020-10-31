@@ -1,27 +1,31 @@
 import actionTypes from './ActionTypes';
 
 const cardapioActions = {
-  cardapioEncontrado() {
+  cardapioEncontrado(cardapio) {
     return {
       type: actionTypes.CARDAPIO_ENCONTRADO,
+      cardapio,
     };
   },
 
-  cardapiosEncontrados() {
+  cardapiosEncontrados(cardapio) {
     return {
-      type: actionTypes.CARDAPIOS_ENCONTRADO,
+      type: actionTypes.CARDAPIOS_ENCONTRADOS,
+      cardapio,
     };
   },
 
-  categoriaEncontrada() {
+  categoriaEncontrada(categoria) {
     return {
       type: actionTypes.CATEGORIA_ENCONTRADA,
+      categoria,
     };
   },
 
-  produtoEncontrado() {
+  produtoEncontrado(produto) {
     return {
       type: actionTypes.PRODUTO_ENCONTRADO,
+      produto,
     };
   },
 };
