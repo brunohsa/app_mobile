@@ -16,7 +16,7 @@ let cardapioAPI = {
 
   buscarCardapios() {
     let acao = (response, dispatch) => {
-      dispatch(cardapioActions.cardapiosEncontrados(response.body));
+      dispatch(cardapioActions.cardapiosEncontrados());
       return response.body;
     };
 
