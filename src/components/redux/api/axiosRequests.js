@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { AsyncStorage } from 'react-native';
 import erroActions from '../actions/ErroAction';
 import loginActions from '../actions/LoginAction';
 
@@ -79,7 +80,7 @@ function tratarErro(response, dispatch) {
 }
 
 function fazerLogoff(dispatch) {
-  //localStorage.removeItem('token')
+  AsyncStorage.removeItem('token');
   dispatch(loginActions.fazerLogout());
 }
 
