@@ -1,18 +1,25 @@
-import {combineReducers} from 'redux';
+import actionTypes from '../actions/ActionTypes';
 
-const INITIAL_STATE = {
-  email: '',
-  senha: '',
-};
-
-const loginReducer = (state = INITIAL_STATE, action) => {
+export function loginReducers(state = {}, action) {
   switch (action.type) {
-    case 'LOGIN':
+    case actionTypes.LOGIN_REALIZADO:
+      return {
+        ...state,
+        loginRealizado: true,
+        fazerLogout: false,
+      };
+    case actionTypes.FAZER_LOGOUT:
+      return {
+        ...state,
+        fazerLogout: true,
+        loginRealizado: false,
+      };
+    case actionTypes.LOGOUT_REALIZADO:
+      return {
+        ...state,
+        fazerLogout: false,
+      };
     default:
       return state;
   }
-};
-
-export default combineReducers({
-  login: loginReducer,
-});
+}
