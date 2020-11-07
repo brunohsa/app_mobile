@@ -15,84 +15,13 @@ import {Actions} from 'react-native-router-flux';
 import {ScrollView} from 'react-native-gesture-handler';
 import Categoria from './Categorias';
 
-class Busca extends Component {
+class Filter extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {isSearching: true, search: ''};
-
-    this.arrayholder = [];
-  }
-
-  async getCardapio() {
-    var url = 'http://192.168.15.72:3001/cardapio/';
-    await axios
-      .get(url)
-      .then(responseJson => {
-        this.setState(
-          {isSearching: false, dataSource: responseJson},
-          function() {
-            this.arrayholder = responseJson.data;
-          },
-        );
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  renderHistoricoPesquisa() {
-    return <View />;
-  }
-
-  renderFiltros() {
-    return (
-      <View>
-        <Chip />
-      </View>
-    );
-  }
-
-  componentDidMount() {
-    this.getCardapio();
-  }
-
-  search = text => {
-    console.log(text);
-  };
-
-  clear = () => {
-    this.search.clear();
-  };
-
-  updateSearch(text) {
-    this.setState({
-      isSearching: true,
-      search: text,
-    });
-    this.getCardapio();
-  }
-
-  renderSearchBar() {
-    return (
-      <SearchBar
-        placeholder="Digite sua busca..."
-        onChangeText={text => this.updateSearch(text)}
-        lightTheme
-        round
-        containerStyle={{backgroundColor: '#ffffff'}}
-        searchIcon={<Icon name="search" color="#7a7a7a" size={20} />}
-        value={this.state.search}
-      />
-    );
-  }
-
-  renderCategorias() {
-    return (
-      <View>
-        <Text>Categorias</Text>
-      </View>
-    );
+    this.state = {
+      search: '',
+    };
   }
 
   renderItens() {
@@ -141,35 +70,8 @@ class Busca extends Component {
           </View>
         </View>
       );
-    } else if (this.state.isSearching && this.arrayholder.length == 0) {
-      return (
-        <View>
-          <Text>Infelizmente não encontramos sua pesquisa :(</Text>
-        </View>
-      );
-    } else {
-      return (
-        <View>
-          <Categoria />
-        </View>
-      );
     }
-  }
-
-  render() {
-    return (
-      <ThemeProvider>
-        <View style={{position: 'relative'}}>
-          <ScrollView>
-            <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
-            <View style={{position: 'relative', marginBottom: 15}}>
-              {this.renderItens()}
-            </View>
-          </ScrollView>
-        </View>
-      </ThemeProvider>
-    );
   }
 }
 
-export default Busca;
+export default Filter;

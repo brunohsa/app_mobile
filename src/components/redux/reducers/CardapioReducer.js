@@ -11,19 +11,18 @@ export default function cardapioReducers(state = {}, action) {
       return {
         ...state,
         cardapios: action.cardapios,
-      }
+      };
     case actionTypes.PRODUTO_ENCONTRADO:
       return {
         ...state,
         produto: action.produto,
-      }
+      };
     case actionTypes.CATEGORIA_ENCONTRADA:
       return {
         ...state,
         cardapios: action.cardapios,
-      }
+      };
     default:
       return state;
   }
-  
 }

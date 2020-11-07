@@ -15,5 +15,4 @@ export default function pedidoReducers(state = {}, action) {
     default:
       return state;
   }
-  
 }

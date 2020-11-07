@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
-import { Provider as PaperProvider } from 'react-native-paper';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
+import React, {Component} from 'react';
+import {Provider as PaperProvider} from 'react-native-paper';
+import {createStore, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import Routes from './routes';
-import combineReducers from './compenents/redux/reducers/rootReducer';
+import combineReducers from './components/redux/reducers/rootReducer';
 
-class App extends Component {
+function App() {
+  const store = createStore(combineReducers, applyMiddleware(thunk));
 
-    render() {
-       return (
-         <PaperProvider>
-            <Routes />
-         </PaperProvider>
-       );
-    }
+  return (
+    <Provider store={store}>
+      <PaperProvider>
+        <Routes />
+      </PaperProvider>
+    </Provider>
+  );
 }
 export default App;
