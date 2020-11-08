@@ -15,7 +15,7 @@ import {Actions} from 'react-native-router-flux';
 import {ScrollView} from 'react-native-gesture-handler';
 import Categoria from './Categorias';
 
-class Filter extends Component {
+class Loja extends Component {
   constructor(props) {
     super(props);
 
@@ -24,7 +24,7 @@ class Filter extends Component {
     };
   }
 
-  renderItens() {
+  render() {
     if (this.arrayholder.length != 0) {
       return (
         <View>
@@ -74,4 +74,4 @@ class Filter extends Component {
   }
 }
 
-export default Filter;
+export default Loja;

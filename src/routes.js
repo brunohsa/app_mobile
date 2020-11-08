@@ -11,6 +11,7 @@ import Pedidos from './components/main/Pedidos';
 import Produto from './components/main/Prod_page';
 import Configure from './components/main/Configurar';
 import loginActions from './components/redux/actions/LoginAction';
+import Loja from './components/main/Loja';
 
 class TabIcon extends Component {
   render() {
@@ -122,6 +123,7 @@ class Routes extends Component {
             />
           </Stack>
         </Router>
+        
       </View>
     );
   }

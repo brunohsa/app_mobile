@@ -13,7 +13,7 @@ import {Chip} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Actions} from 'react-native-router-flux';
 import {ScrollView} from 'react-native-gesture-handler';
-import Categoria from './Categorias';
+import Categorias from './Categorias';
 
 class Busca extends Component {
   constructor(props) {
@@ -24,8 +24,10 @@ class Busca extends Component {
     this.arrayholder = [];
   }
 
+  //192.168.15.27
+  //192.168.15.72
   async getCardapio() {
-    var url = 'http://192.168.15.72:3001/cardapio/';
+    var url = 'http://192.168.15.27:3001/cardapio/';
     await axios
       .get(url)
       .then(responseJson => {
@@ -48,8 +50,10 @@ class Busca extends Component {
   renderFiltros() {
     return (
       <View>
-        <Chip />
-      </View>
+        <Chip onPress={console.log("nome")}>Nome</Chip>
+        <Chip onPress={console.log("preço")}>Preço</Chip>
+        <Chip onPress={console.log("nota")}>Nota</Chip>
+      </View>      
     );
   }
 
@@ -90,7 +94,7 @@ class Busca extends Component {
   renderCategorias() {
     return (
       <View>
-        <Text>Categorias</Text>
+        <Categorias />
       </View>
     );
   }
@@ -141,16 +145,10 @@ class Busca extends Component {
           </View>
         </View>
       );
-    } else if (this.state.isSearching && this.arrayholder.length == 0) {
+    }else {
       return (
         <View>
-          <Text>Infelizmente não encontramos sua pesquisa :(</Text>
-        </View>
-      );
-    } else {
-      return (
-        <View>
-          <Categoria />
+          <Categorias />
         </View>
       );
     }
@@ -161,7 +159,9 @@ class Busca extends Component {
       <ThemeProvider>
         <View style={{position: 'relative'}}>
           <ScrollView>
-            <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
+            <View style={{position: 'relative'}}>
+              {this.renderSearchBar()}
+            </View>
             <View style={{position: 'relative', marginBottom: 15}}>
               {this.renderItens()}
             </View>

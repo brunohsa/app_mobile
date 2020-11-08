@@ -17,12 +17,12 @@ class App extends Component {
     return (
       <>
         <ThemeProvider theme={theme}>
-          <StatusBar barStyle="light-content" backgroundColor="#fff" />
+          <StatusBar barStyle="dark-content" backgroundColor="#fff" />
           <SafeAreaView style={styles.body}>
             <View style={styles.titleContainer}>
               <Image
                 source={require('../../images/logo.png')}
-                style={{width: 400, height: 400}}
+                style={{width: 300, height: 300, resizeMode:'contain'}}
               />
             </View>
             <View style={styles.contContainer}>

@@ -24,16 +24,15 @@ class MainPage extends Component {
     this.arrayholder = [];
   }
 
+  //192.168.15.27
+  //192.168.15.72
   async getProduct() {
-    let url = 'http://192.168.15.72:3001/cardapio/';
-    await axios
-      .get(url)
-      .then(responseJson => {
-        this.setState({dataSource: responseJson.data});
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    let url = 'http://192.168.15.200:3001/cardapio/'
+    const response = await axios.config(url).catch(err => {console.log(err);});
+    const {data} = response;
+    let toJSON = JSON.parse(data);
+    console.log(toJSON);
+    this.setState({dataSource:toJSON});
   }
 
   componentDidMount() {
@@ -41,7 +40,8 @@ class MainPage extends Component {
   }
 
   renderTops() {
-    this.state.dataSource.sort(function(a, b) {
+    console.log(this.state.dataSource);
+    this.state.dataSource.produtos.sort(function(a, b) {
       return a.nota - b.nota;
     });
     return (
