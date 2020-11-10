@@ -10,13 +10,13 @@ import {
 import axios from 'axios';
 import {ScrollView} from 'react-native-gesture-handler';
 
-  class Pedidos extends Component {
-    constructor(props) {
-      super(props);
+class Pedidos extends Component {
+  constructor(props) {
+    super(props);
 
-      this.state = {
-        pedidos: [],
-      };
+    this.state = {
+      pedidos: [],
+    };
   }
 
   //192.168.15.27
@@ -35,9 +35,8 @@ import {ScrollView} from 'react-native-gesture-handler';
       })
       .catch(err => {
         console.log(err);
-    });
+      });
   }
-
 
   /*componentDidMount(){
     this.getPedidos();
@@ -45,30 +44,30 @@ import {ScrollView} from 'react-native-gesture-handler';
 
   render() {
     return (
-    <View>
-      <ScrollView>
-        {pedidos.map((pedido, i) => {
-          return (
-            <View key={pedido.id}>
-              <Text>{pedido.numero}</Text>
-              <Text>{pedido.status}</Text>
-              {pedido.itens.map((item, i) => {
-                return (
-                  <View key={item.id}>
-                    <Text>{item.nome}</Text>
-                    <Text>{item.observacoes}</Text>
-                    <Text>{item.quantidade}</Text>
-                    <Text>{item.valor}</Text>
-                  </View>
-                );
-              })}
-              <Text>{pedido.valor_total}</Text>
-              <Text>{pedido.data_pedido }</Text>
-            </View>
-          );
-        })}
-      </ScrollView>
-    </View>
+      <View>
+        <ScrollView>
+          {this.state.pedidos.map((pedido, i) => {
+            return (
+              <View key={pedido.id}>
+                <Text>{pedido.numero}</Text>
+                <Text>{pedido.status}</Text>
+                {pedido.itens.map((item, i) => {
+                  return (
+                    <View key={item.id}>
+                      <Text>{item.nome}</Text>
+                      <Text>{item.observacoes}</Text>
+                      <Text>{item.quantidade}</Text>
+                      <Text>{item.valor}</Text>
+                    </View>
+                  );
+                })}
+                <Text>{pedido.valor_total}</Text>
+                <Text>{pedido.data_pedido}</Text>
+              </View>
+            );
+          })}
+        </ScrollView>
+      </View>
     );
   }
 }

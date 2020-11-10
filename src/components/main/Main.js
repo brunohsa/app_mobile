@@ -1,15 +1,7 @@
 import React, {Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Text,
-  StatusBar,
-  TouchableOpacity,
-} from 'react-native';
+import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
 import {Card, Divider} from 'react-native-paper';
 import axios from 'axios';
-import {ScrollView} from 'react-native-gesture-handler';
 import Categoria from './Categorias';
 import {Actions} from 'react-native-router-flux';
 
@@ -27,12 +19,14 @@ class MainPage extends Component {
   //192.168.15.27
   //192.168.15.72
   async getProduct() {
-    let url = 'http://192.168.15.200:3001/cardapio/'
-    const response = await axios.config(url).catch(err => {console.log(err);});
+    let url = 'http://192.168.15.200:3001/cardapio/';
+    const response = await axios.config(url).catch(err => {
+      console.log(err);
+    });
     const {data} = response;
     let toJSON = JSON.parse(data);
     console.log(toJSON);
-    this.setState({dataSource:toJSON});
+    this.setState({dataSource: toJSON});
   }
 
   componentDidMount() {

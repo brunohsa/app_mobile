@@ -50,10 +50,10 @@ class Busca extends Component {
   renderFiltros() {
     return (
       <View>
-        <Chip onPress={console.log("nome")}>Nome</Chip>
-        <Chip onPress={console.log("preço")}>Preço</Chip>
-        <Chip onPress={console.log("nota")}>Nota</Chip>
-      </View>      
+        <Chip onPress={console.log('nome')}>Nome</Chip>
+        <Chip onPress={console.log('preço')}>Preço</Chip>
+        <Chip onPress={console.log('nota')}>Nota</Chip>
+      </View>
     );
   }
 
@@ -145,7 +145,7 @@ class Busca extends Component {
           </View>
         </View>
       );
-    }else {
+    } else {
       return (
         <View>
           <Categorias />
@@ -159,9 +159,7 @@ class Busca extends Component {
       <ThemeProvider>
         <View style={{position: 'relative'}}>
           <ScrollView>
-            <View style={{position: 'relative'}}>
-              {this.renderSearchBar()}
-            </View>
+            <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
             <View style={{position: 'relative', marginBottom: 15}}>
               {this.renderItens()}
             </View>
