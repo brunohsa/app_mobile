@@ -9,17 +9,24 @@ import {
   Header,
   SearchBar,
 } from 'react-native-elements';
-import {Chip} from 'react-native-paper';
+import {Chip, ActivityIndicator} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Actions} from 'react-native-router-flux';
 import {ScrollView} from 'react-native-gesture-handler';
 import Categorias from './Categorias';
+import Produtos from './Produtos';
 
 class Busca extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {isSearching: true, search: ''};
+    this.state = {
+      isSearching: true,
+      isLoading: false,
+      search: '',
+      dataSource: null,
+      lojasSource: null,
+    };
 
     this.arrayholder = [];
   }
@@ -58,7 +65,21 @@ class Busca extends Component {
   }
 
   componentDidMount() {
-    this.getCardapio();
+    this.setState({isLoading: true});
+    let urlProdutos = 'http://192.168.15.72:3001/produto/';
+    let urlLojas = 'http://192.168.15.72:3001/cardapio/';
+    Promise.all([fetch(urlProdutos), fetch(urlLojas)])
+      .then(([resp1, resp2]) => Promise.all([resp1.json(), resp2.json()]))
+      .then(([data1, data2]) =>
+        this.setState({
+          dataSource: data1,
+          lojasSource: data2,
+          isLoading: false,
+        }),
+      )
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   search = text => {
@@ -99,59 +120,16 @@ class Busca extends Component {
     );
   }
 
-  renderItens() {
-    if (this.arrayholder.length != 0) {
-      return (
-        <View>
-          <View style={{marginHorizontal: 8}}>
-            {this.arrayholder.map(function(item) {
-              return (
-                <View>
-                  <TouchableOpacity
-                    onPress={() => {
-                      Actions.product({prodId: item.id});
-                    }}
-                    pointerEvents="none">
-                    <Card>
-                      <View key={item.id} style={{marginHorizontal: 12}}>
-                        <Text h2Style style={{color: '#000000', fontSize: 18}}>
-                          {item.nome}
-                        </Text>
-                        <Text
-                          h4Style
-                          style={{
-                            color: '#7a7a7a',
-                            fontSize: 13,
-                            marginTop: 5,
-                            marginHorizontal: 7,
-                          }}>
-                          {item.descricao}
-                        </Text>
-                        <Text
-                          h3Style
-                          style={{
-                            color: '#ff0000',
-                            fontSize: 15,
-                            marginTop: 7,
-                          }}>
-                          {item.valor}
-                        </Text>
-                      </View>
-                    </Card>
-                  </TouchableOpacity>
-                </View>
-              );
-            })}
-          </View>
-        </View>
-      );
-    } else {
-      return (
-        <View>
-          <Categorias />
-        </View>
-      );
-    }
+  renderError() {
+    return (
+      <View>
+        <Text> Erro ao carregar as informações da página. </Text>
+      </View>
+    );
+  }
+
+  renderLoading() {
+    return <ActivityIndicator animating={!this.state.isLoading} />;
   }
 
   render() {
@@ -161,7 +139,11 @@ class Busca extends Component {
           <ScrollView>
             <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
             <View style={{position: 'relative', marginBottom: 15}}>
-              {this.renderItens()}
+              {this.state.dataSource !== null
+                ? this.state.dataSource.top.map(item => (
+                    <Produtos item={item} />
+                  ))
+                : this.renderCategorias()}
             </View>
           </ScrollView>
         </View>

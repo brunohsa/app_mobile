@@ -68,13 +68,39 @@ function Categoria() {
 
   return (
     <View>
-      <ScrollView>
+      <ScrollView
+        contentContainerStyle={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          flex: 1,
+          justifyContent: 'space-around',
+        }}>
         {categorias.map(categoria => {
           return (
             <TouchableOpacity>
-              <Card key={categoria.id} style={{width: '40%'}}>
-                <Card.Cover source={categoria.src} />
-                <Card.Content>
+              <Card
+                key={categoria.id}
+                style={{
+                  maxWidth: 200,
+                  maxHeight: 200,
+                  width: 200,
+                  height: 200,
+                  marginTop: 10,
+                  marginBottom: 10,
+                  justifyContent: 'space-evenly',
+                }}>
+                <Card.Cover
+                  source={categoria.src}
+                  style={{
+                    top: 23,
+                    left: 25,
+                    maxWidth: 150,
+                    maxHeight: 150,
+                    width: 150,
+                    height: 150,
+                  }}
+                />
+                <Card.Content style={{top: 23, alignSelf: 'center'}}>
                   <Text>{categoria.titulo}</Text>
                 </Card.Content>
               </Card>

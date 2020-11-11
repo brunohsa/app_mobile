@@ -1,10 +1,10 @@
-/* eslint-disable no-undef */
 import * as React from 'react';
 import {View} from 'react-native';
 import {Text, Button} from 'react-native-elements';
 import {TextInput} from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {Actions} from 'react-native-router-flux';
 
 function Configure() {
   const FormSchema = Yup.object().shape({
@@ -61,13 +61,7 @@ function Configure() {
             {errors.novaSenha && touched.novaSenha && (
               <Text>{errors.novaSenha}</Text>
             )}
-            <Button
-              title="Salvar"
-              raised
-              type="solid"
-              onPress={handleSubmit}
-              //onPress={() => goToMain()}
-            />
+            <Button title="Salvar" raised type="solid" onPress={handleSubmit} />
           </View>
         )}
       </Formik>
@@ -76,8 +70,7 @@ function Configure() {
           title="Sair"
           raised
           type="solid"
-          //onPress={handleSubmit}
-          onPress={() => goToMain()}
+          onPress={() => Actions.reset()}
         />
       </View>
     </View>
