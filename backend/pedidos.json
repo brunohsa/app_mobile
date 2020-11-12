@@ -1,0 +1,21 @@
+{ "pedidos":
+  [
+    {
+        "id": "5fa06d1777d3742be89e95de",
+        "numero": "0008",
+        "status": "PENDENTE_PREPARACAO",
+        "itens": [
+            {
+                "id": "5f8cdfdbbe03120ac8fa8f3d",
+                "nome": "Coca-Cola",
+                "observacoes": "Testando",
+                "quantidade": 2,
+                "valor": 5.5
+            }
+        ],
+        "valor_total": 11.0,
+        "cliente": null,
+        "data_pedido": "02/11/2020 18:33"
+    }
+  ]
+}

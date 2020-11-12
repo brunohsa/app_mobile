@@ -43,10 +43,6 @@ class MainPage extends Component {
     return <View />;
   }
 
-  renderCategorias() {
-    return <Text>AOBA</Text>;
-  }
-
   render() {
     if (this.state.isLoading) {
       this.renderFavs();
