@@ -5,8 +5,8 @@ var pedidos = require('./pedidos.json');
 
 module.exports = function() {
   return {
-    users: users.users,
-    cardapio: cardapio.produtos,
+    users: users,
+    cardapio: cardapio,
     produto: top,
     pedidos: pedidos,
   };

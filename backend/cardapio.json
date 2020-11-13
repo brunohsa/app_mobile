@@ -1,5 +1,5 @@
-{
-  "produtos": {
+[
+  {
     "id": "5f8745d26c68740585e08863",
     "nome": "Cardapio da tia Bia.",
     "ativo": true,
@@ -68,4 +68,4 @@
       }
     ]
   }
-}
+]

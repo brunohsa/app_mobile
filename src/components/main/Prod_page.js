@@ -8,39 +8,49 @@ class Produto extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {desc: '', quantidade: 0, isLoading: true, dataSource: []};
+    this.state = {desc: '', quantidade: 0, isLoading: false, dataSource: {}};
   }
 
   //192.168.15.27
   //192.168.15.72
-  async getProduto() {
-    let url = 'http://192.168.15.27:3001/cardapio/' + this.props.prodId;
-    await axios
-      .get(url)
-      .then(responseJson => {
-        this.setState({isLoading: false, dataSource: responseJson.data});
+  componentDidMount() {
+    this.setState({isLoading: true});
+    let url = 'http://192.168.15.72:3001/produto/' + this.props.prodId;
+    fetch(url)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        this.setState({dataSource: json, isLoading: false});
+        return json;
       })
       .catch(err => {
         console.log(err);
       });
   }
 
-  async componentDidMount() {
-    await this.getProduto();
-  }
-
   aumentarQuantidade() {
-    this.setState({quantidade: this.state.quantidade + 1});
+    this.setState(prevstate => ({
+      quantidade: prevstate.quantidade + 1,
+    }));
   }
 
   diminuirQuantidade() {
-    this.setState({quantidade: this.state.quantidade - 1});
+    this.setState(prevstate => ({
+      quantidade: prevstate.quantidade - 1,
+    }));
   }
 
   render() {
-    console.log(this.state.quantidade);
+    if (this.state.isLoading) {
+      return (
+        <View>
+          <Text>Carregando...</Text>
+        </View>
+      );
+    }
     return (
-      <View>
+      <View style={{justifyContent: 'flex-start'}}>
         <Card>
           <Text style={{color: '#000000', fontSize: 18}}>
             {this.state.dataSource.nome}
@@ -61,35 +71,34 @@ class Produto extends Component {
           <View style={{flexDirection: 'row'}}>
             <Button
               containerStyle={{position: 'relative'}}
-              onPress={this.aumentarQuantidade}
+              onPress={() => this.aumentarQuantidade()}
               icon="plus"
               mode="contained"
             />
             <Text>{this.state.quantidade}</Text>
             <Button
               containerStyle={{position: 'relative'}}
-              onPress={this.diminuirQuantidade}
+              onPress={() => this.diminuirQuantidade()}
               icon="minus"
               mode="contained"
             />
           </View>
         </Card>
         <View>
-          <Button title="Adicionar no carrinho" />
+          <Button
+            mode="contained"
+            style={{
+              width: 150,
+              alignSelf: 'center',
+              paddingTop: 10,
+              marginTop: 15,
+            }}>
+            Adicionar
+          </Button>
         </View>
       </View>
     );
   }
 }
-
-const theme = {
-  Button: {
-    buttonStyle: {
-      marginTop: 5,
-      padding: 10,
-      backgroundColor: 'red',
-    },
-  },
-};
 
 export default Produto;

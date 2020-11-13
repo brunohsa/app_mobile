@@ -21,8 +21,6 @@ class MainPage extends Component {
 
   //192.168.15.27
   //192.168.15.72
-  getCardapios() {}
-
   componentDidMount() {
     this.setState({isLoading: true});
     let url = 'http://192.168.15.72:3001/produto/';
@@ -57,7 +55,7 @@ class MainPage extends Component {
           <View style={{position: 'relative'}}>
             <Text>Tops da região</Text>
             {this.state.dataSource !== null ? (
-              this.state.dataSource.top.map(item => <Produtos item={item} />)
+              this.state.dataSource.map(item => <Produtos item={item} />)
             ) : (
               <View />
             )}

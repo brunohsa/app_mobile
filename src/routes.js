@@ -123,7 +123,6 @@ class Routes extends Component {
             />
           </Stack>
         </Router>
-        
       </View>
     );
   }

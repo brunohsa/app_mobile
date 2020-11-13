@@ -1,5 +1,4 @@
-{
-  "users": [
+[
     {
       "name": "Bruno",
       "email": "bruno@cardapio.com",
@@ -31,4 +30,3 @@
       "id": 4
     }
   ]
-}

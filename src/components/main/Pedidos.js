@@ -23,7 +23,6 @@ class Pedidos extends Component {
 
   //192.168.15.27
   //192.168.15.72
-
   componentDidMount() {
     this.setState({isLoading: true});
     let url = 'http://192.168.15.72:3001/pedidos/';
@@ -52,7 +51,7 @@ class Pedidos extends Component {
       <View>
         <ScrollView>
           {this.state.pedidos !== null ? (
-            this.state.pedidos.pedidos.map((pedido, i) => {
+            this.state.pedidos.map((pedido, i) => {
               return (
                 <View key={pedido.id}>
                   <Text>{pedido.numero}</Text>

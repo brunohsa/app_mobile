@@ -140,9 +140,7 @@ class Busca extends Component {
             <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
             <View style={{position: 'relative', marginBottom: 15}}>
               {this.state.dataSource !== null
-                ? this.state.dataSource.top.map(item => (
-                    <Produtos item={item} />
-                  ))
+                ? this.state.dataSource.map(item => <Produtos item={item} />)
                 : this.renderCategorias()}
             </View>
           </ScrollView>

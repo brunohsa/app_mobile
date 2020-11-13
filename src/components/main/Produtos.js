@@ -4,6 +4,7 @@ import {Text, Card, Divider} from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 
 const Produtos = props => {
+  console.log(props.item.id);
   return (
     <View>
       <TouchableOpacity

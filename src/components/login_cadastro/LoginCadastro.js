@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {SafeAreaView, StyleSheet, View, StatusBar, Image} from 'react-native';
-import {Text, Button, ThemeProvider} from 'react-native-elements';
+import {Button, ThemeProvider} from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 
 class App extends Component {
@@ -22,7 +22,7 @@ class App extends Component {
             <View style={styles.titleContainer}>
               <Image
                 source={require('../../images/logo.png')}
-                style={{width: 300, height: 300, resizeMode:'contain'}}
+                style={{width: 300, height: 300, resizeMode: 'contain'}}
               />
             </View>
             <View style={styles.contContainer}>
