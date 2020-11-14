@@ -1,9 +1,10 @@
 import actionTypes from './ActionTypes';
 
 const pedidoActions = {
-  pedidoEfetuado() {
+  pedidoEfetuado(produtos) {
     return {
       type: actionTypes.PEDIDO_EFETUADO,
+      produtos
     };
   },
 

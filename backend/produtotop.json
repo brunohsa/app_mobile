@@ -1,0 +1,32 @@
+[
+  {
+    "id": "5f8cdfdbbe03120ac8fa8f3d",
+    "nome": "Coca-Cola",
+    "descricao": null,
+    "valor": "5.5",
+    "estoque": 0,
+    "nota": 5,
+    "vendidos": 17,
+    "url": ""
+  },
+  {
+    "id": "5f8cdfdbbe03120ac8fa8f3e",
+    "nome": "Pepsi",
+    "descricao": null,
+    "valor": "5.5",
+    "estoque": 0,
+    "nota": 5,
+    "vendidos": 17,
+    "url": ""
+  },
+  {
+    "id": "5f8cdfdbbe03120ac8fa8f3f",
+    "nome": "Lanche Top",
+    "descricao": null,
+    "valor": "5.5",
+    "estoque": 0,
+    "nota": 5,
+    "vendidos": 17,
+    "url": ""
+  }
+]

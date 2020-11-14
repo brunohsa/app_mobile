@@ -1,37 +1,14 @@
 import * as React from 'react';
-import {
-  View,
-  StyleSheet,
-} from 'react-native';
-import {
-  Text,
-  Button,
-  Input,
-  ThemeProvider,
-  Card
-} from 'react-native-elements';
+import {View, StyleSheet} from 'react-native';
+import {Text, Button, Input, ThemeProvider, Card} from 'react-native-elements';
 import axios from 'axios';
 import {List} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Cart extends React.Component {
-    constructor(props){
-        super(props);
-    }
-
-<<<<<<< Updated upstream
-    //Pegar valores da session storage
-
+  constructor(props) {
+    super(props);
     
-
-    render(){
-        return(
-            <View>
-
-            </View>
-        );
-    }
-=======
     this.state = {
       carrinho: null,
       isLoading: false,
@@ -53,7 +30,7 @@ class Cart extends React.Component {
         console.log(err);
       });
   }
-
+  
   render() {
     return (
       <View>
@@ -68,7 +45,6 @@ class Cart extends React.Component {
       </View>
     );
   }
->>>>>>> Stashed changes
 }
 
 export default Cart;
