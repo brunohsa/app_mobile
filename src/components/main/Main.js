@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React,{Component} from 'react';
 import {
   SafeAreaView,
@@ -11,9 +12,21 @@ import {
   Card,
   Divider
 } from 'react-native-paper';
+=======
+import React, {Component} from 'react';
+import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
+import {Card, Divider, ActivityIndicator, Colors} from 'react-native-paper';
+>>>>>>> Stashed changes
 import axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler';
 import Categoria from './Categorias';
+<<<<<<< Updated upstream
+=======
+import {Actions} from 'react-native-router-flux';
+import {ScrollView} from 'react-native-gesture-handler';
+import Produtos from './Produtos';
+import FABCart from './FABCart';
+>>>>>>> Stashed changes
 
 class MainPage extends Component{
     
@@ -38,6 +51,7 @@ class MainPage extends Component{
     this.getProduct();
   }
 
+<<<<<<< Updated upstream
   renderTops() {
     this.state.dataSource.sort(function(a,b){
       return a.nota-b.nota;
@@ -81,6 +95,16 @@ class MainPage extends Component{
   render(){
     return(
       <View style={{position:"relative"}}>
+=======
+  render() {
+    if (this.state.isLoading) {
+      <View>
+        <ActivityIndicator animating={true} color={Colors.red200} />
+      </View>;
+    }
+    return (
+      <SafeAreaView style={{position: 'relative'}}>
+>>>>>>> Stashed changes
         <ScrollView>
           <View style={{position:"relative"}}>
             <Text>Categorias</Text>

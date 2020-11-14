@@ -1,10 +1,19 @@
+<<<<<<< Updated upstream
 /* eslint-disable prettier/prettier */
 import React,{Component} from 'react';
+=======
+import React, {Component} from 'react';
+>>>>>>> Stashed changes
 import {
   SafeAreaView,
   StyleSheet,
   View,
+<<<<<<< Updated upstream
   TouchableOpacity
+=======
+  TouchableOpacity,
+  Dimensions,
+>>>>>>> Stashed changes
 } from 'react-native';
 import axios from 'axios';
 import {
@@ -19,9 +28,17 @@ import {
   Chip
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
+<<<<<<< Updated upstream
 import { Actions } from "react-native-router-flux";
 import { ScrollView } from 'react-native-gesture-handler';
 import Categoria from './Categorias';
+=======
+import {Actions} from 'react-native-router-flux';
+import {ScrollView} from 'react-native-gesture-handler';
+import Categorias from './Categorias';
+import Produtos from './Produtos';
+import TabBar from './TabBar';
+>>>>>>> Stashed changes
 
 class Busca extends Component{
     
@@ -34,6 +51,7 @@ class Busca extends Component{
     this.arrayholder = [];
   }
 
+<<<<<<< Updated upstream
   async getCardapio(){
     var url="http://192.168.15.72:3001/cardapio/";
     await axios.get(url)
@@ -53,15 +71,40 @@ class Busca extends Component{
 
   renderFiltros(){
     return(
+=======
+  renderFiltros() {
+    return (
+>>>>>>> Stashed changes
       <View>
       <Chip> </Chip>
       </View>
     );
   }
 
+<<<<<<< Updated upstream
 
   componentDidMount(){
     this.getCardapio();
+=======
+  //192.168.15.27
+  //192.168.15.72
+  componentDidMount() {
+    this.setState({isLoading: true});
+    let urlProdutos = 'http://192.168.15.72:3001/produto/';
+    let urlLojas = 'http://192.168.15.72:3001/fornecedor/';
+    Promise.all([fetch(urlProdutos), fetch(urlLojas)])
+      .then(([resp1, resp2]) => Promise.all([resp1.json(), resp2.json()]))
+      .then(([data1, data2]) =>
+        this.setState({
+          dataSource: data1,
+          lojasSource: data2,
+          isLoading: false,
+        }),
+      )
+      .catch(err => {
+        console.log(err);
+      });
+>>>>>>> Stashed changes
   }
 
   search = text => {
@@ -106,6 +149,7 @@ class Busca extends Component{
     );
   }
 
+<<<<<<< Updated upstream
   renderItens(){
     if(this.arrayholder.length != 0){
       return(
@@ -125,6 +169,36 @@ class Busca extends Component{
                     </TouchableOpacity>
                   </View>
                 )})}
+=======
+  renderError() {
+    return (
+      <View>
+        <Text> Erro ao carregar as informações da página. </Text>
+      </View>
+    );
+  }
+
+  renderLoading() {
+    return <ActivityIndicator animating={!this.state.isLoading} />;
+  }
+
+  render() {
+    return (
+      <ThemeProvider>
+        <View style={{position: 'relative'}}>
+          <ScrollView>
+            <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
+            <View>
+              {this.state.dataSource !== null &&
+              this.state.lojasSource != null ? (
+                <TabBar
+                  produtos={this.state.dataSource}
+                  lojas={this.state.lojasSource}
+                />
+              ) : (
+                <View />
+              )}
+>>>>>>> Stashed changes
             </View>
         </View>
       )

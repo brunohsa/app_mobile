@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+<<<<<<< Updated upstream
 import {
   View,
   StyleSheet,
@@ -15,6 +16,11 @@ import {
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+=======
+import {View} from 'react-native';
+import {Text, Card} from 'react-native-elements';
+import {Button, TextInput, ActivityIndicator, Colors} from 'react-native-paper';
+>>>>>>> Stashed changes
 
 class Produto extends Component {
   
@@ -47,6 +53,7 @@ class Produto extends Component {
     this.setState({quantidade:this.state.quantidade - 1});
   }
 
+<<<<<<< Updated upstream
   render(){
     console.log(this.state.quantidade);
     return(
@@ -57,6 +64,41 @@ class Produto extends Component {
             <Text style={{color:'#ff0000', fontSize:15, marginTop:7} }>{this.state.dataSource.valor}</Text>
             <TextInput 
               label="Observações"
+=======
+  render() {
+    if (this.state.isLoading) {
+      return (
+        <View>
+          <ActivityIndicator animating={true} color={Colors.red200} />
+        </View>
+      );
+    }
+    return (
+      <View style={{justifyContent: 'flex-start'}}>
+        <Card>
+          <Text style={{color: '#000000', fontSize: 18}}>
+            {this.state.dataSource.nome}
+          </Text>
+          <Text
+            style={{
+              color: '#7a7a7a',
+              fontSize: 13,
+              marginTop: 5,
+              marginHorizontal: 7,
+            }}>
+            {this.state.dataSource.descricao}
+          </Text>
+          <Text style={{color: '#ff0000', fontSize: 15, marginTop: 7}}>
+            {this.state.dataSource.valor}
+          </Text>
+          <TextInput label="Observações" />
+          <View style={{flexDirection: 'row'}}>
+            <Button
+              containerStyle={{position: 'relative'}}
+              onPress={() => this.aumentarQuantidade()}
+              icon="plus"
+              mode="contained"
+>>>>>>> Stashed changes
             />
             <View style={{ flexDirection:"row" }}>
               <Button

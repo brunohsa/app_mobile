@@ -1,0 +1,12 @@
+[
+  {
+    "cadastro_uuid": "f0628526-e9ff-46f0-95aa-d7e450e3891e",
+    "razao_social": "Panela de Ferro",
+    "distancia": 0.07802815246801374,
+    "funcionamento": {
+      "abertura": "10:00",
+      "fechamento": "23:59",
+      "aberto": true
+    }
+  }
+]

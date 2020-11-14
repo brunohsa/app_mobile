@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 {
 "produtos":{
     "id":"5f8745d26c68740585e08863",
@@ -11,6 +12,29 @@
              "id":"5f8cc90b3c060f87fc52c9e5",
              "descricao":"Bebidas",
              "nome":""
+=======
+[
+  {
+    "id": "5f8745d26c68740585e08863",
+    "nome": "Cardapio da tia Bia.",
+    "categorias": [
+      {
+        "id": "5f8ccd44be03123db4aef49c",
+        "titulo": "Bebidas",
+        "subcategoria": {
+          "id": "5f8cc90b3c060f87fc52c9e5",
+          "descricao": "Bebidas",
+          "nome": ""
+        },
+        "produtos": [
+          {
+            "id": "5f8cdfdbbe03120ac8fa8f3d",
+            "nome": "Coca-Cola",
+            "descricao": null,
+            "valor": "5.5",
+            "estoque": 200,
+            "url": "http://localhost:8083/cardapio/api/v1/produtos/5f8cdfdbbe03120ac8fa8f3d/imagem/download"
+>>>>>>> Stashed changes
           },
           "produtos":[
              {
