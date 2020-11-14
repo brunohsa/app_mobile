@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
+import {FAB} from 'react-native-paper';
 import Cart from './Cart';
 
 function FABCart() {
   return (
-    <View>
+    <FAB icon="cart-outline">
       <Cart />
-    </View>
+    </FAB>
   );
 }
+
+export default FABCart;

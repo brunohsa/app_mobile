@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {SafeAreaView, StyleSheet, View, TouchableOpacity} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import axios from 'axios';
 import {
   Text,
@@ -15,6 +21,7 @@ import {Actions} from 'react-native-router-flux';
 import {ScrollView} from 'react-native-gesture-handler';
 import Categorias from './Categorias';
 import Produtos from './Produtos';
+import TabBar from './TabBar';
 
 class Busca extends Component {
   constructor(props) {
@@ -31,29 +38,6 @@ class Busca extends Component {
     this.arrayholder = [];
   }
 
-  //192.168.15.27
-  //192.168.15.72
-  async getCardapio() {
-    var url = 'http://192.168.15.27:3001/cardapio/';
-    await axios
-      .get(url)
-      .then(responseJson => {
-        this.setState(
-          {isSearching: false, dataSource: responseJson},
-          function() {
-            this.arrayholder = responseJson.data;
-          },
-        );
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-
-  renderHistoricoPesquisa() {
-    return <View />;
-  }
-
   renderFiltros() {
     return (
       <View>
@@ -64,10 +48,12 @@ class Busca extends Component {
     );
   }
 
+  //192.168.15.27
+  //192.168.15.72
   componentDidMount() {
     this.setState({isLoading: true});
     let urlProdutos = 'http://192.168.15.72:3001/produto/';
-    let urlLojas = 'http://192.168.15.72:3001/cardapio/';
+    let urlLojas = 'http://192.168.15.72:3001/fornecedor/';
     Promise.all([fetch(urlProdutos), fetch(urlLojas)])
       .then(([resp1, resp2]) => Promise.all([resp1.json(), resp2.json()]))
       .then(([data1, data2]) =>
@@ -138,10 +124,16 @@ class Busca extends Component {
         <View style={{position: 'relative'}}>
           <ScrollView>
             <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
-            <View style={{position: 'relative', marginBottom: 15}}>
-              {this.state.dataSource !== null
-                ? this.state.dataSource.map(item => <Produtos item={item} />)
-                : this.renderCategorias()}
+            <View>
+              {this.state.dataSource !== null &&
+              this.state.lojasSource != null ? (
+                <TabBar
+                  produtos={this.state.dataSource}
+                  lojas={this.state.lojasSource}
+                />
+              ) : (
+                <View />
+              )}
             </View>
           </ScrollView>
         </View>

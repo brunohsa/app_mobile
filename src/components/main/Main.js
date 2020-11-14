@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
-import {Card, Divider} from 'react-native-paper';
+import {Card, Divider, ActivityIndicator, Colors} from 'react-native-paper';
 import axios from 'axios';
 import Categoria from './Categorias';
 import {Actions} from 'react-native-router-flux';
 import {ScrollView} from 'react-native-gesture-handler';
 import Produtos from './Produtos';
+import FABCart from './FABCart';
 
 class MainPage extends Component {
   constructor(props) {
@@ -43,7 +44,9 @@ class MainPage extends Component {
 
   render() {
     if (this.state.isLoading) {
-      this.renderFavs();
+      <View>
+        <ActivityIndicator animating={true} color={Colors.red200} />
+      </View>;
     }
     return (
       <SafeAreaView style={{position: 'relative'}}>

@@ -10,19 +10,31 @@ class Cart extends React.Component {
     super(props);
 
     this.state = {
-      carrinho: [],
+      carrinho: null,
+      isLoading: false,
     };
   }
 
-  componentDidMount() {}
-  //  "id": "5fa076ae77d3744f78b0761a",
-  //  "itens": [],
-  //  "valor_total": 0,
-  //  "data_criacao": "02-11-2020 19:14:22"
+  componentDidMount() {
+    this.setState({isLoading: true});
+    let url = 'http://192.168.15.72:3001/carrinho/';
+    fetch(url)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        this.setState({dataSource: json, isLoading: false});
+        return json;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
     return (
       <View>
-        {this.state.carrinho.itens.map((item, i) => {
+        {this.state.carrinho.map((item, i) => {
           <View key={item.id}>
             <Text>{item.nome}</Text>
             <Text>{item.observacoes}</Text>

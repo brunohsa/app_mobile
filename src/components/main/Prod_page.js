@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {Text, ThemeProvider, Card} from 'react-native-elements';
-import {Button, TextInput} from 'react-native-paper';
-import axios from 'axios';
+import {View} from 'react-native';
+import {Text, Card} from 'react-native-elements';
+import {Button, TextInput, ActivityIndicator, Colors} from 'react-native-paper';
 
 class Produto extends Component {
   constructor(props) {
@@ -45,7 +44,7 @@ class Produto extends Component {
     if (this.state.isLoading) {
       return (
         <View>
-          <Text>Carregando...</Text>
+          <ActivityIndicator animating={true} color={Colors.red200} />
         </View>
       );
     }
