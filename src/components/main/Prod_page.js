@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {View} from 'react-native';
 import {Text, Card} from 'react-native-elements';
 import {Button, TextInput, ActivityIndicator, Colors} from 'react-native-paper';
+import {View} from 'react-native';
+import {Text, Card} from 'react-native-elements';
+import {Button, TextInput, ActivityIndicator, Colors} from 'react-native-paper';
 
 class Produto extends Component {
   constructor(props) {

@@ -1,3 +1,4 @@
+import React,{Component} from 'react';
 import React, {Component} from 'react';
 import {
   SafeAreaView,
@@ -17,14 +18,18 @@ import {
 } from 'react-native-elements';
 import {Chip, ActivityIndicator} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Actions } from "react-native-router-flux";
+import { ScrollView } from 'react-native-gesture-handler';
+import Categoria from './Categorias';
 import {Actions} from 'react-native-router-flux';
 import {ScrollView} from 'react-native-gesture-handler';
 import Categorias from './Categorias';
 import Produtos from './Produtos';
 import TabBar from './TabBar';
 
-class Busca extends Component {
-  constructor(props) {
+class Busca extends Component{
+    
+  constructor(props){
     super(props);
 
     this.state = {
@@ -34,7 +39,6 @@ class Busca extends Component {
       dataSource: null,
       lojasSource: null,
     };
-
     this.arrayholder = [];
   }
 
@@ -110,6 +114,30 @@ class Busca extends Component {
     return (
       <View>
         <Text> Erro ao carregar as informações da página. </Text>
+      </View>
+    );
+  }
+
+  renderLoading() {
+    return <ActivityIndicator animating={!this.state.isLoading} />;
+  }
+
+  render() {
+    return (
+      <ThemeProvider>
+        <View style={{position: 'relative'}}>
+          <ScrollView>
+            <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
+            <View>
+              {this.state.dataSource !== null &&
+              this.state.lojasSource != null ? (
+                <TabBar
+                  produtos={this.state.dataSource}
+                  lojas={this.state.lojasSource}
+                />
+              ) : (
+                <View />
+              )}
       </View>
     );
   }

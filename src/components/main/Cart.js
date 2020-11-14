@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 class Cart extends React.Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       carrinho: null,
       isLoading: false,
@@ -30,7 +30,7 @@ class Cart extends React.Component {
         console.log(err);
       });
   }
-
+  
   render() {
     return (
       <View>

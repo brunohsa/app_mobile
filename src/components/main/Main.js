@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
 import {Card, Divider, ActivityIndicator, Colors} from 'react-native-paper';
+import React, {Component} from 'react';
+import {SafeAreaView, View, Text, TouchableOpacity} from 'react-native';
+import {Card, Divider, ActivityIndicator, Colors} from 'react-native-paper';
 import axios from 'axios';
 import Categoria from './Categorias';
 import {Actions} from 'react-native-router-flux';
@@ -16,8 +19,6 @@ class MainPage extends Component {
       dataSource: null,
       isLoading: false,
     };
-
-    this.arrayholder = [];
   }
 
   //192.168.15.27
@@ -38,8 +39,11 @@ class MainPage extends Component {
       });
   }
 
-  renderFavs() {
-    return <View />;
+  renderCategorias(){
+    return(
+      <View>
+      </View>
+    );
   }
 
   render() {

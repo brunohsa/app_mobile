@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { View } from "react-native";
+import { Router, Scene, Stack } from 'react-native-router-flux';
 import {AsyncStorage, View} from 'react-native';
 import {Actions, Overlay, Router, Scene, Stack} from 'react-native-router-flux';
 import App from './components/login_cadastro/LoginCadastro';
@@ -32,6 +34,7 @@ class TabIcon extends Component {
   }
 }
 class Routes extends Component {
+  
   constructor(props) {
     super(props);
   }
