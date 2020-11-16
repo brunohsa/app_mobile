@@ -15,8 +15,9 @@ function Configure() {
   });
 
   return (
-    <View>
-      <Formik
+    <View style={{flex:1, height:'100%'}}>
+      <Text style={{fontSize:22,fontWeight: 'bold', paddingLeft:5, marginLeft: 20}}>Configuração</Text>
+      <Formik 
         initialValues={{
           nome: '',
           telefone: '',
@@ -28,51 +29,50 @@ function Configure() {
         }}
         validationSchema={FormSchema}>
         {({values, handleChange, handleSubmit, errors, touched}) => (
-          <View>
+          <View style={{ height:'100%'}}>
             <TextInput
+              style={{backgroundColor:'#fff',marginTop:10,marginLeft:20,marginRight:20}}
               label="Nome"
               value={values.nome}
               onChangeText={handleChange('nome')}
-              mode="outlined"
             />
             {errors.nome && touched.nome && <Text>{errors.nome}</Text>}
             <TextInput
+              style={{backgroundColor:'#fff',marginTop:10,marginLeft:20,marginRight:20}}
               label="Telefone"
               value={values.telefone}
               onChangeText={handleChange('telefone')}
-              mode="outlined"
             />
             {errors.telefone && touched.telefone && (
               <Text>{errors.telefone}</Text>
             )}
             <TextInput
+            style={{backgroundColor:'#fff',marginTop:10,marginLeft:20,marginRight:20}}
               label="Nova senha"
               value={values.senha}
               onChangeText={handleChange('senha')}
-              mode="outlined"
             />
             {errors.senha && touched.senha && <Text>{errors.senha}</Text>}
             <TextInput
+              style={{backgroundColor:'#fff',marginTop:10,marginLeft:20,marginRight:20}}
               label="Digite novamente a senha"
               value={values.novaSenha}
               onChangeText={handleChange('novaSenha')}
-              mode="outlined"
             />
             {errors.novaSenha && touched.novaSenha && (
               <Text>{errors.novaSenha}</Text>
             )}
-            <Button title="Salvar" raised type="solid" onPress={handleSubmit} />
+            <Button buttonStyle={{backgroundColor:'#f00',marginTop:10,marginLeft:20,marginRight:20}} title="Salvar"  type="solid" onPress={handleSubmit} />
+            <Button
+              buttonStyle={{backgroundColor:'#f00',marginTop:10,marginLeft:20,marginRight:20}}
+              title="Sair"
+              
+              type="solid"
+              onPress={() => Actions.reset()}
+            />
           </View>
         )}
       </Formik>
-      <View>
-        <Button
-          title="Sair"
-          raised
-          type="solid"
-          onPress={() => Actions.reset()}
-        />
-      </View>
     </View>
   );
 }

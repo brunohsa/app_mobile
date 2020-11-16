@@ -33,8 +33,8 @@ class Loja extends Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <View>
-          <ActivityIndicator animating={true} color={Colors.red200} />
+        <View style={{flex:1,justifyContent:'center', alingItens:'center'}}>
+          <ActivityIndicator animating={true} color={Colors.red200} size='large'/>
         </View>
       );
     }

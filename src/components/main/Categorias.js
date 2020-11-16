@@ -67,41 +67,40 @@ function Categoria() {
   ];
 
   return (
-    <View>
+    <View style={{flex:1}}>
       <ScrollView
-        contentContainerStyle={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          flex: 1,
-          justifyContent: 'space-around',
-        }}>
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={{marginLeft:7,marginRight:7,bottom:-5,marginBottom:-30}}
+        >
         {categorias.map(categoria => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity style={{marginLeft:7}}>
               <Card
                 key={categoria.id}
                 style={{
-                  maxWidth: 200,
-                  maxHeight: 200,
-                  width: 200,
-                  height: 200,
-                  marginTop: 10,
-                  marginBottom: 10,
-                  justifyContent: 'space-evenly',
+                  elevation:0,
+                  maxWidth: '50%',
+                  maxHeight: '50%',
+                  width: '50%',
+                  height: '50%',
                 }}>
                 <Card.Cover
                   source={categoria.src}
                   style={{
-                    top: 23,
-                    left: 25,
-                    maxWidth: 150,
-                    maxHeight: 150,
-                    width: 150,
-                    height: 150,
+                    maxWidth: 100,
+                    maxHeight: 100,
+                    width: 100,
+                    height: 100,
                   }}
                 />
-                <Card.Content style={{top: 23, alignSelf: 'center'}}>
-                  <Text>{categoria.titulo}</Text>
+                <Card.Content style={{
+                    alignContent: 'center',
+                    maxWidth: 100,
+                    maxHeight: 100,
+                    width: 100,
+                    height: 100,}}>
+                  <Text style={{fontSize:12}}>{categoria.titulo}</Text>
                 </Card.Content>
               </Card>
             </TouchableOpacity>

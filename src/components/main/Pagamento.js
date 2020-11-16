@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {Text, Input, ThemeProvider, Card} from 'react-native-elements';
+import {Text, Input, ThemeProvider, Card, Button} from 'react-native-elements';
 import axios from 'axios';
-import {List, TextInput, Switch, Divider, Button} from 'react-native-paper';
+import {List, TextInput, Switch, Divider} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -21,6 +21,8 @@ function Pagamento() {
   });
 
   return (
+    <View style={{marginLeft:20,marginRight:20}}>
+    <Text style={{fontSize:20,fontWeight: 'bold', paddingLeft:5, paddingTop:15, paddingBottom:9}}>Pagamento</Text>
     <Formik
       initialValues={{
         numcard: '',
@@ -36,6 +38,7 @@ function Pagamento() {
         <View>
           <View>
             <TextInput
+              style={{backgroundColor:'#fff'}}
               label="Número do cartão"
               value={values.numcard}
               onChangeText={handleChange('numcard')}
@@ -43,6 +46,7 @@ function Pagamento() {
             />
             {errors.numcard && touched.numcard && <Text>{errors.numcard}</Text>}
             <TextInput
+              style={{backgroundColor:'#fff'}}
               label="Titular do cartão"
               value={values.titular}
               onChangeText={handleChange('titular')}
@@ -50,6 +54,7 @@ function Pagamento() {
             />
             {errors.titular && touched.titular && <Text>{errors.titular}</Text>}
             <TextInput
+              style={{backgroundColor:'#fff'}}
               label="Validade"
               value={values.validade}
               onChangeText={handleChange('validade')}
@@ -59,6 +64,7 @@ function Pagamento() {
               <Text>{errors.validade}</Text>
             )}
             <TextInput
+              style={{backgroundColor:'#fff'}}
               label="CVV"
               value={values.cvv}
               onChangeText={handleChange('cvv')}
@@ -66,17 +72,33 @@ function Pagamento() {
             />
             {errors.cvv && touched.cvv && <Text>{errors.cvv}</Text>}
             <Divider />
+            <View style={{marginTop:15}}>
             <Button
+              title="Finalizar compra"
+              buttonStyle={{
+                color: '#fff',
+                alignSelf: 'center',
+                fontSize: 18,
+                fontWeight: 'bold',
+                backgroundColor: '#f00',
+                padding: 8,
+                borderRadius: 8,
+                elevation: 3,
+                shadowOffset: {width: 5, height: 5},
+                shadowColor: '#000',
+                shadowOpacity: 1,
+                shadowRadius: 2,
+                width:'100%'
+              }}
               mode="contained"
               onPress={handleSubmit}
-              //onPress={() => console.log("pagamento")}
-            >
-              Finalizar compra
-            </Button>
+            />
+            </View>
           </View>
         </View>
       )}
     </Formik>
+    </View>
   );
 }
 
