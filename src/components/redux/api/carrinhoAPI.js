@@ -4,24 +4,15 @@ import configuracao from '../config';
 import {AsyncStorage} from 'react-native';
 
 let carrinhoAPI = {
-  adicionarProduto(idProduto) {
+  
+  criarCarrinho() {
     let acao = (response, dispatch) => {
-      dispatch(carrinhoActions.produtoAdicionado(response.body));
+      dispatch(carrinhoActions.carrinhoBuscado(response.body));
       return response.body;
     };
 
-    let url = `${configuracao.URL_CARRINHO}/${idProduto}`;
-    return axiosRequests.get(getToken(), url, acao);
-  },
-
-  removerProduto(idProduto) {
-    let acao = (response, dispatch) => {
-      dispatch(carrinhoActions.produtoRemovido(response.body));
-      return response.body;
-    };
-
-    let url = `${configuracao.URL_CARRINHO}/${idProduto}`;
-    return axiosRequests.get(getToken(), url, acao);
+    let url = `${configuracao.URL_CARRINHO}/v1/carrinhos/criar`;
+    return axiosRequests.post(getToken(), url, acao);
   },
 };
 

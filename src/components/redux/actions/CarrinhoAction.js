@@ -1,19 +1,14 @@
 import actionTypes from './ActionTypes';
 
 const carrinhoActions = {
-  produtoAdicionado(produto) {
+
+  carrinhoBuscado(carrinho) {
     return {
       type: actionTypes.PRODUTO_ADICIONADO,
-      produto,
-    };
+      carrinho: carrinho,
+    }
   },
 
-  produtoRemovido(produto) {
-    return {
-      type: actionTypes.PRODUTO_REMOVIDO,
-      produto,
-    };
-  },
 };
 
 export default carrinhoActions;

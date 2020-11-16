@@ -2,10 +2,10 @@ import actionTypes from '../actions/ActionTypes';
 
 export default function carrinhoReducers(state = {}, action) {
   switch (action.type) {
-    case actionTypes.PRODUTO_ADICIONADO:
+    case actionTypes.CARRINHO_BUSCADO:
       return {
         ...state,
-        adicionarProduto: action.produto,
+        carrinho: action.carrinho,
       };
     case actionTypes.PRODUTO_REMOVIDO:
       return {

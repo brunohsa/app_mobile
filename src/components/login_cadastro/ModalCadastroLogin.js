@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, {Component, useRef} from 'react';
+import { connect } from 'react-redux'
+
 import {View, StyleSheet} from 'react-native';
 import {Text, Button, Input, ThemeProvider} from 'react-native-elements';
 import {Formik} from 'formik';
@@ -8,8 +10,20 @@ import {TextInput} from 'react-native-paper';
 import {Actions} from 'react-native-router-flux';
 import * as Yup from 'yup';
 
-function goToMain() {
-  Actions.index();
+import loginAPI from '../redux/api/loginApi';
+import cadastroAPI  from '../redux/api/cadastroAPI';
+
+function componentDidUpdate() {
+  if(this.props.loginStore.loginRealizado) {
+    Actions.index();
+  }
+}
+function logarComFacebook() {
+  this.props.logarComFacebook()
+}
+
+function logarComEmail() {
+  this.props.logarComEmail()
 }
 
 function renderLogin() {
@@ -76,7 +90,7 @@ function renderLogin() {
               raised
               type="solid"
               onPress={handleSubmit}
-              //onPress={() => goToMain()}
+              onPress={() => logarComEmail()}
             />
           </View>
           <View style={{marginTop: 15}}>
@@ -84,7 +98,7 @@ function renderLogin() {
               title="            Entrar pelo Facebook            "
               raised
               type="solid"
-              onPress={() => goToMain()}
+              onPress={() => logarComFacebook()}
               icon={<Icon name="facebook-square" color="white" size={20} />}
             />
           </View>
@@ -92,6 +106,11 @@ function renderLogin() {
       )}
     </Formik>
   );
+}
+
+function criarCadastro() {
+  let { nome, email, senha } = this.state
+  this.props.criarCadastro(nome, email, senha)
 }
 
 function renderCadastro() {
@@ -172,7 +191,7 @@ function renderCadastro() {
               raised
               type="solid"
               onPress={handleSubmit}
-              //onPress={() => goToMain()}
+              onPress={() => criarCadastro()}
             />
           </View>
           <View style={{marginTop: 15}}>
@@ -180,10 +199,10 @@ function renderCadastro() {
               title="         Cadastre-se pelo Facebook         "
               raised
               type="solid"
-              onPress={() => goToMain()}
               containerStyle={{position: 'relative'}}
               iconContainerStyle={{position: 'absolute', right: 20}}
               icon={<Icon name="facebook-square" color="white" size={20} />}
+              onPress={() => logarComFacebook()}
             />
           </View>
         </View>
@@ -242,4 +261,25 @@ const theme = {
   },
 };
 
-export default ModalLoginCadastro;
+const mapStateToProps = state => {
+  return {
+    loginStore: state.login
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logarComFacebook: () => {
+      dispatch(loginAPI.fazerLoginFirebaseFacebook());
+    },
+    logarComEmail: (email, senha) => {
+      dispatch(loginAPI.fazerLogin(email, senha));
+    },
+    criarCadastro: (nome, email, senha) => {
+      dispatch(cadastroAPI.fazerCadastro(nome, email, senha));
+    },
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalLoginCadastro);

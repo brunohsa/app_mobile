@@ -129,15 +129,14 @@ class Busca extends Component{
           <ScrollView>
             <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
             <View>
-              {this.state.dataSource !== null &&
-              this.state.lojasSource != null ? (
-                <TabBar
-                  produtos={this.state.dataSource}
-                  lojas={this.state.lojasSource}
-                />
-              ) : (
-                <View />
-              )}
+              { 
+                this.state.dataSource !== null && this.state.lojasSource != null
+                  ? ( <TabBar
+                      produtos={this.state.dataSource}
+                      lojas={this.state.lojasSource}
+                    /> ) 
+                  : ( <View /> )
+              }
       </View>
     );
   }
