@@ -18,6 +18,7 @@ function componentDidUpdate() {
     Actions.index();
   }
 }
+
 function logarComFacebook() {
   this.props.logarComFacebook()
 }
@@ -194,25 +195,15 @@ function renderCadastro() {
               onBlur={() => setFieldTouched('senha', true)}
             />
             {errors.senha && touched.senha && <Text>{errors.senha}</Text>}
-<<<<<<< HEAD
-            <Button
-              title="Fazer cadastro"
-              raised
-              type="solid"
-              onPress={handleSubmit}
-              onPress={() => criarCadastro()}
-            />
-=======
             <View style={{marginTop:15}}>
               <Button
                 buttonStyle={{backgroundColor:'#f00'}}
                 title="Cadastrar"
                 raised
                 type="solid"
-                onPress={handleSubmit}
+                onPress={() => criarCadastro()}
               />
             </View>
->>>>>>> master
           </View>
           <View style={{marginTop: 15}}>
             <Button
@@ -269,7 +260,6 @@ const styles = StyleSheet.create({
   },
 });
 
-<<<<<<< HEAD
 const theme = {
   Button: {
     buttonStyle: {
@@ -305,6 +295,3 @@ const mapDispatchToProps = dispatch => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalLoginCadastro);
-=======
-export default ModalLoginCadastro;
->>>>>>> master
