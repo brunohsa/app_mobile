@@ -3,13 +3,12 @@ import {View, TouchableOpacity} from 'react-native';
 import {Text, Card, Divider} from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 
-
 const LojaHelper = props => {
-  return(
+  return (
     <View>
       <TouchableOpacity
         onPress={() => {
-          Actions.product({prodId: props.loja.cadastro_uuid});
+          Actions.loja({prodId: props.loja.cadastro_uuid});
         }}
         pointerEvents="none">
         <View>
@@ -30,7 +29,8 @@ const LojaHelper = props => {
             <Text
               h3Style
               style={{color: '#ff0000', fontSize: 15, marginTop: 7}}>
-                {props.loja.funcionamento.abertura} - {props.loja.funcionamento.fechamento} 
+              {props.loja.funcionamento.abertura} -{' '}
+              {props.loja.funcionamento.fechamento}
             </Text>
           </Card>
         </View>

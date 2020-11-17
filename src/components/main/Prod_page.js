@@ -15,7 +15,7 @@ class Produto extends Component {
   //192.168.15.72
   componentDidMount() {
     this.setState({isLoading: true});
-    let url = 'http://192.168.15.27:3001/produto/' + this.props.prodId;
+    let url = 'http://192.168.15.72:3001/produto/' + this.props.prodId;
     fetch(url)
       .then(response => {
         return response.json();
@@ -44,24 +44,33 @@ class Produto extends Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <View style={{flex:1,justifyContent:'center', alingItens:'center'}}>
-          <ActivityIndicator animating={true} color={Colors.red200} size='large'/>
+        <View style={{flex: 1, justifyContent: 'center', alingItens: 'center'}}>
+          <ActivityIndicator
+            animating={true}
+            color={Colors.red200}
+            size="large"
+          />
         </View>
       );
     }
     return (
-      <View style={{justifyContent:'center', flex:1}}>
+      <View style={{justifyContent: 'center', flex: 1}}>
         <Card>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={{color: '#000000', fontSize: 18}}>
-            {this.state.dataSource.nome}
-          </Text>
-          <Text
-            style={{color: '#d4af37', fontSize: 15, marginTop: 7, marginLeft:'75%'}}>
-            <Icon name="star" size={15} color="#d4af37"/>
-            {this.state.dataSource.nota}
-          </Text>
-        </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{color: '#000000', fontSize: 18}}>
+              {this.state.dataSource.nome}
+            </Text>
+            <Text
+              style={{
+                color: '#d4af37',
+                fontSize: 15,
+                marginTop: 7,
+                marginLeft: '75%',
+              }}>
+              <Icon name="star" size={15} color="#d4af37" />
+              {this.state.dataSource.nota}
+            </Text>
+          </View>
           <Text
             style={{
               color: '#7a7a7a',
@@ -72,23 +81,26 @@ class Produto extends Component {
             {this.state.dataSource.descricao}
           </Text>
           <Text style={{color: '#ff0000', fontSize: 15, marginTop: 7}}>
-           R$ {this.state.dataSource.valor}
+            R$ {this.state.dataSource.valor}
           </Text>
-          <TextInput label="Observações" style={{backgroundColor:'#fff'}} />
-          <View style={{flexDirection: 'row', alignSelf:'center', marginTop:15}}>
+          <TextInput label="Observações" style={{backgroundColor: '#fff'}} />
+          <View
+            style={{flexDirection: 'row', alignSelf: 'center', marginTop: 15}}>
             <Button
               style={{
-                borderRadius:5
+                borderRadius: 5,
               }}
               containerStyle={{position: 'relative'}}
               onPress={() => this.aumentarQuantidade()}
               icon="plus"
               mode="contained"
             />
-            <Text style={{width:20, alignSelf:'center', marginLeft:10}}>{this.state.quantidade}</Text>
+            <Text style={{width: 20, alignSelf: 'center', marginLeft: 10}}>
+              {this.state.quantidade}
+            </Text>
             <Button
               style={{
-                borderRadius:5
+                borderRadius: 5,
               }}
               containerStyle={{}}
               onPress={() => this.diminuirQuantidade()}
@@ -105,7 +117,7 @@ class Produto extends Component {
               alignSelf: 'center',
               paddingTop: 10,
               marginTop: 15,
-              borderRadius:5
+              borderRadius: 5,
             }}>
             Adicionar
           </Button>

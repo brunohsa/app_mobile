@@ -28,14 +28,12 @@ const Produtos = props => {
               {props.item.descricao}
             </Text>
             <View style={{flexDirection: 'row'}}>
-              <Text
-                style={{color: '#ff0000', fontSize: 15, marginTop: 7}}>
+              <Text style={{color: '#ff0000', fontSize: 15, marginTop: 7}}>
                 R$ {props.item.valor}
               </Text>
-              <View style={{marginLeft:'75%'}}>
-                <Text
-                  style={{color: '#d4af37', fontSize: 15, marginTop: 7}}>
-                  <Icon name="star" size={15} color="#d4af37"/>
+              <View style={{marginLeft: '75%'}}>
+                <Text style={{color: '#d4af37', fontSize: 15, marginTop: 7}}>
+                  <Icon name="star" size={15} color="#d4af37" />
                   {props.item.nota}
                 </Text>
               </View>

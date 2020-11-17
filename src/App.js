@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
@@ -27,6 +27,6 @@ const theme = {
     primary: '#ff0000',
     accent: '#fff',
     text: '#f00',
-    background: '#fff'
+    background: '#fff',
   },
 };

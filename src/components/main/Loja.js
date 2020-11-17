@@ -33,8 +33,12 @@ class Loja extends Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <View style={{flex:1,justifyContent:'center', alingItens:'center'}}>
-          <ActivityIndicator animating={true} color={Colors.red200} size='large'/>
+        <View style={{flex: 1, justifyContent: 'center', alingItens: 'center'}}>
+          <ActivityIndicator
+            animating={true}
+            color={Colors.red200}
+            size="large"
+          />
         </View>
       );
     }
@@ -44,11 +48,28 @@ class Loja extends Component {
         {this.state.dataSource !== null ? (
           this.state.dataSource.map(item => (
             <View>
-              <Text>{item.nome}</Text>
+              <Text
+                style={{
+                  fontSize: 22,
+                  fontWeight: 'bold',
+                  paddingLeft: 5,
+                  marginLeft: 20,
+                }}>
+                {item.nome}
+              </Text>
               {item.categorias.map(cat => (
                 <View>
                   <View>
-                    <Text>{cat.titulo}</Text>
+                    <Text
+                      style={{
+                        marginTop: 10,
+                        fontSize: 19,
+                        fontWeight: 'bold',
+                        paddingLeft: 5,
+                        marginLeft: 20,
+                      }}>
+                      {cat.titulo}
+                    </Text>
                   </View>
                   {cat.produtos.map(prod => (
                     <Produtos item={prod} />
