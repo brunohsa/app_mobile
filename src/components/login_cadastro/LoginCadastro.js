@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {SafeAreaView, StyleSheet, View, StatusBar, Image} from 'react-native';
 import {Button, ThemeProvider} from 'react-native-elements';
-import {Divider} from 'react-native-paper';
 import {Actions} from 'react-native-router-flux';
 
 class App extends Component {

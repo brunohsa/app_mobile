@@ -60,7 +60,9 @@ function renderLogin(props) {
   const senha = useRef(null);
 
   const FormSchema = Yup.object().shape({
-    email: Yup.string().required('Campo obrigatório').matches('^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})'),
+    email: Yup.string()
+      .required('Campo obrigatório')
+      .matches('^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})'),
     senha: Yup.string()
       .required('Campo obrigatório')
       .min(8, 'Digite pelo menos 8 caracteres')
@@ -88,10 +90,12 @@ function renderLogin(props) {
         setFieldTouched,
       }) => (
         <View style={styles.modalView}>
-          <Text style={{fontSize:22,fontWeight: 'bold', paddingLeft:5 }}>Entrar</Text>
+          <Text style={{fontSize: 22, fontWeight: 'bold', paddingLeft: 5}}>
+            Entrar
+          </Text>
           <View style={{marginTop: 15}}>
             <TextInput
-              style={{backgroundColor:'#fff'}}
+              style={{backgroundColor: '#fff'}}
               ref={email}
               label="E-mail"
               keyboardType="email-address"
@@ -104,7 +108,7 @@ function renderLogin(props) {
             />
             {errors.email && touched.email && <Text>{errors.email}</Text>}
             <TextInput
-              style={{backgroundColor:'#fff'}}
+              style={{backgroundColor: '#fff'}}
               ref={senha}
               label="Senha"
               secureTextEntry
@@ -116,9 +120,9 @@ function renderLogin(props) {
               onBlur={() => setFieldTouched('senha', true)}
             />
             {errors.senha && touched.senha && <Text>{errors.senha}</Text>}
-            <View style={{marginTop:15}}>
+            <View style={{marginTop: 15}}>
               <Button
-                buttonStyle={{backgroundColor:'#f00'}}
+                buttonStyle={{backgroundColor: '#f00'}}
                 title="Entrar"
                 raised
                 type="solid"
@@ -128,7 +132,7 @@ function renderLogin(props) {
           </View>
           <View style={{marginTop: 15}}>
             <Button
-              buttonStyle={{backgroundColor:'#f00'}}
+              buttonStyle={{backgroundColor: '#f00'}}
               title="            Entrar pelo Facebook            "
               raised
               type="solid"
@@ -179,10 +183,12 @@ function renderCadastro(props) {
         setFieldTouched,
       }) => (
         <View style={styles.modalView}>
-          <Text style={{fontSize:22,fontWeight: 'bold', paddingLeft:5 }}>Cadastro</Text>
-          <View style={{marginTop: 15, marginBotton:20}}>
+          <Text style={{fontSize: 22, fontWeight: 'bold', paddingLeft: 5}}>
+            Cadastro
+          </Text>
+          <View style={{marginTop: 15, marginBotton: 20}}>
             <TextInput
-              style={{backgroundColor:'#fff'}}
+              style={{backgroundColor: '#fff'}}
               ref={email}
               label="E-mail"
               keyboardType="email-address"
@@ -195,7 +201,7 @@ function renderCadastro(props) {
             />
             {errors.email && touched.email && <Text>{errors.email}</Text>}
             <TextInput
-              style={{backgroundColor:'#fff'}}
+              style={{backgroundColor: '#fff'}}
               ref={user}
               label="Nome"
               placeholder="Digite seu nome"
@@ -207,7 +213,7 @@ function renderCadastro(props) {
             />
             {errors.user && touched.user && <Text>{errors.user}</Text>}
             <TextInput
-              style={{backgroundColor:'#fff'}}
+              style={{backgroundColor: '#fff'}}
               ref={senha}
               label="Senha"
               secureTextEntry
@@ -219,9 +225,9 @@ function renderCadastro(props) {
               onBlur={() => setFieldTouched('senha', true)}
             />
             {errors.senha && touched.senha && <Text>{errors.senha}</Text>}
-            <View style={{marginTop:15}}>
+            <View style={{marginTop: 15}}>
               <Button
-                buttonStyle={{backgroundColor:'#f00'}}
+                buttonStyle={{backgroundColor: '#f00'}}
                 title="Cadastrar"
                 raised
                 type="solid"
@@ -231,7 +237,7 @@ function renderCadastro(props) {
           </View>
           <View style={{marginTop: 15}}>
             <Button
-              buttonStyle={{backgroundColor:'#f00'}}
+              buttonStyle={{backgroundColor: '#f00'}}
               title="         Cadastre-se pelo Facebook         "
               raised
               type="solid"

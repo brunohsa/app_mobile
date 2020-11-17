@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {AsyncStorage, View} from 'react-native';
-import {Actions, Overlay, Router, Scene, Stack} from 'react-native-router-flux';
+import {Actions, Router, Scene, Stack} from 'react-native-router-flux';
 import App from './components/login_cadastro/LoginCadastro';
 import ModalLoginCadastro from './components/login_cadastro/ModalCadastroLogin';
 import MainPage from './components/main/Main';
@@ -33,7 +33,6 @@ class TabIcon extends Component {
   }
 }
 class Routes extends Component {
-  
   constructor(props) {
     super(props);
   }
@@ -65,67 +64,67 @@ class Routes extends Component {
               component={ModalLoginCadastro}
               navTransparent={true}
             />
+            <Scene
+              key="tabbar"
+              tabs={true}
+              swipeEnabled
+              tabBarStyle={{backgroundColor: '#fff'}}
+              navTransparent={true}
+              hideNavBar
+              lazy
+              showLabel={false}
+              back={false}>
               <Scene
-                key="tabbar"
-                tabs={true}
-                swipeEnabled
-                tabBarStyle={{backgroundColor: '#fff'}}
+                key="index"
+                title="Home"
+                component={MainPage}
                 navTransparent={true}
                 hideNavBar
-                lazy
-                showLabel={false}
-                back={false}>
-                <Scene
-                  key="index"
-                  title="Home"
-                  component={MainPage}
-                  navTransparent={true}
-                  hideNavBar
-                  iconName="home"
-                  icon={TabIcon}
-                  back={false}
-                />
-                <Scene
-                  key="search"
-                  title="Busca"
-                  component={Busca}
-                  navTransparent={true}
-                  hideNavBar
-                  iconName="search"
-                  icon={TabIcon}
-                  back={false}
-                />
-                <Scene
-                  key="order"
-                  title="Pedidos"
-                  component={Pedidos}
-                  navTransparent={true}
-                  hideNavBar
-                  iconName="file-text-o"
-                  icon={TabIcon}
-                  back={false}
-                />
-                <Scene
-                  key="config"
-                  title="Conta"
-                  component={Configure}
-                  navTransparent={true}
-                  hideNavBar
-                  iconName="user"
-                  icon={TabIcon}
-                  back={false}
-                />
-                <Scene
-                  key="carrinho"
-                  title="Carrinho"
-                  component={Cart}
-                  navTransparent={true}
-                  hideNavBar
-                  iconName="shopping-bag"
-                  icon={TabIcon}
-                  back={false}
-                />
-              </Scene>
+                iconName="home"
+                icon={TabIcon}
+                back={false}
+              />
+              <Scene
+                key="search"
+                title="Busca"
+                component={Busca}
+                navTransparent={true}
+                hideNavBar
+                iconName="search"
+                icon={TabIcon}
+                back={false}
+              />
+              <Scene
+                key="order"
+                title="Pedidos"
+                component={Pedidos}
+                navTransparent={true}
+                hideNavBar
+                iconName="file-text-o"
+                icon={TabIcon}
+                back={false}
+              />
+              <Scene
+                key="config"
+                title="Conta"
+                component={Configure}
+                navTransparent={true}
+                hideNavBar
+                iconName="user"
+                icon={TabIcon}
+                back={false}
+              />
+              <Scene
+                key="carrinho"
+                title="Carrinho"
+                component={Cart}
+                navTransparent={true}
+                hideNavBar
+                iconName="shopping-bag"
+                icon={TabIcon}
+                back={false}
+              />
+            </Scene>
             <Scene
               key="product"
               title="Produto"

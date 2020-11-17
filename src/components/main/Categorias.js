@@ -67,19 +67,18 @@ function Categoria() {
   ];
 
   return (
-    <View style={{flex:1}}>
+    <View style={{flex: 1}}>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        style={{marginLeft:7,marginRight:7,bottom:-5,marginBottom:-30}}
-        >
+        style={{marginLeft: 7, marginRight: 7, bottom: -5, marginBottom: -30}}>
         {categorias.map(categoria => {
           return (
-            <TouchableOpacity style={{marginLeft:7}}>
+            <TouchableOpacity style={{marginLeft: 7}}>
               <Card
                 key={categoria.id}
                 style={{
-                  elevation:0,
+                  elevation: 0,
                   maxWidth: '50%',
                   maxHeight: '50%',
                   width: '50%',
@@ -94,13 +93,15 @@ function Categoria() {
                     height: 100,
                   }}
                 />
-                <Card.Content style={{
+                <Card.Content
+                  style={{
                     alignContent: 'center',
                     maxWidth: 100,
                     maxHeight: 100,
                     width: 100,
-                    height: 100,}}>
-                  <Text style={{fontSize:12}}>{categoria.titulo}</Text>
+                    height: 100,
+                  }}>
+                  <Text style={{fontSize: 12}}>{categoria.titulo}</Text>
                 </Card.Content>
               </Card>
             </TouchableOpacity>
