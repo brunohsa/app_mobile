@@ -33,33 +33,34 @@ let axiosRequests = {
     };
   },
 
-  fetch(token, body, url, acao, method, dispatch) {
+  async fetch(token, body, url, acao, method, dispatch) {    
+    let tokenString = token ? await token : null
     return fetch(url, {
       method: method,
       headers: {
         'Content-Type': 'application/json',
-        'token': token,
+        'token': tokenString,
       },
       body: body,
     })
-      .then(response => {
-        let contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          return response.json().then(json => retorno(json, response.headers));
-        }
-        if (contentType && contentType.includes('image/jpeg')) {
-          return response.blob().then(blob => retorno(blob, response.headers));
-        }
-        return response.text().then(json => retorno(json, response.headers));
-      })
-      .then(response => {
-        tratarErro(response, dispatch);
-        return acao(response, dispatch);
-      })
-      .catch(e => {
-        console.log(`erro: ${e.message}`);
-        dispatch(erroActions.apresentarErro(e.message));
-      });
+    .then(response => {
+      let contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        return response.json().then(json => retorno(json, response.headers));
+      }
+      if (contentType && contentType.includes('image/jpeg')) {
+        return response.blob().then(blob => retorno(blob, response.headers));
+      }
+      return response.text().then(json => retorno(json, response.headers));
+    })
+    .then(response => {
+      tratarErro(response, dispatch);
+      return acao(response, dispatch);
+    })
+    .catch(e => {
+      console.log(`erro: ${e.message}`);
+      dispatch(erroActions.apresentarErro(e.message));
+    });
   },
 };
 

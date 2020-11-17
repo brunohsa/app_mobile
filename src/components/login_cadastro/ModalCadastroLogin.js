@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, {Component, useRef} from 'react';
+import React, {Component, useRef, useEffect } from 'react';
+import { connect } from 'react-redux'
 import {View, StyleSheet} from 'react-native';
 import {Text, Button, ThemeProvider} from 'react-native-elements';
 import {Formik} from 'formik';
@@ -8,11 +9,53 @@ import {TextInput} from 'react-native-paper';
 import {Actions} from 'react-native-router-flux';
 import * as Yup from 'yup';
 
+import loginAPI from '../redux/api/loginApi';
+import cadastroAPI  from '../redux/api/cadastroAPI';
+
+const styles = StyleSheet.create({
+  button: {
+    flexDirection: 'row',
+    backgroundColor: '#f00',
+    padding: 8,
+    borderRadius: 8,
+    elevation: 3,
+    shadowOffset: {width: 5, height: 5},
+    shadowColor: '#000',
+    shadowOpacity: 1,
+    shadowRadius: 2,
+  },
+  buttonText: {
+    color: '#fff',
+    alignSelf: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  modalView: {
+    justifyContent: 'flex-end',
+    width: '100%',
+    height: '70%',
+    borderRadius: 15,
+    backgroundColor: '#fff',
+    padding: 30,
+    margin: 0,
+  },
+});
+
 function goToMain() {
   Actions.index();
 }
 
-function renderLogin() {
+function redirecionar(props) {
+  useEffect(() => {
+    if(props.loginStore && props.loginStore.loginRealizado) {
+      Actions.index();
+    }
+  })
+}
+
+function renderLogin(props) {
+  redirecionar(props)
+  
   const email = useRef(null);
   const senha = useRef(null);
 
@@ -79,7 +122,7 @@ function renderLogin() {
                 title="Entrar"
                 raised
                 type="solid"
-                onPress={handleSubmit}
+                onPress={() => props.logarComEmail(values.email, values.senha)}
               />
             </View>
           </View>
@@ -89,7 +132,7 @@ function renderLogin() {
               title="            Entrar pelo Facebook            "
               raised
               type="solid"
-              onPress={() => goToMain()}
+              onPress={() => props.logarComFacebook()}
               icon={<Icon name="facebook-square" color="white" size={20} />}
             />
           </View>
@@ -99,7 +142,9 @@ function renderLogin() {
   );
 }
 
-function renderCadastro() {
+function renderCadastro(props) {
+  redirecionar(props)
+
   const email = useRef(null);
   const user = useRef(null);
   const senha = useRef(null);
@@ -153,7 +198,6 @@ function renderCadastro() {
               style={{backgroundColor:'#fff'}}
               ref={user}
               label="Nome"
-              secureTextEntry
               placeholder="Digite seu nome"
               value={values.user}
               left={props => <TextInput.Icon {...props} icon="user" />}
@@ -181,7 +225,7 @@ function renderCadastro() {
                 title="Cadastrar"
                 raised
                 type="solid"
-                onPress={handleSubmit}
+                onPress={() => props.criarCadastro(values.user, values.email, values.senha)}
               />
             </View>
           </View>
@@ -205,39 +249,30 @@ function renderCadastro() {
 
 function ModalLoginCadastro(props) {
   if (props.opc == 'login') {
-    return renderLogin();
+    return renderLogin(props);
   } else if (props.opc == 'cadastro') {
-    return renderCadastro();
+    return renderCadastro(props);
   }
 }
 
-const styles = StyleSheet.create({
-  button: {
-    flexDirection: 'row',
-    backgroundColor: '#f00',
-    padding: 8,
-    borderRadius: 8,
-    elevation: 3,
-    shadowOffset: {width: 5, height: 5},
-    shadowColor: '#000',
-    shadowOpacity: 1,
-    shadowRadius: 2,
-  },
-  buttonText: {
-    color: '#fff',
-    alignSelf: 'center',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  modalView: {
-    justifyContent: 'flex-end',
-    width: '100%',
-    height: '70%',
-    borderRadius: 15,
-    backgroundColor: '#fff',
-    padding: 30,
-    margin: 0,
-  },
-});
+const mapStateToProps = state => {
+  return {
+    loginStore: state.login
+  };
+};
 
-export default ModalLoginCadastro;
+const mapDispatchToProps = dispatch => {
+  return {
+    logarComFacebook: () => {
+      dispatch(loginAPI.fazerLoginFirebaseFacebook());
+    },
+    logarComEmail: (email, senha) => {
+      dispatch(loginAPI.fazerLogin(email, senha));
+    },
+    criarCadastro: (nome, email, senha) => {
+      dispatch(cadastroAPI.fazerCadastro(nome, email, senha));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalLoginCadastro);

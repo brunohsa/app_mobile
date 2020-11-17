@@ -16,7 +16,7 @@ class Loja extends Component {
 
   componentDidMount() {
     this.setState({isLoading: true});
-    let url = 'http://192.168.15.72:3001/cardapio/';
+    let url = 'http://192.168.0.44:3001/cardapio/';
     fetch(url)
       .then(response => {
         return response.json();

@@ -1,9 +1,9 @@
 const configuracao = {
-  URL_CARDAPIO: '',
+  URL_CARDAPIO: 'http://192.168.0.49:8081/autenticacao/api/',
   URL_PRODUTO: '',
   URL_PEDIDO: '',
-  URL_CARRINHO: '',
-  URL_LOGIN: '',
+  URL_CARRINHO: 'http://192.168.0.44:8084/carrinho/api/',
+  URL_LOGIN: 'http://192.168.0.49:8081/autenticacao/api/',
   URL_CADASTRO: '',
   URL_PAGAMENTO: '',
 };

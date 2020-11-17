@@ -1,10 +1,11 @@
 import actionTypes from './ActionTypes';
 
 const carrinhoActions = {
-  produtoAdicionado(produto) {
+
+  pedidosEncontrados(pedidos) {
     return {
-      type: actionTypes.PRODUTO_ADICIONADO,
-      produto,
+      type: actionTypes.PEDIDOS_ENCONTRADOS,
+      pedidos
     };
   },
 

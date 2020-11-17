@@ -22,7 +22,7 @@ class MainPage extends Component {
   //192.168.15.72
   componentDidMount() {
     this.setState({isLoading: true});
-    let url = 'http://192.168.15.27:3001/produto/';
+    let url = 'http://192.168.0.44:3001/produto/';
     fetch(url)
       .then(response => {
         return response.json();

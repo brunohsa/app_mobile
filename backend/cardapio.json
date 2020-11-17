@@ -18,7 +18,7 @@
             "descricao": null,
             "valor": "5.5",
             "estoque": 200,
-            "url": "http://localhost:8083/cardapio/api/v1/produtos/5f8cdfdbbe03120ac8fa8f3d/imagem/download"
+            "url": "http://192.168.0.44:8083/cardapio/api/v1/produtos/5f8cdfdbbe03120ac8fa8f3d/imagem/download"
           },
           {
             "id": "5f8ce0c3be031223789a7771",
@@ -26,7 +26,7 @@
             "descricao": null,
             "valor": "5",
             "estoque": 200,
-            "url": "http://localhost:8083/cardapio/api/v1/produtos/5f8ce0c3be031223789a7771/imagem/download"
+            "url": "http://192.168.0.44:8083/cardapio/api/v1/produtos/5f8ce0c3be031223789a7771/imagem/download"
           },
           {
             "id": "5f8ce0debe031223789a7772",
@@ -34,7 +34,7 @@
             "descricao": null,
             "valor": "4",
             "estoque": 200,
-            "url": "http://localhost:8083/cardapio/api/v1/produtos/5f8ce0debe031223789a7772/imagem/download"
+            "url": "http://192.168.0.44:8083/cardapio/api/v1/produtos/5f8ce0debe031223789a7772/imagem/download"
           }
         ]
       },
@@ -53,7 +53,7 @@
             "descricao": "Pão Frances, peito de peru, alface, queijo branco e tomate cereja.",
             "valor": "15",
             "estoque": 30,
-            "url": "http://localhost:8083/cardapio/api/v1/produtos/5f8cf9a3be03124150154558/imagem/download"
+            "url": "http://192.168.0.44:8083/cardapio/api/v1/produtos/5f8cf9a3be03124150154558/imagem/download"
           },
           {
             "id": "5f8cfb24be03124150154559",
@@ -61,7 +61,7 @@
             "descricao": "Pão Frances, frango, alface, queijo branco e tomate cereja.",
             "valor": "12.5",
             "estoque": 500,
-            "url": "http://localhost:8083/cardapio/api/v1/produtos/5f8cfb24be03124150154559/imagem/download"
+            "url": "http://192.168.0.44:8083/cardapio/api/v1/produtos/5f8cfb24be03124150154559/imagem/download"
           }
         ]
       }

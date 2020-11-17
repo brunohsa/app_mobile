@@ -52,8 +52,8 @@ class Busca extends Component{
   //192.168.15.72
   componentDidMount() {
     this.setState({isLoading: true});
-    let urlProdutos = 'http://192.168.15.27:3001/produto/';
-    let urlLojas = 'http://192.168.15.27:3001/fornecedor/';
+    let urlProdutos = 'http://192.168.0.44:3001/produto/';
+    let urlLojas = 'http://192.168.0.44:3001/fornecedor/';
     Promise.all([fetch(urlProdutos), fetch(urlLojas)])
       .then(([resp1, resp2]) => Promise.all([resp1.json(), resp2.json()]))
       .then(([data1, data2]) =>

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux'
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,37 +13,27 @@ import {Card} from 'react-native-elements';
 import axios from 'axios';
 import {ScrollView} from 'react-native-gesture-handler';
 
+import carrinhoAPI  from '../redux/api/carrinhoAPI';
+
 class Pedidos extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      pedidos: null,
       isLoading: false,
     };
+
+    this.props.buscarPedidos();
   }
 
-  //192.168.15.27
-  //192.168.15.72
   componentDidMount() {
-    this.setState({isLoading: true});
-    let url = 'http://192.168.15.27:3001/pedidos/';
-    fetch(url)
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        this.setState({pedidos: json, isLoading: false});
-        return json;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    //alert(JSON.stringify(this.props.carrinhoStore))
+    //alert(this.props.carrinhoStore.pedidos)
   }
-
-
-
+  
   render() {
+    //let { pedidos } = this.props.carrinhoStore
+
     if (this.state.isLoading) {
       return (
         <View style={{flex:1,justifyContent:'center', alingItens:'center'}}>
@@ -53,8 +44,8 @@ class Pedidos extends Component {
     return (
       <View>
         <ScrollView>
-          {this.state.pedidos !== null ? (
-            this.state.pedidos.map((pedido, i) => {
+          {
+            this.props.carrinhoStore && this.props.carrinhoStore.pedidos ? this.props.carrinhoStore.pedidos.map(pedido => {
               let status='';
               let cor='';
               switch (pedido.status) {
@@ -117,7 +108,7 @@ class Pedidos extends Component {
                 </View>
               );
             })
-          ) : (
+            : (
             <View />
           )}
         </ScrollView>
@@ -126,4 +117,18 @@ class Pedidos extends Component {
   }
 }
 
-export default Pedidos;
+const mapStateToProps = state => {
+  return {
+    carrinhoStore: state.carrinho
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    buscarPedidos: () => {
+      dispatch(carrinhoAPI.buscarPedidos());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pedidos);

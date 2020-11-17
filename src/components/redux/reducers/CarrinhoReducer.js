@@ -1,17 +1,12 @@
 import actionTypes from '../actions/ActionTypes';
 
-export default function carrinhoReducers(state = {}, action) {
+export function carrinhoReducers(state = {}, action) {
   switch (action.type) {
-    case actionTypes.PRODUTO_ADICIONADO:
+    case actionTypes.PEDIDOS_ENCONTRADOS:
       return {
         ...state,
-        adicionarProduto: action.produto,
-      };
-    case actionTypes.PRODUTO_REMOVIDO:
-      return {
-        ...state,
-        removerProduto: action.produto,
-      };
+        pedidos: action.pedidos,
+      }; 
     default:
       return state;
   }
