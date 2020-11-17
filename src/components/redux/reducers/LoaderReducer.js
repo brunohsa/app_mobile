@@ -1,11 +1,11 @@
 import actionTypes from '../actions/ActionTypes';
 
-export default function pagamentoReducers(state = {}, action) {
+export function loaderReducers(state = {}, action) {
   switch (action.type) {
-    case actionTypes.PAGAMENTO_EFETUADO:
+    case actionTypes.LOADING:
       return {
         ...state,
-        pagamentoEfetuado: true,
+        loading: action.loading,
       };
     default:
       return state;

@@ -1,26 +1,21 @@
 import actionTypes from '../actions/ActionTypes';
 
-export default function cardapioReducers(state = {}, action) {
+export function cardapioReducers(state = {}, action) {
   switch (action.type) {
-    case actionTypes.CARDAPIOS_ENCONTRADOS:
-      return {
-        ...state,
-        cardapios: action.cardapios,
-      };
-    case actionTypes.CARDAPIO_ENCONTRADO:
-      return {
-        ...state,
-        cardapios: action.cardapios,
-      };
     case actionTypes.PRODUTO_ENCONTRADO:
       return {
         ...state,
         produto: action.produto,
       };
-    case actionTypes.CATEGORIA_ENCONTRADA:
+    case actionTypes.MELHORES_PRODUTOS_REGIAO_ENCONTRADOS:
       return {
         ...state,
-        cardapios: action.cardapios,
+        melhoresDaRegiao: action.produtos,
+      };
+    case actionTypes.PRODUTOS_REGIAO_ENCONTRADOS:
+      return {
+        ...state,
+        produtosRegiao: action.produtos,
       };
     default:
       return state;

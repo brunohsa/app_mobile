@@ -1,17 +1,26 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import {View} from 'react-native';
 import {Text, Button} from 'react-native-elements';
 import {TextInput, Divider} from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
-function Pagamento() {
+import carrinhoAPI  from '../redux/api/carrinhoAPI';
+import loaderAction  from '../redux/actions/LoaderAction';
+
+function Pagamento(props) {
+
   const FormSchema = Yup.object().shape({
     numcard: Yup.string().required('Campo obrigatório'),
     titular: Yup.string().required('Campo obrigatório'),
     validade: Yup.string().required('Campo obrigatório'),
     cvv: Yup.string().required('Campo obrigatório'),
   });
+
+  function gerarPedido(values) {
+    props.gerarPedido(values.titular, values.numcard, values.validade, values.ccv)
+  }
 
   return (
     <View style={{marginLeft: 20, marginRight: 20}}>
@@ -33,7 +42,7 @@ function Pagamento() {
           cvv: '',
         }}
         onSubmit={values => {
-          console.log(values);
+          gerarPedido(values)
         }}
         validationSchema={FormSchema}>
         {({values, handleChange, handleSubmit, errors, touched}) => (
@@ -108,4 +117,20 @@ function Pagamento() {
   );
 }
 
-export default Pagamento;
+const mapStateToProps = state => {
+  return {
+    carrinhoStore: state.carrinho,
+    loaderStore: state.loader
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    gerarPedido: (titular, numeroCartao, validade, codigoSeguranca) => {
+      dispatch(loaderAction.startLoader())
+      dispatch(carrinhoAPI.gerarPedido(titular, numeroCartao, validade, codigoSeguranca));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pagamento);

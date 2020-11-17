@@ -6,7 +6,22 @@ export function carrinhoReducers(state = {}, action) {
       return {
         ...state,
         pedidos: action.pedidos,
-      }; 
+      };
+    case actionTypes.CARRINHO_ENCONTRADO:
+      return {
+        ...state,
+        carrinho: action.carrinho,
+      };
+    case actionTypes.PRODUTO_ADICIONADO_NO_CARRINHO:
+      return {
+        ...state,
+        carrinho: action.carrinho,
+      };
+    case actionTypes.PEDIDO_GERADO:
+      return {
+        ...state,
+        pedidos: state.pedidos.put(action.pedido),
+      };
     default:
       return state;
   }

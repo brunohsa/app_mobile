@@ -11,7 +11,6 @@ let cadastroAPI = {
       email: email,
       senha: senha,
     });
-    alert(JSON.stringify(body))
     let acao = (response, dispatch) => {
       AsyncStorage.setItem('token', response.headers.get('token'));
       dispatch(cadastroActions.cadastroRealizado());

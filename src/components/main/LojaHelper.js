@@ -4,6 +4,14 @@ import {Text, Card, Divider} from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 
 const LojaHelper = props => {
+
+  function getDistanciaFormatada(distancia) {
+    if(distancia < 1) {
+        return `${(distancia * 1000).toFixed(2)} metros`
+    }
+    return `${distancia.toFixed(2)} km`
+  }
+
   return (
     <View>
       <TouchableOpacity
@@ -24,7 +32,7 @@ const LojaHelper = props => {
                 marginTop: 5,
                 marginHorizontal: 7,
               }}>
-              {props.loja.distancia}
+              { getDistanciaFormatada(props.loja.distancia) }
             </Text>
             <Text
               h3Style

@@ -6,27 +6,21 @@ import {Card} from 'react-native-elements';
 import {ScrollView} from 'react-native-gesture-handler';
 
 import carrinhoAPI  from '../redux/api/carrinhoAPI';
+import loaderAction  from '../redux/actions/LoaderAction';
 
 class Pedidos extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isLoading: false,
-    };
-
     this.props.buscarPedidos();
   }
 
-  componentDidMount() {
-    //alert(JSON.stringify(this.props.carrinhoStore))
-    //alert(this.props.carrinhoStore.pedidos)
-  }
-
   render() {
-    //let { pedidos } = this.props.carrinhoStore
+    let { carrinhoStore, loaderStore } = this.props
 
-    if (this.state.isLoading) {
+    let pedidos = carrinhoStore && carrinhoStore.pedidos ? carrinhoStore.pedidos : []
+    
+    if (loaderStore.loading) {
       return (
         <View style={{flex: 1, justifyContent: 'center', alingItens: 'center'}}>
           <ActivityIndicator
@@ -38,10 +32,11 @@ class Pedidos extends Component {
       );
     }
     return (
-      <View>
+      <View style={{marginBottom: 10}}>
         <ScrollView>
           {
-            this.props.carrinhoStore && this.props.carrinhoStore.pedidos ? this.props.carrinhoStore.pedidos.map(pedido => {
+            pedidos && pedidos.length > 0
+            ? pedidos.map(pedido => {
               let status = '';
               let cor = '';
               switch (pedido.status) {
@@ -81,7 +76,7 @@ class Pedidos extends Component {
                     <Text style={{fontWeight: 'bold'}}>{pedido.numero}</Text>
                     {pedido.itens.map(item => {
                       return (
-                        <View key={item.id}>
+                        <View key={item.id} style={{marginBottom: 10, marginTop: 10}}>
                           <View
                             style={{
                               flexWrap: 'wrap',
@@ -190,13 +185,15 @@ class Pedidos extends Component {
 
 const mapStateToProps = state => {
   return {
-    carrinhoStore: state.carrinho
+    carrinhoStore: state.carrinho,
+    loaderStore: state.loader
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     buscarPedidos: () => {
+      dispatch(loaderAction.startLoader());
       dispatch(carrinhoAPI.buscarPedidos());
     }
   };

@@ -25,9 +25,23 @@ const cardapioActions = {
   produtoEncontrado(produto) {
     return {
       type: actionTypes.PRODUTO_ENCONTRADO,
-      produto,
+      produto
     };
   },
+
+  melhoresProdutosDaRegiaoEncontrados(produtos) {
+    return {
+      type: actionTypes.MELHORES_PRODUTOS_REGIAO_ENCONTRADOS,
+      produtos
+    };
+  },
+
+  produtosDaRegiaoEncontrados(produtos) {
+    return {
+      type: actionTypes.PRODUTOS_REGIAO_ENCONTRADOS,
+      produtos
+    };
+  }
 };
 
 export default cardapioActions;
