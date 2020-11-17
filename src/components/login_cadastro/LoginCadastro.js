@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {SafeAreaView, StyleSheet, View, StatusBar, Image} from 'react-native';
 import {Button, ThemeProvider} from 'react-native-elements';
+import {Divider} from 'react-native-paper';
 import {Actions} from 'react-native-router-flux';
 
 class App extends Component {
@@ -28,7 +29,7 @@ class App extends Component {
             <View style={styles.contContainer}>
               <View style={styles.container}>
                 <Button
-                  title="Fazer Cadastro"
+                  title="Cadastrar"
                   raised
                   onPress={() => {
                     this.goToModal('cadastro');
@@ -38,7 +39,7 @@ class App extends Component {
               </View>
               <View style={styles.container}>
                 <Button
-                  title="Fazer Login"
+                  title="Entrar"
                   raised
                   onPress={() => {
                     this.goToModal('login');

@@ -2,7 +2,7 @@
   {
     "id": "5f8cdfdbbe03120ac8fa8f3d",
     "nome": "Coca-Cola",
-    "descricao": null,
+    "descricao": "Coquinha gelada",
     "valor": "5.5",
     "estoque": 0,
     "nota": 5,
@@ -12,7 +12,7 @@
   {
     "id": "5f8cdfdbbe03120ac8fa8f3e",
     "nome": "Pepsi",
-    "descricao": null,
+    "descricao": "Pepsi gelado",
     "valor": "5.5",
     "estoque": 0,
     "nota": 5,
@@ -22,7 +22,7 @@
   {
     "id": "5f8cdfdbbe03120ac8fa8f3f",
     "nome": "Lanche Top",
-    "descricao": null,
+    "descricao": "Hamburguer 200g, pão gergelim, alface, tomate, queijo prato, ketchup, mostarda, picles",
     "valor": "5.5",
     "estoque": 0,
     "nota": 5,

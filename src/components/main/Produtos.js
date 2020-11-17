@@ -2,9 +2,9 @@ import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import {Text, Card, Divider} from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Produtos = props => {
-  console.log(props.item.id);
   return (
     <View>
       <TouchableOpacity
@@ -27,11 +27,19 @@ const Produtos = props => {
               }}>
               {props.item.descricao}
             </Text>
-            <Text
-              h3Style
-              style={{color: '#ff0000', fontSize: 15, marginTop: 7}}>
-              {props.item.valor}
-            </Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text
+                style={{color: '#ff0000', fontSize: 15, marginTop: 7}}>
+                R$ {props.item.valor}
+              </Text>
+              <View style={{marginLeft:'75%'}}>
+                <Text
+                  style={{color: '#d4af37', fontSize: 15, marginTop: 7}}>
+                  <Icon name="star" size={15} color="#d4af37"/>
+                  {props.item.nota}
+                </Text>
+              </View>
+            </View>
           </Card>
         </View>
         <Divider />

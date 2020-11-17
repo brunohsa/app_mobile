@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import React, {Component} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -16,16 +15,13 @@ import {
   Header,
   SearchBar,
 } from 'react-native-elements';
-import {Chip, ActivityIndicator} from 'react-native-paper';
+import {Chip, ActivityIndicator, Colors} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Actions } from "react-native-router-flux";
-import { ScrollView } from 'react-native-gesture-handler';
-import Categoria from './Categorias';
 import {Actions} from 'react-native-router-flux';
 import {ScrollView} from 'react-native-gesture-handler';
 import Categorias from './Categorias';
 import Produtos from './Produtos';
-import TabBar from './TabBar';
+import LojaHelper from './LojaHelper';
 
 class Busca extends Component{
     
@@ -38,16 +34,16 @@ class Busca extends Component{
       search: '',
       dataSource: null,
       lojasSource: null,
+      index:1,
     };
-    this.arrayholder = [];
   }
 
   renderFiltros() {
     return (
-      <View>
-        <Chip onPress={console.log('nome')}>Nome</Chip>
-        <Chip onPress={console.log('preço')}>Preço</Chip>
-        <Chip onPress={console.log('nota')}>Nota</Chip>
+      <View  style={{flexDirection: 'row', marginBottom:15, marginTop:10}}>
+        <Chip style={{backgroundColor:'#fff', color:'#fff', width:'25%', marginLeft:'7%', mode:'outlined',borderStyle:'solid', borderWidth:1,borderColor:'#f00', alignContent:'center'}} icon='food-fork-drink' onPress={console.log('nome')}>Nome</Chip>
+        <Chip style={{backgroundColor:'#fff', color:'#fff', width:'25%', marginLeft:'7%', mode:'outlined',borderStyle:'solid', borderWidth:1,borderColor:'#f00', alignContent:'center'}} icon='cash-usd' onPress={console.log('preço')}>Preço</Chip>
+        <Chip style={{backgroundColor:'#fff', color:'#fff', width:'25%', marginLeft:'7%', mode:'outlined',borderStyle:'solid', borderWidth:1,borderColor:'#f00', alignContent:'center'}} icon='star' onPress={console.log('nota')}>Nota</Chip>
       </View>
     );
   }
@@ -56,8 +52,8 @@ class Busca extends Component{
   //192.168.15.72
   componentDidMount() {
     this.setState({isLoading: true});
-    let urlProdutos = 'http://192.168.15.72:3001/produto/';
-    let urlLojas = 'http://192.168.15.72:3001/fornecedor/';
+    let urlProdutos = 'http://192.168.15.27:3001/produto/';
+    let urlLojas = 'http://192.168.15.27:3001/fornecedor/';
     Promise.all([fetch(urlProdutos), fetch(urlLojas)])
       .then(([resp1, resp2]) => Promise.all([resp1.json(), resp2.json()]))
       .then(([data1, data2]) =>
@@ -71,6 +67,19 @@ class Busca extends Component{
         console.log(err);
       });
   }
+
+  renderTabBar() {
+    return (
+      <View style={{flexDirection: 'row'}}>
+        <TouchableOpacity onPress={() => this.setState({index:1})} >
+          <Text style={{color: '#ff0000', fontSize: 15, marginTop: 7, marginLeft:'30%', left:'50%'}}>Itens</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.setState({index:2})}>
+          <Text style={{color: '#ff0000', fontSize: 15, marginTop: 7, marginLeft:'15%', left:'50%'}}>Lojas</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   search = text => {
     console.log(text);
@@ -102,14 +111,6 @@ class Busca extends Component{
     );
   }
 
-  renderCategorias() {
-    return (
-      <View>
-        <Categorias />
-      </View>
-    );
-  }
-
   renderError() {
     return (
       <View>
@@ -118,53 +119,47 @@ class Busca extends Component{
     );
   }
 
-  renderLoading() {
-    return <ActivityIndicator animating={!this.state.isLoading} />;
-  }
+  renderItens(){
+  return (
+    <View style={{position: 'relative', marginBottom: 15}}>
+      {this.state.dataSource !== null ? (
+        this.state.dataSource.map(item => <Produtos item={item} />)
+      ) : (
+        <View />
+      )}
+    </View>
+  );
+};
 
-  render() {
-    return (
-      <ThemeProvider>
-        <View style={{position: 'relative'}}>
-          <ScrollView>
-            <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
-            <View>
-              { 
-                this.state.dataSource !== null && this.state.lojasSource != null
-                  ? ( <TabBar
-                      produtos={this.state.dataSource}
-                      lojas={this.state.lojasSource}
-                    /> ) 
-                  : ( <View /> )
-              }
-      </View>
+renderLojas() {
+  return (
+    <View style={{position: 'relative', marginBottom: 15}}>
+      {this.state.lojasSource !== null ? (
+        this.state.lojasSource.map(loja => <LojaHelper loja={loja} />)
+      ) : (
+        <View />
+      )}
+    </View>
     );
-  }
+  };
 
-  renderLoading() {
-    return <ActivityIndicator animating={!this.state.isLoading} />;
-  }
-
-  render() {
-    return (
-      <ThemeProvider>
-        <View style={{position: 'relative'}}>
-          <ScrollView>
-            <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
-            <View>
-              {this.state.dataSource !== null &&
-              this.state.lojasSource != null ? (
-                <TabBar
-                  produtos={this.state.dataSource}
-                  lojas={this.state.lojasSource}
-                />
-              ) : (
-                <View />
-              )}
-            </View>
-          </ScrollView>
+  render(){
+    if (this.state.isLoading) {
+      return (
+        <View style={{flex:1,justifyContent:'center', alingItens:'center'}}>
+          <ActivityIndicator animating={true} color={Colors.red200} size='large'/>
         </View>
-      </ThemeProvider>
+      );
+    }
+    return (
+      <View style={{position: 'relative'}}>
+        <ScrollView>
+            <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
+            <View>{this.renderFiltros()}</View>
+            <View>{this.renderTabBar()}</View>
+            {this.state.index == 1 ? this.renderItens() : this.renderLojas()}
+        </ScrollView>
+      </View>
     );
   }
 }

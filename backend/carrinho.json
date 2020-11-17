@@ -1,8 +1,16 @@
 [
   {
     "id": "5fa076ae77d3744f78b0761a",
-    "itens": [],
-    "valor_total": 0,
+    "itens": [
+      {
+        "id": "5f8cdfdbbe03120ac8fa8f3d",
+        "nome": "Coca-Cola",
+        "observacoes": "Testando",
+        "quantidade": 2,
+        "valor": 5.5
+      }
+    ],
+    "valor_total": 11,
     "data_criacao": "02-11-2020 19:14:22"
   }
 ]

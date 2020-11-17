@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Provider as PaperProvider} from 'react-native-paper';
+import {Provider as PaperProvider, DefaultTheme} from 'react-native-paper';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
@@ -11,10 +11,22 @@ function App() {
 
   return (
     <Provider store={store}>
-      <PaperProvider>
+      <PaperProvider theme={theme}>
         <Routes />
       </PaperProvider>
     </Provider>
   );
 }
 export default App;
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#ff0000',
+    accent: '#fff',
+    text: '#f00',
+    background: '#fff'
+  },
+};

@@ -3,7 +3,7 @@ import React, {Component, useRef} from 'react';
 import { connect } from 'react-redux'
 
 import {View, StyleSheet} from 'react-native';
-import {Text, Button, Input, ThemeProvider} from 'react-native-elements';
+import {Text, Button, ThemeProvider} from 'react-native-elements';
 import {Formik} from 'formik';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {TextInput} from 'react-native-paper';
@@ -31,7 +31,7 @@ function renderLogin() {
   const senha = useRef(null);
 
   const FormSchema = Yup.object().shape({
-    email: Yup.string().required('Campo obrigatório'),
+    email: Yup.string().required('Campo obrigatório').matches('^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})'),
     senha: Yup.string()
       .required('Campo obrigatório')
       .min(8, 'Digite pelo menos 8 caracteres')
@@ -59,9 +59,10 @@ function renderLogin() {
         setFieldTouched,
       }) => (
         <View style={styles.modalView}>
-          <Text>Entrar</Text>
+          <Text style={{fontSize:22,fontWeight: 'bold', paddingLeft:5 }}>Entrar</Text>
           <View style={{marginTop: 15}}>
             <TextInput
+              style={{backgroundColor:'#fff'}}
               ref={email}
               label="E-mail"
               keyboardType="email-address"
@@ -74,6 +75,7 @@ function renderLogin() {
             />
             {errors.email && touched.email && <Text>{errors.email}</Text>}
             <TextInput
+              style={{backgroundColor:'#fff'}}
               ref={senha}
               label="Senha"
               secureTextEntry
@@ -85,16 +87,19 @@ function renderLogin() {
               onBlur={() => setFieldTouched('senha', true)}
             />
             {errors.senha && touched.senha && <Text>{errors.senha}</Text>}
-            <Button
-              title="Fazer login"
-              raised
-              type="solid"
-              onPress={handleSubmit}
-              onPress={() => logarComEmail()}
-            />
+            <View style={{marginTop:15}}>
+              <Button
+                buttonStyle={{backgroundColor:'#f00'}}
+                title="Entrar"
+                raised
+                type="solid"
+                onPress={() => logarComEmail()}
+              />
+            </View>
           </View>
           <View style={{marginTop: 15}}>
             <Button
+              buttonStyle={{backgroundColor:'#f00'}}
               title="            Entrar pelo Facebook            "
               raised
               type="solid"
@@ -148,9 +153,10 @@ function renderCadastro() {
         setFieldTouched,
       }) => (
         <View style={styles.modalView}>
-          <Text>Cadastro</Text>
-          <View style={{marginTop: 15}}>
+          <Text style={{fontSize:22,fontWeight: 'bold', paddingLeft:5 }}>Cadastro</Text>
+          <View style={{marginTop: 15, marginBotton:20}}>
             <TextInput
+              style={{backgroundColor:'#fff'}}
               ref={email}
               label="E-mail"
               keyboardType="email-address"
@@ -163,6 +169,7 @@ function renderCadastro() {
             />
             {errors.email && touched.email && <Text>{errors.email}</Text>}
             <TextInput
+              style={{backgroundColor:'#fff'}}
               ref={user}
               label="Nome"
               secureTextEntry
@@ -175,6 +182,7 @@ function renderCadastro() {
             />
             {errors.user && touched.user && <Text>{errors.user}</Text>}
             <TextInput
+              style={{backgroundColor:'#fff'}}
               ref={senha}
               label="Senha"
               secureTextEntry
@@ -186,6 +194,7 @@ function renderCadastro() {
               onBlur={() => setFieldTouched('senha', true)}
             />
             {errors.senha && touched.senha && <Text>{errors.senha}</Text>}
+<<<<<<< HEAD
             <Button
               title="Fazer cadastro"
               raised
@@ -193,9 +202,21 @@ function renderCadastro() {
               onPress={handleSubmit}
               onPress={() => criarCadastro()}
             />
+=======
+            <View style={{marginTop:15}}>
+              <Button
+                buttonStyle={{backgroundColor:'#f00'}}
+                title="Cadastrar"
+                raised
+                type="solid"
+                onPress={handleSubmit}
+              />
+            </View>
+>>>>>>> master
           </View>
           <View style={{marginTop: 15}}>
             <Button
+              buttonStyle={{backgroundColor:'#f00'}}
               title="         Cadastre-se pelo Facebook         "
               raised
               type="solid"
@@ -248,6 +269,7 @@ const styles = StyleSheet.create({
   },
 });
 
+<<<<<<< HEAD
 const theme = {
   Button: {
     buttonStyle: {
@@ -283,3 +305,6 @@ const mapDispatchToProps = dispatch => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalLoginCadastro);
+=======
+export default ModalLoginCadastro;
+>>>>>>> master

@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import { View } from "react-native";
-import { Router, Scene, Stack } from 'react-native-router-flux';
 import {AsyncStorage, View} from 'react-native';
 import {Actions, Overlay, Router, Scene, Stack} from 'react-native-router-flux';
 import App from './components/login_cadastro/LoginCadastro';
@@ -13,7 +11,8 @@ import Pedidos from './components/main/Pedidos';
 import Produto from './components/main/Prod_page';
 import Configure from './components/main/Configurar';
 import Loja from './components/main/Loja';
-import FABCart from './components/main/FABCart';
+import Cart from './components/main/Cart';
+import Pagamento from './components/main/Pagamento';
 
 class TabIcon extends Component {
   render() {
@@ -65,7 +64,6 @@ class Routes extends Component {
               component={ModalLoginCadastro}
               navTransparent={true}
             />
-            <Overlay>
               <Scene
                 key="tabbar"
                 tabs={true}
@@ -116,16 +114,24 @@ class Routes extends Component {
                   icon={TabIcon}
                   back={false}
                 />
+                <Scene
+                  key="carrinho"
+                  title="Carrinho"
+                  component={Cart}
+                  navTransparent={true}
+                  hideNavBar
+                  iconName="shopping-bag"
+                  icon={TabIcon}
+                  back={false}
+                />
               </Scene>
-              <Scene component={FABCart} />
-            </Overlay>
             <Scene
               key="product"
               title="Produto"
               component={Produto}
               navTransparent={true}
               hideNavBar
-              back={true}
+              back={false}
             />
             <Scene
               key="loja"
@@ -133,7 +139,15 @@ class Routes extends Component {
               component={Loja}
               navTransparent={true}
               hideNavBar
-              back={true}
+              back={false}
+            />
+            <Scene
+              key="pagamento"
+              title="Pagamento"
+              component={Pagamento}
+              navTransparent={true}
+              hideNavBar
+              back={false}
             />
           </Stack>
         </Router>
