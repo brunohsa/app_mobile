@@ -17,6 +17,24 @@ let foenecedorAPI = {
     };
     let url = `${configuracao.URL_LOCALIZACAO}${LOCALIZACAO_FORNECEDORES_BASE_URL}/latitude/${lat}/longitude/${long}`;  
     return axiosRequests.get(getToken(), url, acao)
+  },
+
+  buscarFornecedoresPorNome(lat, long, nome) {
+    let acao = (response, dispatch) => {
+      dispatch(fornecedorActions.fornecedoresFiltrados(response.body));
+      return response.body;
+    };
+    let url = `${configuracao.URL_LOCALIZACAO}${LOCALIZACAO_FORNECEDORES_BASE_URL}/latitude/${lat}/longitude/${long}?nome=${nome}`;  
+    return axiosRequests.get(getToken(), url, acao)
+  },
+
+  buscarFornecedoresPorCategoria(lat, long, categoria) {
+    let acao = (response, dispatch) => {
+      dispatch(fornecedorActions.fornecedoresFiltrados(response.body));
+      return response.body;
+    };
+    let url = `${configuracao.URL_LOCALIZACAO}${LOCALIZACAO_FORNECEDORES_BASE_URL}/latitude/${lat}/longitude/${long}?categoria=${categoria}`;  
+    return axiosRequests.get(getToken(), url, acao)
   }
 };
 

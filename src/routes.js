@@ -10,7 +10,6 @@ import {Text} from 'react-native-elements';
 import Pedidos from './components/main/Pedidos';
 import Produto from './components/main/Prod_page';
 import Configure from './components/main/Configurar';
-import loginActions from './components/redux/actions/LoginAction';
 import Loja from './components/main/Loja';
 import Cart from './components/main/Cart';
 import Pagamento from './components/main/Pagamento';
@@ -21,7 +20,7 @@ class TabIcon extends Component {
       <View style={{alignItems: 'center'}}>
         <Icon
           name={this.props.iconName}
-          size={30}
+          size={22}
           style={{color: this.props.focused ? '#000' : '#f00'}}
         />
         <Text
@@ -155,19 +154,5 @@ class Routes extends Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    loginStore: state.login,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    logoutRealizado: () => {
-      dispatch(loginActions.logoutRealizado);
-    },
-  };
-};
 
 export default Routes;

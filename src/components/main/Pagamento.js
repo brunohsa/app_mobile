@@ -1,13 +1,15 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {View} from 'react-native';
 import {Text, Button} from 'react-native-elements';
-import {TextInput, Divider} from 'react-native-paper';
+import {TextInput, Divider, ActivityIndicator, Colors} from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
 import carrinhoAPI  from '../redux/api/carrinhoAPI';
 import loaderAction  from '../redux/actions/LoaderAction';
+import carrinhoAction from '../redux/actions/CarrinhoAction';
+
 import { Actions } from 'react-native-router-flux';
 
 function Pagamento(props) {
@@ -19,10 +21,28 @@ function Pagamento(props) {
     cvv: Yup.string().required('Campo obrigatório'),
   });
 
+  useEffect(() => {
+    if(props.carrinhoStore.pedidoGerado) {
+      props.flagPedidoGerado(false);
+      Actions.order();
+    }
+  })
+
   function gerarPedido(values) {
     props.gerarPedido(values.titular, values.numcard, values.validade, values.ccv)
   }
 
+  if (props.loaderStore.loading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alingItens: 'center'}}>
+        <ActivityIndicator
+          animating={true}
+          color={Colors.red200}
+          size="large"
+        />
+      </View>
+    );
+  }
   return (
     <View style={{marginLeft: 20, marginRight: 20}}>
       <Text
@@ -44,7 +64,6 @@ function Pagamento(props) {
         }}
         onSubmit={values => {
           gerarPedido(values)
-          Actions.order();
         }}
         validationSchema={FormSchema}>
         {({values, handleChange, handleSubmit, errors, touched}) => (
@@ -129,8 +148,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     gerarPedido: (titular, numeroCartao, validade, codigoSeguranca) => {
-      dispatch(loaderAction.startLoader())
+      dispatch(loaderAction.startLoader());
       dispatch(carrinhoAPI.gerarPedido(titular, numeroCartao, validade, codigoSeguranca));
+    },
+    flagPedidoGerado: (gerado) => {
+      dispatch(carrinhoAction.flagPedidoGerado(gerado));
     }
   };
 };

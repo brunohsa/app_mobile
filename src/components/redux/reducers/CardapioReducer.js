@@ -22,6 +22,11 @@ export function cardapioReducers(state = {}, action) {
         ...state,
         produtosRegiao: action.produtos,
       };
+    case actionTypes.PRODUTOS_FILTRADOS:
+      return {
+        ...state,
+        produtosFiltrados: action.produtos,
+      }; 
     default:
       return state;
   }

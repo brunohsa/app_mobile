@@ -7,7 +7,7 @@ const loginApi = {
 
   fazerLogin(email, senha) {
     let body = JSON.stringify({
-      email: 'bharaujo@hotmail.com',
+      email: 'brunohsa1@hotmail.com',
       senha: '123Mudar@',
     });
     let acao = (response, dispatch) => {

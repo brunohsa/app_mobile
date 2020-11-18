@@ -41,7 +41,14 @@ const cardapioActions = {
       type: actionTypes.PRODUTOS_REGIAO_ENCONTRADOS,
       produtos
     };
-  }
+  },
+
+  produtosFiltrados(produtos) {
+    return {
+      type: actionTypes.PRODUTOS_FILTRADOS,
+      produtos
+    };
+  },
 };
 
 export default cardapioActions;

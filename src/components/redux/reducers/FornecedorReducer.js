@@ -7,6 +7,11 @@ export function fornecedorReducers(state = {}, action) {
         ...state,
         fornecedores: action.fornecedores
       };
+    case actionTypes.FORNECEDORES_FILTRADOS:
+      return {
+        ...state,
+        fornecedoresFiltrados: action.fornecedores
+      };
     default:
       return state;
   }

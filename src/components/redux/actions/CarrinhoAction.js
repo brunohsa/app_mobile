@@ -16,7 +16,7 @@ const carrinhoActions = {
     };
   },
 
-  adicionarProdutoNoCarrinho() { 
+  adicionarProdutoNoCarrinho(carrinho) { 
     return {
       type: actionTypes.PRODUTO_ADICIONADO_NO_CARRINHO,
       carrinho
@@ -27,6 +27,20 @@ const carrinhoActions = {
     return {
       type: actionTypes.PEDIDO_GERADO,
       pedido
+    };
+  },
+
+  produtoAdicionado(adicionado) { 
+    return {
+      type: actionTypes.FLAG_PRODUTO_ADICIONADO_NO_CARRINHO,
+      adicionado
+    };
+  },
+
+  flagPedidoGerado(pedidoGerado) { 
+    return {
+      type: actionTypes.FLAG_PEDIDO_GERADO,
+      pedidoGerado
     };
   }
 };

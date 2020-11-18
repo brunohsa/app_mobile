@@ -8,6 +8,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import cardapioAPI from '../redux/api/cardapioAPI';
 import carrinhoAPI from '../redux/api/carrinhoAPI';
 import loaderAction from '../redux/actions/LoaderAction';
+import carrinhoAction from '../redux/actions/CarrinhoAction';
+
 import {Actions} from 'react-native-router-flux';
 
 class Produto extends Component {
@@ -17,9 +19,18 @@ class Produto extends Component {
     this.state = {
       descricao: '',
       quantidade: 0,
+      produtoAdicionado: false
     };
 
     this.props.buscarProduto(this.props.prodId);
+  }
+
+  componentDidUpdate() {
+    let { carrinhoStore } = this.props
+    if(carrinhoStore.produtoAdicionado) {
+      this.props.flagProdutoAdicionado(false);
+      Actions.carrinho();
+    }
   }
 
   aumentarQuantidade() {
@@ -51,7 +62,6 @@ class Produto extends Component {
       quantidade,
       descricao,
     );
-    Actions.carrinho();
   }
 
   render() {
@@ -158,6 +168,7 @@ class Produto extends Component {
 const mapStateToProps = state => {
   return {
     cardapioStore: state.cardapio,
+    carrinhoStore: state.carrinho,
     loaderStore: state.loader,
   };
 };
@@ -167,6 +178,9 @@ const mapDispatchToProps = dispatch => {
     buscarProduto: id => {
       dispatch(loaderAction.startLoader());
       dispatch(cardapioAPI.buscarProduto(id));
+    },
+    flagProdutoAdicionado: adicionado => {
+      dispatch(carrinhoAction.produtoAdicionado(adicionado));
     },
     adicionarProdutoNoCarrinho: (
       cardapioId,

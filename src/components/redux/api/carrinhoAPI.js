@@ -47,7 +47,7 @@ let carrinhoAPI = {
       observacoes: observacoes
     })
     let acao = (response, dispatch) => {
-      dispatch(carrinhoActions.carrinhoEncontrado(response.body));
+      dispatch(carrinhoActions.adicionarProdutoNoCarrinho(response.body));
       dispatch(loaderActions.stopLoader());
       return response.body;
     };

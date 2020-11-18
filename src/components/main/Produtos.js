@@ -34,10 +34,10 @@ class Produtos extends Component {
                 }}>
                 {item.descricao}
               </Text>
-              <View style={{position: 'absolute', right: 15}}>
+              <View style={{position: 'absolute', right: item.nota ? 16 : 8}}>
                 <Text style={{color: '#d4af37', fontSize: 15}}>
                   <Icon name="star" size={15} color="#d4af37" />
-                  {item.nota}
+                  { item.nota ?  ' ' + item.nota : ' Novo' }
                 </Text>
               </View>
               <View>

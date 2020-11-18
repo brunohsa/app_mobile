@@ -49,7 +49,7 @@ class Loja extends Component {
           <View style={{width: '100%', height: '25%', marginBottom: 10}}>
             <Image source={{uri: url}} style={{width: '100%', height: '100%'}} />
           </View>
-          <ScrollView>
+          <ScrollView style={{marginBottom: 10}}>
           {
             cardapio 
             ? cardapio.categorias.map(cat =>

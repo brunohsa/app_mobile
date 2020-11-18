@@ -9,6 +9,13 @@ const cadastroActions = {
     };
   },
   
+  fornecedoresFiltrados(fornecedores) {
+    return {
+      type: actionTypes.FORNECEDORES_FILTRADOS,
+      fornecedores
+    };
+  },
+  
 };
 
 export default cadastroActions;

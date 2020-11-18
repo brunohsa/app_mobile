@@ -176,7 +176,7 @@ class Cart extends React.Component {
             marginLeft: 20,
             marginRight: 20,
           }}
-          disabled={carrinho && carrinho.itens.length == 0}
+          disabled={carrinho == null || carrinho == undefined || carrinho.itens.length == 0}
           title="Pagamento"
           type="solid"
           onPress={() => Actions.pagamento()}

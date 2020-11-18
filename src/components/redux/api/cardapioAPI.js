@@ -49,9 +49,19 @@ let cardapioAPI = {
       return response.body;
     };
 
-    let url = `${configuracao.URL_CARDAPIO}${URL_PRODUTOS_BASE}/latitude/${latitude}/longitude/${longitude}?campo_ordenacao=nota&limite=150`;
+    let url = `${configuracao.URL_CARDAPIO}${URL_PRODUTOS_BASE}/latitude/${latitude}/longitude/${longitude}?limite=100`;
     return axiosRequests.get(getToken(), url, acao);
-  }
+  },
+
+  buscarProdutosPorNome(latitude, longitude, nome) {
+    let acao = (response, dispatch) => {
+      dispatch(cardapioActions.produtosFiltrados(response.body));
+      return response.body;
+    };
+
+    let url = `${configuracao.URL_CARDAPIO}${URL_PRODUTOS_BASE}/latitude/${latitude}/longitude/${longitude}?nome=${nome}&limite=100`;
+    return axiosRequests.get(getToken(), url, acao);
+  },
 };
 
 function getToken() {

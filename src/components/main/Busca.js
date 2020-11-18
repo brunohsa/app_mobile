@@ -52,37 +52,42 @@ class Busca extends Component {
     let {cardapioStore, fornecedorStore} = this.props;
 
     if (this.state.index == 1) {
-      let listaOrdenada = cardapioStore.produtosRegiao.sort((item1, item2) =>
-        item1.nome.localeCompare(item2.nome),
-      );
-      this.setState({produtosFiltrados: listaOrdenada});
+        let produtos = cardapioStore.produtosFiltrados ? cardapioStore.produtosFiltrados : cardapioStore.produtosRegiao
+        let listaOrdenada = produtos.sort((item1, item2) => item1.nome.localeCompare(item2.nome));
+        this.setState({produtosFiltrados: listaOrdenada});
     } else {
-      let listaOrdenada = fornecedorStore.fornecedores.sort((item1, item2) =>
-        item1.razao_social.localeCompare(item2.razao_social),
-      );
-      this.setState({fornecedoresFiltrados: listaOrdenada});
+        let fornecedores = fornecedorStore.fornecedoresFiltrados ? fornecedorStore.fornecedoresFiltrados : fornecedorStore.fornecedores
+        let listaOrdenada = fornecedores.sort((item1, item2) => item1.razao_social.localeCompare(item2.razao_social));
+        this.setState({fornecedoresFiltrados: listaOrdenada});
     }
   }
 
   ordernarPorPreco() {
     let {cardapioStore} = this.props;
+    let produtos = cardapioStore.produtosFiltrados ? cardapioStore.produtosFiltrados : cardapioStore.produtosRegiao
+    let listaOrdenada = produtos.sort((item1, item2) => item1.valor - item2.valor);
+    this.setState({produtosFiltrados: listaOrdenada});
+  }
 
-    if (this.state.index == 1) {
-      let listaOrdenada = cardapioStore.produtosRegiao.sort(
-        (item1, item2) => item1.valor - item2.valor,
-      );
-      this.setState({produtosFiltrados: listaOrdenada});
-    }
+  
+  ordernarPorDistancia() {
+    let {fornecedorStore} = this.props;
+    let fornecedores = fornecedorStore.fornecedoresFiltrados ? fornecedorStore.fornecedoresFiltrados : fornecedorStore.fornecedores
+    let listaOrdenada = fornecedores.sort((item1, item2) => item1.distancia - item2.distancia);
+    this.setState({fornecedoresFiltrados: listaOrdenada});
   }
 
   ordernarPorNota() {
-    let {cardapioStore} = this.props;
+    let {cardapioStore, fornecedorStore} = this.props;
 
     if (this.state.index == 1) {
-      let listaOrdenada = cardapioStore.produtosRegiao.sort(
-        (item1, item2) => item2.nota - item1.nota,
-      );
+      let produtos = cardapioStore.produtosFiltrados ? cardapioStore.produtosFiltrados : cardapioStore.produtosRegiao
+      let listaOrdenada = produtos.sort((item1, item2) => item2.nota - item1.nota);
       this.setState({produtosFiltrados: listaOrdenada});
+    } else {
+      let fornecedores = fornecedorStore.fornecedoresFiltrados ? fornecedorStore.fornecedoresFiltrados : fornecedorStore.fornecedores
+      let listaOrdenada = fornecedores.sort((item1, item2) => item2.nota - item1.nota);
+      this.setState({fornecedoresFiltrados: listaOrdenada});
     }
   }
 
@@ -103,21 +108,39 @@ class Busca extends Component {
           onPress={() => this.ordernarPorNome()}>
           Nome
         </Chip>
-        <Chip
-          style={{
-            backgroundColor: '#fff',
-            color: '#fff',
-            marginLeft: '7%',
-            mode: 'outlined',
-            borderStyle: 'solid',
-            borderWidth: 1,
-            borderColor: '#f00',
-            alignContent: 'center',
-          }}
-          icon="cash-usd"
-          onPress={() => this.ordernarPorPreco()}>
-          Preço
-        </Chip>
+        {
+          this.state.index == 1 
+          ? <Chip
+              style={{
+                backgroundColor: '#fff',
+                color: '#fff',
+                marginLeft: '7%',
+                mode: 'outlined',
+                borderStyle: 'solid',
+                borderWidth: 1,
+                borderColor: '#f00',
+                alignContent: 'center',
+              }}
+              icon="cash-usd"
+              onPress={() => this.ordernarPorPreco()}>
+              Preço
+            </Chip>
+          : <Chip
+              style={{
+                backgroundColor: '#fff',
+                color: '#fff',
+                marginLeft: '7%',
+                mode: 'outlined',
+                borderStyle: 'solid',
+                borderWidth: 1,
+                borderColor: '#f00',
+                alignContent: 'center',
+              }}
+              icon="map-marker"
+              onPress={() => this.ordernarPorDistancia()}>
+              Distância
+            </Chip>
+        }
         <Chip
           ellipsizeMode="middle"
           style={{
@@ -188,29 +211,15 @@ class Busca extends Component {
     );
   }
 
-  search = text => {
-    console.log(text);
-  };
-
-  clear = () => {
-    this.search.clear();
-  };
-
-  updateSearch(text) {
-    if (text) {
-      if (this.state.dataSource !== null) {
-        const data = this.state.dataSource.filter(item => {
-          const itemData = item.nome
-            ? item.nome.toUpperCase()
-            : ''.toUpperCase();
-          const textData = text.toUpperCase();
-          return itemData.indexOf(textData) > -1;
-        });
-        this.setState({dataSource: data, search: text});
+  updateSearch(text) {    
+    if(text && text.trim() && text.length >= 3) {
+      if(this.state.index == 1) {
+        this.props.buscarProdutosPorNome(-22.894114, -47.177018, text);
+      } else {
+        this.props.buscarFornecedoresPorNome(-22.894114, -47.177018, text);
       }
-    } else {
-      this.setState({dataSource: this.state.dataSourceMaster, search: text});
     }
+    this.setState({search: text, produtosFiltrados: null, fornecedoresFiltrados: null});
   }
 
   renderSearchBar() {
@@ -238,11 +247,10 @@ class Busca extends Component {
 
   renderItens() {
     let {cardapioStore} = this.props;
-    let {produtosFiltrados} = this.state;
-    let produtos = produtosFiltrados
-      ? produtosFiltrados
-      : cardapioStore.produtosRegiao
-      ? cardapioStore.produtosRegiao
+    let {produtosFiltrados, search} = this.state;
+    let produtos = produtosFiltrados ? produtosFiltrados 
+      : search ? (cardapioStore.produtosFiltrados ? cardapioStore.produtosFiltrados : [])
+      : cardapioStore.produtosRegiao ? cardapioStore.produtosRegiao
       : [];
 
     return (
@@ -258,9 +266,13 @@ class Busca extends Component {
 
   renderLojas() {
     let {fornecedorStore} = this.props;
-    let lojas = fornecedorStore.fornecedores
-      ? fornecedorStore.fornecedores
-      : [];
+    let {fornecedoresFiltrados, search} = this.state;
+
+    let lojas = fornecedoresFiltrados ? fornecedoresFiltrados 
+    : search ? (fornecedorStore.fornecedoresFiltrados ? fornecedorStore.fornecedoresFiltrados : [])
+    : fornecedorStore.fornecedores ? fornecedorStore.fornecedores
+    : [];
+
     return (
       <View style={{position: 'relative', marginBottom: 15}}>
         {lojas && lojas.length > 0 ? (
@@ -315,6 +327,12 @@ const mapDispatchToProps = dispatch => {
     buscarFornecedores: (latitude, longitude) => {
       dispatch(loaderAction.startLoader());
       dispatch(fornecedorAPI.buscarFornecedores(latitude, longitude));
+    },
+    buscarProdutosPorNome: (latitude, longitude, nome) => {
+      dispatch(cardapioAPI.buscarProdutosPorNome(latitude, longitude, nome));
+    },
+    buscarFornecedoresPorNome: (latitude, longitude, nome) => {
+      dispatch(fornecedorAPI.buscarFornecedoresPorNome(latitude, longitude, nome));
     },
   };
 };
