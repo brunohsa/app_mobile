@@ -58,7 +58,7 @@ let axiosRequests = {
       return acao(response, dispatch);
     })
     .catch(e => {
-      alert(e)
+      //alert(e)
       console.log(`erro: ${e.message}`);
       dispatch(erroActions.apresentarErro(e.message));
     });

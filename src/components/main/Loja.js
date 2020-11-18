@@ -1,8 +1,17 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import { connect } from 'react-redux'
+
+import {View, Image} from 'react-native';
 import {Text} from 'react-native-elements';
 import {ActivityIndicator, Colors} from 'react-native-paper';
+import {ScrollView} from 'react-native-gesture-handler';
+
 import Produtos from './Produtos';
+
+import cardapioAPI  from '../redux/api/cardapioAPI';
+import loaderAction  from '../redux/actions/LoaderAction'
+
+import config from '../redux/config'
 
 class Loja extends Component {
   constructor(props) {
@@ -15,23 +24,16 @@ class Loja extends Component {
   }
 
   componentDidMount() {
-    this.setState({isLoading: true});
-    let url = 'http://192.168.0.44:3001/cardapio/';
-    fetch(url)
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        this.setState({dataSource: json, isLoading: false});
-        return json;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.props.buscarCardapio(this.props.fornecedorUUID);
   }
 
   render() {
-    if (this.state.isLoading) {
+    let { cardapioStore, loaderStore } = this.props
+
+    let url = config.URL_MS_DOWLOAD_IMAGEM_FORNECEDOR.replace('%s', this.props.fornecedorUUID) + '?time=' + new Date();
+    let cardapio = cardapioStore.cardapio ? cardapioStore.cardapio : null
+
+    if (loaderStore.loading) {
       return (
         <View style={{flex: 1, justifyContent: 'center', alingItens: 'center'}}>
           <ActivityIndicator
@@ -42,49 +44,52 @@ class Loja extends Component {
         </View>
       );
     }
-    console.log(this.state.dataSource);
     return (
-      <View>
-        {this.state.dataSource !== null ? (
-          this.state.dataSource.map(item => (
-            <View>
-              <Text
-                style={{
-                  fontSize: 22,
-                  fontWeight: 'bold',
-                  paddingLeft: 5,
-                  marginLeft: 20,
-                }}>
-                {item.nome}
-              </Text>
-              {item.categorias.map(cat => (
+      <View style={{flex: 1}}>
+          <View style={{width: '100%', height: '25%', marginBottom: 10}}>
+            <Image source={{uri: url}} style={{width: '100%', height: '100%'}} />
+          </View>
+          <ScrollView>
+          {
+            cardapio 
+            ? cardapio.categorias.map(cat =>
                 <View>
-                  <View>
-                    <Text
-                      style={{
-                        marginTop: 10,
-                        fontSize: 19,
-                        fontWeight: 'bold',
-                        paddingLeft: 5,
-                        marginLeft: 20,
-                      }}>
-                      {cat.titulo}
-                    </Text>
-                  </View>
-                  {cat.produtos.map(prod => (
-                    <Produtos item={prod} />
-                  ))}
-                  <View />
+                  <Text
+                    style={{
+                      marginTop: 10,
+                      fontSize: 19,
+                      fontWeight: 'bold',
+                      paddingLeft: 5,
+                      marginLeft: 20,
+                    }}>
+                    {cat.titulo}
+                  </Text>
+                  { cat.produtos.map(prod => <Produtos item={prod} /> ) }
+                <View />
                 </View>
-              ))}
-            </View>
-          ))
-        ) : (
-          <View />
-        )}
+              )
+            : <View />        
+          }
+        </ScrollView>
       </View>
     );
   }
 }
 
-export default Loja;
+const mapStateToProps = state => {
+  return {
+    cardapioStore: state.cardapio,
+    loaderStore: state.loader
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    buscarCardapio: (fornecedorUUID) => {
+      dispatch(loaderAction.startLoader())
+      dispatch(cardapioAPI.buscarCardapio(fornecedorUUID));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Loja);

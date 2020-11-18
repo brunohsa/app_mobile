@@ -6,15 +6,17 @@ import configuracao from '../config';
 import {AsyncStorage} from 'react-native';
 
 let URL_PRODUTOS_BASE = 'v1/produtos'
+let URL_CARDAPIOS_BASE = 'v1/cardapios'
 
 let cardapioAPI = {
-  buscarCardapio(idCardapio) {
+  buscarCardapio(fornecedorUUID) {
     let acao = (response, dispatch) => {
       dispatch(cardapioActions.cardapioEncontrado(response.body));
+      dispatch(loaderActions.stopLoader());
       return response.body;
     };
 
-    let url = `${configuracao.URL_CARDAPIO}/${idCardapio}`;
+    let url = `${configuracao.URL_CARDAPIO}${URL_CARDAPIOS_BASE}/cadastro/${fornecedorUUID}`;
     return axiosRequests.get(getToken(), url, acao);
   },
 

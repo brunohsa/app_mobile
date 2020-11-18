@@ -11,10 +11,12 @@ import loaderAction  from '../redux/actions/LoaderAction';
 class Pedidos extends Component {
   constructor(props) {
     super(props);
-
-    this.props.buscarPedidos();
   }
 
+  componentDidMount() {
+    this.props.buscarPedidos();
+  }
+  
   render() {
     let { carrinhoStore, loaderStore } = this.props
 

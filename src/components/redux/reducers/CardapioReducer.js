@@ -2,6 +2,11 @@ import actionTypes from '../actions/ActionTypes';
 
 export function cardapioReducers(state = {}, action) {
   switch (action.type) {
+    case actionTypes.CARDAPIO_ENCONTRADO:
+      return {
+        ...state,
+        cardapio: action.cardapio,
+      };
     case actionTypes.PRODUTO_ENCONTRADO:
       return {
         ...state,

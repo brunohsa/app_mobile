@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
 import {Text, Card, Divider} from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -34,15 +34,18 @@ class Produtos extends Component {
                 }}>
                 {item.descricao}
               </Text>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{position: 'absolute', right: 15}}>
+                <Text style={{color: '#d4af37', fontSize: 15}}>
+                  <Icon name="star" size={15} color="#d4af37" />
+                  {item.nota}
+                </Text>
+              </View>
+              <View>
                 <Text style={{color: '#ff0000', fontSize: 15, marginTop: 7}}>
                   R$ {item.valor}
                 </Text>
-                <View style={{marginLeft: '75%'}}>
-                  <Text style={{color: '#d4af37', fontSize: 15, marginTop: 7}}>
-                    <Icon name="star" size={15} color="#d4af37" />
-                    {item.nota}
-                  </Text>
+                <View style={{width: '20%', height: '200%', position: 'absolute', right: 0, top: -20}}>
+                  <Image source={{uri: item.url}} style={{width: '100%', height: '100%'}} />
                 </View>
               </View>
             </Card>

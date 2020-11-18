@@ -1,7 +1,9 @@
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
 import {Text, Card, Divider} from 'react-native-elements';
 import {Actions} from 'react-native-router-flux';
+
+import config from '../redux/config';
 
 const LojaHelper = props => {
 
@@ -12,11 +14,13 @@ const LojaHelper = props => {
     return `${distancia.toFixed(2)} km`
   }
 
+  let url = config.URL_MS_DOWLOAD_IMAGEM_FORNECEDOR.replace('%s', props.loja.cadastro_uuid) + '?time=' + new Date();
+  
   return (
     <View>
       <TouchableOpacity
         onPress={() => {
-          Actions.loja({prodId: props.loja.cadastro_uuid});
+          Actions.loja({fornecedorUUID: props.loja.cadastro_uuid});
         }}
         pointerEvents="none">
         <View>
@@ -40,6 +44,9 @@ const LojaHelper = props => {
               {props.loja.funcionamento.abertura} -{' '}
               {props.loja.funcionamento.fechamento}
             </Text>
+            <View style={{width: '25%', height: '100%', flexDirection: 'row', position: 'absolute', right: 0}}>
+              <Image source={{uri: url}} style={{width: '100%', height: '100%'}} />
+            </View>
           </Card>
         </View>
         <Divider />

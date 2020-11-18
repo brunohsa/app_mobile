@@ -75,7 +75,8 @@ class Produto extends Component {
                 color: '#d4af37',
                 fontSize: 15,
                 marginTop: 7,
-                marginLeft: '75%',
+                position: 'absolute', 
+                right: 0
               }}>
               <Icon name="star" size={15} color="#d4af37" />
               { produto ? produto.nota : null }
