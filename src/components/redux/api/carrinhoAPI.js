@@ -61,7 +61,6 @@ let carrinhoAPI = {
       codigo_seguranca: codigoSeguranca,
       forma_pagamento: 'CREDITO'
     })
-    //alert(JSON.stringify(dadosPagamento))
     let acao = (response, dispatch) => {
       dispatch(carrinhoActions.pedidoGerado(response.body));
       dispatch(loaderActions.stopLoader());
