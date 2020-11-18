@@ -20,7 +20,7 @@ export function carrinhoReducers(state = {}, action) {
     case actionTypes.PEDIDO_GERADO:
       return {
         ...state,
-        pedidos: state.pedidos.put(action.pedido),
+        pedidos: state.pedidos ? state.pedidos.push(action.pedido) : Array.of(action.pedido),
       };
     default:
       return state;

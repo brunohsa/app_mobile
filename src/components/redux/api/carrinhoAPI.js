@@ -14,18 +14,20 @@ let carrinhoAPI = {
 
   buscarPedidos() {
     let hoje = new Date()
+    hoje.setDate(hoje.getDate() + 1);
+
     let dataPassada = new Date();
-    dataPassada.setDate(hoje.getDate() - 30);  
+    dataPassada.setDate(hoje.getDate() - 30);
 
     let hojeString = DataUtil.getDataFormatada(hoje);
     let dataPassadaString = DataUtil.getDataFormatada(dataPassada)
-    
+
     let acao = (response, dispatch) => {
       dispatch(carrinhoActions.pedidosEncontrados(response.body));
       dispatch(loaderActions.stopLoader());
       return response.body;
     };
-    let url = `${configuracao.URL_CARRINHO}${CONSUMIDORES_BASE_URL}/pedidos?de=${dataPassadaString}&ate=${hojeString}`;  
+    let url = `${configuracao.URL_CARRINHO}${CONSUMIDORES_BASE_URL}/pedidos?de=${dataPassadaString}&ate=${hojeString}`;
     return axiosRequests.get(getToken(), url, acao)
   },
 

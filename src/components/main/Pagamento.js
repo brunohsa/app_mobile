@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 
 import carrinhoAPI  from '../redux/api/carrinhoAPI';
 import loaderAction  from '../redux/actions/LoaderAction';
+import { Actions } from 'react-native-router-flux';
 
 function Pagamento(props) {
 
@@ -43,6 +44,7 @@ function Pagamento(props) {
         }}
         onSubmit={values => {
           gerarPedido(values)
+          Actions.order();
         }}
         validationSchema={FormSchema}>
         {({values, handleChange, handleSubmit, errors, touched}) => (

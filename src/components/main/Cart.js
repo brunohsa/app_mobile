@@ -11,8 +11,22 @@ import loaderAction  from '../redux/actions/LoaderAction';
 class Cart extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.props.buscarCarrinho();
+  }
+
+  aumentarQuantidade() {
+    this.setState(prevstate => ({
+      quantidade: prevstate.quantidade + 1,
+    }));
+  }
+
+  diminuirQuantidade() {
+    if (this.state.quantidade > 0) {
+      this.setState(prevstate => ({
+        quantidade: prevstate.quantidade - 1,
+      }));
+    }
   }
 
   render() {

@@ -1,5 +1,5 @@
 const configuracao = {
-  URL_CARDAPIO: 'http://appetito.brazilsouth.cloudapp.azure.com:8081/autenticacao/api/',
+  URL_CARDAPIO: 'http://appetito.brazilsouth.cloudapp.azure.com:8083/cardapio/api/',
   URL_CARRINHO: 'http://appetito.brazilsouth.cloudapp.azure.com:8084/carrinho/api/',
   URL_LOGIN: 'http://appetito.brazilsouth.cloudapp.azure.com:8081/autenticacao/api/',
   URL_CADASTRO: 'http://appetito.brazilsouth.cloudapp.azure.com:8082/cadastro/api/',
