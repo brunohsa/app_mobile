@@ -15,7 +15,7 @@ function Configure() {
   });
 
   return (
-    <View style={{flex: 1, height: '100%'}}>
+    <View style={{flex: 1}}>
       <Text
         style={{
           fontSize: 22,
@@ -108,6 +108,7 @@ function Configure() {
                 marginLeft: 20,
                 marginRight: 20,
               }}
+              title="Sair"
               type="solid"
               onPress={() => Actions.reset()}
             />

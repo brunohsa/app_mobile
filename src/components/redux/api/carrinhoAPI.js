@@ -14,7 +14,7 @@ let carrinhoAPI = {
 
   buscarPedidos() {
     let hoje = new Date()
-    hoje.setDate(hoje.getDate() + 1);  
+    hoje.setDate(hoje.getDate() + 1);
 
     let dataPassada = new Date();
     dataPassada.setDate(hoje.getDate() - 30);  
