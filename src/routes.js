@@ -15,7 +15,14 @@ import Loja from './components/main/Loja';
 import Cart from './components/main/Cart';
 import Pagamento from './components/main/Pagamento';
 import Avaliacao from './components/main/Avaliacao';
+
+import cardapioAPI from './components/redux/api/cardapioAPI';
+import carrinhoAPI from './components/redux/api/carrinhoAPI';
+
 import fornecedorAction from './components/redux/actions/FornecedorAction';
+import cardapioAction from './components/redux/actions/CardapioAction';
+import loginAction from './components/redux/actions/LoginAction';
+
 
 class TabIcon extends Component {
   render() {
@@ -96,6 +103,7 @@ class Routes extends Component {
                 icon={TabIcon}
                 back={false}
                 onExit={() => this.props.limparFornecedoresPorCategoria()}
+                onEnter={() => this.props.buscarProdutosDaRegiao()}
               />
               <Scene
                 key="order"
@@ -106,6 +114,7 @@ class Routes extends Component {
                 iconName="file-text-o"
                 icon={TabIcon}
                 back={false}
+                onEnter={() => this.props.buscarProdutosDaRegiao()}
               />
               <Scene
                 key="config"
@@ -171,7 +180,15 @@ const mapDispatchToProps = dispatch => {
   return {
     limparFornecedoresPorCategoria: () => {
       dispatch(fornecedorAction.limparFornecedoresPorCategoria());
-    }
+    },
+    buscarProdutosDaRegiao: () => {
+      dispatch(loaderAction.startLoader());
+      dispatch(cardapioAPI.buscarProdutosDaRegiao(-22.894114, -47.177018));
+    },
+    buscarPedidos: () => {
+      dispatch(loaderAction.startLoader());
+      dispatch(carrinhoAPI.buscarPedidos());
+    },
   };
 };
 

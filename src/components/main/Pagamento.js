@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import carrinhoAPI  from '../redux/api/carrinhoAPI';
 import loaderAction  from '../redux/actions/LoaderAction';
 import carrinhoAction from '../redux/actions/CarrinhoAction';
+import cardapioAPI from '../redux/api/cardapioAPI';
 
 import { Actions } from 'react-native-router-flux';
 
@@ -150,6 +151,8 @@ const mapDispatchToProps = dispatch => {
     gerarPedido: (titular, numeroCartao, validade, codigoSeguranca) => {
       dispatch(loaderAction.startLoader());
       dispatch(carrinhoAPI.gerarPedido(titular, numeroCartao, validade, codigoSeguranca));
+      dispatch(carrinhoAPI.buscarPedidos());
+      dispatch(cardapioAPI.buscarProdutosDaRegiao(-22.894114, -47.177018));
     },
     flagPedidoGerado: (gerado) => {
       dispatch(carrinhoAction.flagPedidoGerado(gerado));

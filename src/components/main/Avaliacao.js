@@ -9,6 +9,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 
 import carrinhoAPI  from '../redux/api/carrinhoAPI';
 import loaderAction  from '../redux/actions/LoaderAction';
+import cardapioAPI from '../redux/api/cardapioAPI';
 import { color } from 'react-native-reanimated';
 import { th } from 'date-fns/locale';
 
@@ -38,7 +39,8 @@ class Avaliacao extends React.Component {
     this.state = {
       quantidade: 1,
       pedidoAvaliacao: pedidoAvaliacao,
-      temMudanca: false
+      temMudanca: false,
+      comentario: ''
     }
   }
 
@@ -133,7 +135,7 @@ class Avaliacao extends React.Component {
                 placeholderTextColor="grey"
                 numberOfLines={10}
                 multiline={true}
-                onChange={(e) => this.handlerChangeAvaliacaoPedido('comentario', e.target.value) }
+                onChangeText={(text) => this.handlerChangeAvaliacaoPedido('comentario', text) }
                 disabled={this.props.pedido.avaliacao != null || this.existeItensAvaliados()}
                 value={this.state.pedidoAvaliacao.avaliacao ? this.state.pedidoAvaliacao.avaliacao.comentario : ''}
               />
@@ -262,7 +264,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     avaliarPedido: (avaliacaoPedido) => {
+      dispatch(loaderAction.startLoader());
       dispatch(carrinhoAPI.avaliarPedido(avaliacaoPedido));
+      dispatch(carrinhoAPI.buscarPedidos());
+      dispatch(cardapioAPI.buscarProdutosDaRegiao(-22.894114, -47.177018));
     },
     avaliarProdutoPedido: (avaliacaoProduto) => {
       dispatch(carrinhoAPI.avaliarProdutoPedido(avaliacaoProduto));
