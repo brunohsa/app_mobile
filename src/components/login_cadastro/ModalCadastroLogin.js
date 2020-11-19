@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, {Component, useRef, useEffect } from 'react';
+import React, {Component, useRef, useEffect, useState  } from 'react';
 import { connect } from 'react-redux'
 import {View, StyleSheet} from 'react-native';
 import {Text, Button, ThemeProvider} from 'react-native-elements';
@@ -48,14 +48,15 @@ function goToMain() {
   Actions.index();
 }
 
-function redirecionar(props) {
+function redirecionar(props, criouCadastro, setCriouCadastro) {
   useEffect(() => {
     if(props.loginStore && props.loginStore.loginRealizado) {
+      //props.flagCadastroRealizado(false);
       Actions.index();
       return;
     }
-    if(props.cadastroStore && props.cadastroStore.cadastroRealizado) {
-      //props.flagCadastroRealizado(false);
+    if(props.cadastroStore && props.cadastroStore.cadastroRealizado && !criouCadastro) {
+      setCriouCadastro(true)
       Actions.index();
       return;
     }
@@ -159,8 +160,8 @@ function renderLogin(props) {
   );
 }
 
-function renderCadastro(props) {
-  redirecionar(props)
+function renderCadastro(props, criouCadastro, setCriouCadastro) {
+  redirecionar(props, criouCadastro, setCriouCadastro)
 
   const email = useRef(null);
   const user = useRef(null);
@@ -278,10 +279,11 @@ function renderCadastro(props) {
 }
 
 function ModalLoginCadastro(props) {
+  const [criouCadastro, setCriouCadastro] = useState(false);
   if (props.opc == 'login') {
-    return renderLogin(props);
+    return renderLogin(props, criouCadastro);
   } else if (props.opc == 'cadastro') {
-    return renderCadastro(props);
+    return renderCadastro(props, criouCadastro, setCriouCadastro);
   }
 }
 
