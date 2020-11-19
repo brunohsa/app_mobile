@@ -30,7 +30,7 @@ const LojaHelper = props => {
         pointerEvents="none">
         <View>
           <Card key={props.loja.cadastro_uuid} style={{marginHorizontal: 12}}>
-            <Text h2Style style={{color: '#000000', fontSize: 18}}>
+            <Text style={{color: '#000000', fontSize: 18}}>
               {props.loja.razao_social}
             </Text>
             <View style={{flexDirection:'row'}}>
@@ -41,7 +41,6 @@ const LojaHelper = props => {
                 </Text>
               </View>
               <Text
-                h4Style
                 style={{
                   color: '#7a7a7a',
                   fontSize: 13,
@@ -52,7 +51,6 @@ const LojaHelper = props => {
               </Text>
             </View>
             <Text
-              h3Style
               style={{color: '#ff0000', fontSize: 15, marginTop: 7}}>
               { getHorarioFuncionamentoFormatado(props.loja.funcionamento) }
             </Text>

@@ -181,6 +181,18 @@ class Cart extends React.Component {
           type="solid"
           onPress={() => Actions.pagamento()}
         />
+        <Button
+          buttonStyle={{
+            backgroundColor: '#f00',
+            marginTop: 10,
+            marginLeft: 20,
+            marginRight: 20,
+          }}
+          disabled={carrinho == null || carrinho == undefined || carrinho.itens.length == 0}
+          title="Retornar a loja"
+          type="solid"
+          onPress={() => Actions.loja()}
+        />
       </View>
     );
   }

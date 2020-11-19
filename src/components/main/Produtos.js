@@ -21,11 +21,10 @@ class Produtos extends Component {
           pointerEvents="none">
           <View>
             <Card key={item.id} style={{marginHorizontal: 12}}>
-              <Text h2Style style={{color: '#000000', fontSize: 18}}>
+              <Text style={{color: '#000000', fontSize: 18}}>
                 {item.nome}
               </Text>
               <Text
-                h4Style
                 style={{
                   color: '#7a7a7a',
                   fontSize: 13,
