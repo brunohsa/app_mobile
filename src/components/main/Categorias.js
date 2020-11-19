@@ -1,6 +1,6 @@
-import React from 'react';
+import React , {Component} from 'react';
 import { connect } from 'react-redux';
-import {View, ScrollView, TouchableOpacity} from 'react-native';
+import {View, ScrollView, TouchableOpacity, Alert} from 'react-native';
 import {Text} from 'react-native-elements';
 import {Card} from 'react-native-paper';
 import {Actions} from 'react-native-router-flux';
@@ -71,61 +71,63 @@ const categorias = [
   },
 ];
 
-function Categoria(props) {
+class Categoria extends Component {
 
-  function buscarFornecedoresPorCategoria(categoria) {
-    props.buscarFornecedoresPorCategoria(-22.894114, -47.177018, categoria.id);
-    Actions.search({cardapio: categoria.titulo});
+  buscarFornecedoresPorCategoria(categoria) {
+    this.props.buscarFornecedoresPorCategoria(-22.894114, -47.177018, categoria.id, categoria.titulo);
+    Actions.search();
   }
 
-  return (
-    <View id={new Date()} style={{flex: 1}}>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={{marginLeft: 7, marginRight: 7, bottom: -5, marginBottom: -30}}>
-        {
-          categorias.map(categoria => {
-            return (
-              <TouchableOpacity 
-                style={{marginLeft: 7}}
-                onPress={() => buscarFornecedoresPorCategoria(categoria)}>
-                <Card
-                  key={categoria.id}
-                  style={{
-                    elevation: 0,
-                    maxWidth: '50%',
-                    maxHeight: '50%',
-                    width: '50%',
-                    height: '50%',
-                  }}>
-                  <Card.Cover
-                    source={categoria.src}
+  render() { 
+    return (
+      <View id={new Date()} style={{flex: 1}}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{marginLeft: 7, marginRight: 7, bottom: -5, marginBottom: -30}}>
+          {
+            categorias.map(categoria => {
+              return (
+                <TouchableOpacity 
+                  style={{marginLeft: 7}}
+                  onPress={() => this.buscarFornecedoresPorCategoria(categoria)}>
+                  <Card
+                    key={categoria.id}
                     style={{
-                      maxWidth: 100,
-                      maxHeight: 100,
-                      width: 100,
-                      height: 100,
-                    }}
-                  />
-                  <Card.Content
-                    style={{
-                      alignContent: 'center',
-                      maxWidth: 100,
-                      maxHeight: 100,
-                      width: 100,
-                      height: 100,
+                      elevation: 0,
+                      maxWidth: '50%',
+                      maxHeight: '50%',
+                      width: '50%',
+                      height: '50%',
                     }}>
-                    <Text style={{fontSize: 12}}>{categoria.titulo}</Text>
-                  </Card.Content>
-                </Card>
-              </TouchableOpacity>
-            );
-          })
-        }
-      </ScrollView>
-    </View>
-  );
+                    <Card.Cover
+                      source={categoria.src}
+                      style={{
+                        maxWidth: 100,
+                        maxHeight: 100,
+                        width: 100,
+                        height: 100,
+                      }}
+                    />
+                    <Card.Content
+                      style={{
+                        alignContent: 'center',
+                        maxWidth: 100,
+                        maxHeight: 100,
+                        width: 100,
+                        height: 100,
+                      }}>
+                      <Text style={{fontSize: 12}}>{categoria.titulo}</Text>
+                    </Card.Content>
+                  </Card>
+                </TouchableOpacity>
+              );
+            })
+          }
+        </ScrollView>
+      </View>
+    );
+  }
 }
 
 const mapStateToProps = state => {
@@ -137,9 +139,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    buscarFornecedoresPorCategoria: (lat, long, categoria) => {
-      //dispatch(loaderAction.startLoader());
-      dispatch(fornecedorAPI.buscarFornecedoresPorCategoria(lat, long, categoria));
+    buscarFornecedoresPorCategoria: (lat, long, categoria, tituloCategoria) => {
+      dispatch(loaderAction.startLoader());
+      dispatch(fornecedorAPI.buscarFornecedoresPorCategoria(lat, long, categoria, tituloCategoria));
     }
   };
 };

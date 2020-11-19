@@ -12,6 +12,11 @@ export function fornecedorReducers(state = {}, action) {
         ...state,
         fornecedoresFiltrados: action.fornecedores
       };
+    case actionTypes.FORNECEDORES_POR_CATEGORIA_FILTRADOS:
+      return {
+        ...state,
+        fornecedoresPorCategoria: action.fornecedoresPorCategoria
+      };
     default:
       return state;
   }

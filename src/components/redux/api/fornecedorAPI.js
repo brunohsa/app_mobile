@@ -28,9 +28,10 @@ let foenecedorAPI = {
     return axiosRequests.get(getToken(), url, acao)
   },
 
-  buscarFornecedoresPorCategoria(lat, long, categoria) {
+  buscarFornecedoresPorCategoria(lat, long, categoria, tituloCategoria) {
     let acao = (response, dispatch) => {
-      dispatch(fornecedorActions.fornecedoresFiltrados(response.body));
+      dispatch(fornecedorActions.fornecedoresPorCategoria(response.body, categoria, tituloCategoria));
+      dispatch(loaderActions.stopLoader());
       return response.body;
     };
     let url = `${configuracao.URL_LOCALIZACAO}${LOCALIZACAO_FORNECEDORES_BASE_URL}/latitude/${lat}/longitude/${long}?categoria=${categoria}`;  

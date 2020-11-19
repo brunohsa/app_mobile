@@ -9,7 +9,14 @@ const cadastroActions = {
 
   cadastroRealizado() {
     return {
+      type: actionTypes.CADASTRO_REALIZADO
+    };
+  },
+
+  flagCadastroRealizado(cadastroRealizado) {
+    return {
       type: actionTypes.CADASTRO_REALIZADO,
+      cadastroRealizado: cadastroRealizado
     };
   },
 };

@@ -19,6 +19,11 @@ export function loginReducers(state = {}, action) {
         ...state,
         fazerLogout: false,
       };
+    case actionTypes.FLAG_LOGIN_REALIZADO:
+      return {
+        ...state,
+        loginRealizado: action.loginRealizado,
+      };
     default:
       return state;
   }

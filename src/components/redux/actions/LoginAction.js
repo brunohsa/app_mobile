@@ -24,6 +24,13 @@ const loginActions = {
       type: actionTypes.LOGOUT_REALIZADO,
     };
   },
+
+  flagLoginRealizado(loginRealizado) {
+    return {
+      type: actionTypes.FLAG_LOGIN_REALIZADO,
+      loginRealizado: loginRealizado
+    };
+  },
 };
 
 export default loginActions;

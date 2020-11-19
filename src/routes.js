@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux'
 import {AsyncStorage, View} from 'react-native';
 import {Actions, Router, Scene, Stack} from 'react-native-router-flux';
 import App from './components/login_cadastro/LoginCadastro';
@@ -13,6 +14,7 @@ import Configure from './components/main/Configurar';
 import Loja from './components/main/Loja';
 import Cart from './components/main/Cart';
 import Pagamento from './components/main/Pagamento';
+import fornecedorAction from './components/redux/actions/FornecedorAction';
 
 class TabIcon extends Component {
   render() {
@@ -41,10 +43,10 @@ class Routes extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.loginStore.fazerLogout) {
-      this.props.logoutRealizado();
-      Actions.reset();
-    }
+    //if (this.props.loginStore.fazerLogout) {
+      //this.props.logoutRealizado();
+     // Actions.reset();
+    //}
   }
 
   render() {
@@ -68,7 +70,7 @@ class Routes extends Component {
               tabs={true}
               swipeEnabled
               tabBarStyle={{backgroundColor: '#fff'}}
-              navTransparent={true}
+              navTransparent={false}
               hideNavBar
               lazy
               showLabel={false}
@@ -92,6 +94,7 @@ class Routes extends Component {
                 iconName="search"
                 icon={TabIcon}
                 back={false}
+                onExit={() => this.props.limparFornecedoresPorCategoria()}
               />
               <Scene
                 key="order"
@@ -155,4 +158,12 @@ class Routes extends Component {
   }
 }
 
-export default Routes;
+const mapDispatchToProps = dispatch => {
+  return {
+    limparFornecedoresPorCategoria: () => {
+      dispatch(fornecedorAction.limparFornecedoresPorCategoria());
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Routes);

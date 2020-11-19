@@ -12,6 +12,11 @@ export default function cadastroReducers(state = {}, action) {
         ...state,
         cadastroRealizado: true,
       };
+    case actionTypes.FLAG_CADASTRO_REALIZADO:
+      return {
+        ...state,
+        cadastroRealizado: action.cadastroRealizado,
+      };
     default:
       return state;
   }

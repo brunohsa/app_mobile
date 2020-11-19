@@ -7,10 +7,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {ScrollView} from 'react-native-gesture-handler';
 import Produtos from './Produtos';
 import LojaHelper from './LojaHelper';
+import {Actions} from 'react-native-router-flux';
 
 import cardapioAPI from '../redux/api/cardapioAPI';
 import fornecedorAPI from '../redux/api/fornecedorAPI';
 import loaderAction from '../redux/actions/LoaderAction';
+import FornecedorAction from '../redux/actions/FornecedorAction';
 
 class Busca extends Component {
   constructor(props) {
@@ -29,7 +31,16 @@ class Busca extends Component {
       fornecedoresFiltrados: null,
       buscandoProdutos: false,
       buscandoLojas: false,
+      fornecedoresPorCategoriaFiltrados: []
     };
+  }
+
+  componentWillReceiveProps() {
+    if(this.props.fornecedorStore.fornecedoresPorCategoria && this.state.index !== 2) {
+      this.setState({index: 2})
+    } else {
+      this.setState({index: 1})
+    }
   }
 
   componentDidMount() {
@@ -56,7 +67,9 @@ class Busca extends Component {
         let listaOrdenada = produtos.sort((item1, item2) => item1.nome.localeCompare(item2.nome));
         this.setState({produtosFiltrados: listaOrdenada});
     } else {
-        let fornecedores = fornecedorStore.fornecedoresFiltrados ? fornecedorStore.fornecedoresFiltrados : fornecedorStore.fornecedores
+        let fornecedores =  fornecedorStore.fornecedoresPorCategoria ? fornecedorStore.fornecedoresPorCategoria.categoria.fornecedores
+                          : fornecedorStore.fornecedoresFiltrados ? fornecedorStore.fornecedoresFiltrados 
+                          : fornecedorStore.fornecedores
         let listaOrdenada = fornecedores.sort((item1, item2) => item1.razao_social.localeCompare(item2.razao_social));
         this.setState({fornecedoresFiltrados: listaOrdenada});
     }
@@ -72,7 +85,9 @@ class Busca extends Component {
   
   ordernarPorDistancia() {
     let {fornecedorStore} = this.props;
-    let fornecedores = fornecedorStore.fornecedoresFiltrados ? fornecedorStore.fornecedoresFiltrados : fornecedorStore.fornecedores
+    let fornecedores =  fornecedorStore.fornecedoresPorCategoria ? fornecedorStore.fornecedoresPorCategoria.categoria.fornecedores
+                        : fornecedorStore.fornecedoresFiltrados ? fornecedorStore.fornecedoresFiltrados 
+                        : fornecedorStore.fornecedores
     let listaOrdenada = fornecedores.sort((item1, item2) => item1.distancia - item2.distancia);
     this.setState({fornecedoresFiltrados: listaOrdenada});
   }
@@ -85,7 +100,9 @@ class Busca extends Component {
       let listaOrdenada = produtos.sort((item1, item2) => item2.nota - item1.nota);
       this.setState({produtosFiltrados: listaOrdenada});
     } else {
-      let fornecedores = fornecedorStore.fornecedoresFiltrados ? fornecedorStore.fornecedoresFiltrados : fornecedorStore.fornecedores
+      let fornecedores =  fornecedorStore.fornecedoresPorCategoria ? fornecedorStore.fornecedoresPorCategoria.categoria.fornecedores
+                        : fornecedorStore.fornecedoresFiltrados ? fornecedorStore.fornecedoresFiltrados 
+                        : fornecedorStore.fornecedores
       let listaOrdenada = fornecedores.sort((item1, item2) => item2.nota - item1.nota);
       this.setState({fornecedoresFiltrados: listaOrdenada});
     }
@@ -212,11 +229,17 @@ class Busca extends Component {
   }
 
   updateSearch(text) {    
+    let {fornecedorStore} = this.props;
     if(text && text.trim() && text.length >= 3) {
-      if(this.state.index == 1) {
-        this.props.buscarProdutosPorNome(-22.894114, -47.177018, text);
+      if(fornecedorStore.fornecedoresPorCategoria) {
+        let filtrados = fornecedorStore.fornecedoresPorCategoria.categoria.fornecedores.filter(f => f.razao_social.includes(text))
+        this.setState({fornecedoresPorCategoriaFiltrados: filtrados})
       } else {
-        this.props.buscarFornecedoresPorNome(-22.894114, -47.177018, text);
+        if(this.state.index == 1) {
+          this.props.buscarProdutosPorNome(-22.894114, -47.177018, text);
+        } else {
+          this.props.buscarFornecedoresPorNome(-22.894114, -47.177018, text);
+        }
       }
     }
     this.setState({search: text, produtosFiltrados: null, fornecedoresFiltrados: null});
@@ -264,6 +287,31 @@ class Busca extends Component {
     );
   }
 
+  renderizarLojasPorCategoria() {
+    let {fornecedorStore} = this.props;
+    let {fornecedoresPorCategoriaFiltrados, search} = this.state;
+
+    let filtroPorCategoria = fornecedorStore.fornecedoresPorCategoria
+    if(!filtroPorCategoria) {
+      return <View />
+    }
+
+    let lojas = search ? fornecedoresPorCategoriaFiltrados : filtroPorCategoria.categoria.fornecedores
+    return (
+      <View style={{width: '100%', height: '100%'}}>
+        <View style={{width: '100%', height: 60, borderBottomColor: '#f00', borderBottomWidth: 1}}>
+          <Text style={{textAlign: 'center', fontWeight: 'bold', fontSize: 18, marginTop: 15, position: 'relative'}}> 
+            { filtroPorCategoria.categoria.titulo }
+          </Text>
+        </View>
+        <View>{this.renderFiltros()}</View>
+        <View style={{position: 'relative', marginBottom: 15}}>
+          { lojas && lojas.length > 0 ? lojas.map(loja => <LojaHelper loja={loja} />) : <View /> }
+        </View>
+      </View>
+    );
+  }
+
   renderLojas() {
     let {fornecedorStore} = this.props;
     let {fornecedoresFiltrados, search} = this.state;
@@ -297,13 +345,21 @@ class Busca extends Component {
         </View>
       );
     }
+
+    let {fornecedorStore} = this.props;
     return (
       <View style={{position: 'relative'}}>
         <ScrollView>
           <View style={{position: 'relative'}}>{this.renderSearchBar()}</View>
-          <View>{this.renderFiltros()}</View>
-          <View>{this.renderTabBar()}</View>
-          {this.state.index == 1 ? this.renderItens() : this.renderLojas()}
+          { 
+            fornecedorStore.fornecedoresPorCategoria 
+            ? this.renderizarLojasPorCategoria()
+            : <View>
+                <View>{this.renderFiltros()}</View>
+                <View>{this.renderTabBar()}</View>
+                {this.state.index == 1 ? this.renderItens() : this.renderLojas()}
+              </View>
+          }
         </ScrollView>
       </View>
     );
@@ -334,6 +390,9 @@ const mapDispatchToProps = dispatch => {
     buscarFornecedoresPorNome: (latitude, longitude, nome) => {
       dispatch(fornecedorAPI.buscarFornecedoresPorNome(latitude, longitude, nome));
     },
+    limparFornecedoresPorCategoria: () => {
+      dispatch(FornecedorAction.limparFornecedoresPorCategoria());
+    }
   };
 };
 

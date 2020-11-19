@@ -5,12 +5,15 @@ import {View, StyleSheet} from 'react-native';
 import {Text, Button, ThemeProvider} from 'react-native-elements';
 import {Formik} from 'formik';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {TextInput} from 'react-native-paper';
+import {ActivityIndicator, TextInput, Colors} from 'react-native-paper';
 import {Actions} from 'react-native-router-flux';
 import * as Yup from 'yup';
 
 import loginAPI from '../redux/api/loginApi';
 import cadastroAPI  from '../redux/api/cadastroAPI';
+import loaderAction  from '../redux/actions/LoaderAction';
+import loginAction  from '../redux/actions/LoginAction';
+import cadastroAction  from '../redux/actions/CadastroAction';
 
 const styles = StyleSheet.create({
   button: {
@@ -47,7 +50,9 @@ function goToMain() {
 
 function redirecionar(props) {
   useEffect(() => {
-    if(props.loginStore && props.loginStore.loginRealizado) {
+    if((props.loginStore && props.loginStore.loginRealizado) || props.cadastroStore && props.cadastroStore.cadastroRealizado) {
+      props.flagCadastroRealizado(false);
+      props.flagLoginRealizado(false);
       Actions.index();
     }
   })
@@ -71,6 +76,17 @@ function renderLogin(props) {
       ),
   });
 
+  if (props.loaderStore && props.loaderStore.loading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alingItens: 'center'}}>
+        <ActivityIndicator
+          animating={true}
+          color={Colors.red200}
+          size="large"
+        />
+      </View>
+    );
+  }
   return (
     <Formik
       initialValues={{
@@ -163,6 +179,17 @@ function renderCadastro(props) {
       .min(8, 'Digite pelo menos 8 caracteres'),
   });
 
+  if (props.loaderStore && props.loaderStore.loading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alingItens: 'center'}}>
+        <ActivityIndicator
+          animating={true}
+          color={Colors.red200}
+          size="large"
+        />
+      </View>
+    );
+  }
   return (
     <Formik
       initialValues={{
@@ -171,7 +198,7 @@ function renderCadastro(props) {
         senha: '',
       }}
       onSubmit={values => {
-        console.log(values);
+        props.criarCadastro(values.user, values.email, values.senha)
       }}
       validationSchema={FormSchema}>
       {({
@@ -231,7 +258,7 @@ function renderCadastro(props) {
                 title="Cadastrar"
                 raised
                 type="solid"
-                onPress={() => props.criarCadastro(values.user, values.email, values.senha)}
+                onPress={handleSubmit}
               />
             </View>
           </View>
@@ -263,7 +290,9 @@ function ModalLoginCadastro(props) {
 
 const mapStateToProps = state => {
   return {
-    loginStore: state.login
+    loginStore: state.login,
+    cadastroStore: state.cadastro,
+    loaderStore: state.loader
   };
 };
 
@@ -273,10 +302,18 @@ const mapDispatchToProps = dispatch => {
       dispatch(loginAPI.fazerLoginFirebaseFacebook());
     },
     logarComEmail: (email, senha) => {
+      dispatch(loaderAction.startLoader());
       dispatch(loginAPI.fazerLogin(email, senha));
     },
     criarCadastro: (nome, email, senha) => {
+      dispatch(loaderAction.startLoader());
       dispatch(cadastroAPI.fazerCadastro(nome, email, senha));
+    },
+    flagLoginRealizado: (loginRealizado) => {
+      dispatch(loginAction.flagLoginRealizado(loginRealizado));
+    },
+    flagCadastroRealizado: (cadastroRealizado) => {
+      dispatch(cadastroAction.flagCadastroRealizado(cadastroRealizado));
     },
   };
 };

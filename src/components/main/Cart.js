@@ -11,21 +11,28 @@ import loaderAction  from '../redux/actions/LoaderAction';
 class Cart extends React.Component {
   constructor(props) {
     super(props);
+    
+    this.state = {
+      quantidade: 1
+    }
 
     this.props.buscarCarrinho();
   }
 
-  aumentarQuantidade() {
-    this.setState(prevstate => ({
-      quantidade: prevstate.quantidade + 1,
-    }));
+  aumentarQuantidade(cardapioId, produtoId) {
+      this.props.atualizarQuantidadeItens(cardapioId, produtoId, 1)
+      
+      let carrinho = carrinhoStore.carrinho ? carrinhoStore.carrinho : null
+      let item = carrinho ? carrinho.itens.filter(item => item.id === produtoId)[0] : null
+      item ? item.quantidade += 1 : null
+
+      this.setState(prevstate => ({ quantidade: prevstate.quantidade + 1, carrinho: carrinho }));
   }
 
-  diminuirQuantidade() {
-    if (this.state.quantidade > 0) {
-      this.setState(prevstate => ({
-        quantidade: prevstate.quantidade - 1,
-      }));
+  diminuirQuantidade(cardapioId, produtoId) {
+    if (this.state.quantidade > 1) {
+      this.props.atualizarQuantidadeItens(cardapioId, produtoId, -1)
+      this.setState(prevstate => ({ quantidade: prevstate.quantidade - 1 }));
     }
   }
 
@@ -146,6 +153,33 @@ class Cart extends React.Component {
                           R$ {item.produto.valor}
                         </Text>
                       </View>
+                      <View style={{flexDirection: 'row', marginTop: 20, marginRight: 30, position: 'absolute', right: 0, color: '#fff'}}>
+                        <Button
+                          buttonStyle={{
+                            backgroundColor: '#f00',
+                            color: 'white',
+                            marginTop: 10,
+                            height: 35,
+                            width: 35
+                          }}
+                          title="+"
+                          type="solid"
+                          onPress={() => this.aumentarQuantidade(item.produto.cardapio_id, item.produto.id)} />
+                        <Text style={{width: 20, alignSelf: 'center', marginLeft: 10, marginTop: 10}}>
+                          { item.quantidade }
+                        </Text>
+                        <Button
+                          buttonStyle={{
+                            backgroundColor: '#f00',
+                            color: 'white',
+                            marginTop: 10,
+                            height: 35,
+                            width: 35
+                          }}
+                          title="-"
+                          type="solid"
+                          onPress={() => this.diminuirQuantidade(item.produto.cardapio_id, item.produto.id)} />
+                      </View>
                     </View>
                   </Card>
                 );
@@ -198,6 +232,9 @@ const mapDispatchToProps = dispatch => {
     buscarCarrinho: () => {
       dispatch(loaderAction.startLoader())
       dispatch(carrinhoAPI.buscarCarrinho());
+    },
+    atualizarQuantidadeItens: (cardapioId, idProduto, quantidade) => {
+      dispatch(carrinhoAPI.adicionarProdutoNoCarrinho(cardapioId, idProduto, quantidade));
     }
   };
 };

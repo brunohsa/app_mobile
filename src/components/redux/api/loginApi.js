@@ -1,4 +1,6 @@
 import loginActions from '../actions/LoginAction';
+import loaderActions from '../actions/LoaderAction';
+
 import axiosRequests from '../api/axiosRequests';
 import configuracao from '../config';
 import {AsyncStorage} from 'react-native';
@@ -13,6 +15,7 @@ const loginApi = {
     let acao = (response, dispatch) => {
       AsyncStorage.setItem('token', response.headers.get('token'));
       dispatch(loginActions.loginRealizado());
+      dispatch(loaderActions.stopLoader());
       return response;
     };
 
