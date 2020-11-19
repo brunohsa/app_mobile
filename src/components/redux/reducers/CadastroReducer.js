@@ -5,12 +5,12 @@ export function cadastroReducers(state = {}, action) {
     case actionTypes.FAZER_CADASTRO:
       return {
         ...state,
-        //fazerCadastro: action.fazerCadastro,
+        fazerCadastro: action.fazerCadastro,
       };
     case actionTypes.CADASTRO_REALIZADO:
       return {
         ...state,
-        //cadastroRealizado: true,
+        cadastroRealizado: true,
       };
     case actionTypes.FLAG_CADASTRO_REALIZADO:
       return {

@@ -50,10 +50,14 @@ function goToMain() {
 
 function redirecionar(props) {
   useEffect(() => {
-    if((props.loginStore && props.loginStore.loginRealizado) || props.cadastroStore && props.cadastroStore.cadastroRealizado) {
-      props.flagCadastroRealizado(false);
-      props.flagLoginRealizado(false);
+    if(props.loginStore && props.loginStore.loginRealizado) {
       Actions.index();
+      return;
+    }
+    if(props.cadastroStore && props.cadastroStore.cadastroRealizado) {
+      //props.flagCadastroRealizado(false);
+      Actions.index();
+      return;
     }
   })
 }

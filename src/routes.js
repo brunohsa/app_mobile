@@ -114,7 +114,7 @@ class Routes extends Component {
                 iconName="file-text-o"
                 icon={TabIcon}
                 back={false}
-                onEnter={() => this.props.buscarProdutosDaRegiao()}
+                onEnter={this.props.buscarProdutosDaRegiao}
               />
               <Scene
                 key="config"
