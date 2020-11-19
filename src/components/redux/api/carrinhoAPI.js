@@ -55,6 +55,16 @@ let carrinhoAPI = {
     return axiosRequests.put(getToken(), produtoCarrinho, url, acao)
   },
 
+  removerProdutoDoCarrinho(idProduto) { 
+    let acao = (response, dispatch) => {
+      dispatch(carrinhoActions.produtoRemovidoDoCarrinho(response.body));
+      dispatch(loaderActions.stopLoader());
+      return response.body;
+    };
+    let url = `${configuracao.URL_CARRINHO}${CARRINHO_BASE_URL}/produto/${idProduto}`;
+    return axiosRequests.delete(getToken(), url, acao)
+  },
+
   gerarPedido(titular, numeroCartao, validade, codigoSeguranca) { 
     let dadosPagamento = JSON.stringify({
       nome_completo: titular,
@@ -70,7 +80,30 @@ let carrinhoAPI = {
     };
     let url = `${configuracao.URL_CARRINHO}${CONSUMIDORES_BASE_URL}/pedidos/gerar`;
     return axiosRequests.post(getToken(), dadosPagamento, url, acao)
-  }
+  },
+
+  avaliarPedido(avaliacaoPedido) { 
+    let acao = (response, dispatch) => {
+      return response.body;
+    };
+    let body = JSON.stringify({
+      nota: avaliacaoPedido.nota,
+      comentario: avaliacaoPedido.comentario
+    })
+    let url = `${configuracao.URL_CARRINHO}${CONSUMIDORES_BASE_URL}/pedidos/${avaliacaoPedido.pedidoId}/avaliar`;
+    return axiosRequests.post(getToken(), body, url, acao)
+  },
+
+  avaliarProdutoPedido(avaliacaoProduto) { 
+    let acao = (response, dispatch) => {
+      return response.body;
+    };
+    let body = JSON.stringify({
+      nota: avaliacaoProduto.nota
+    })
+    let url = `${configuracao.URL_CARRINHO}${CONSUMIDORES_BASE_URL}/pedidos/${avaliacaoProduto.pedidoId}/produto/${avaliacaoProduto.produtoId}/avaliar`;
+    return axiosRequests.post(getToken(), body, url, acao)
+  },
 };
 
 function getToken() {

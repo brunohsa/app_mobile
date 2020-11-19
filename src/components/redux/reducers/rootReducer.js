@@ -6,6 +6,7 @@ import {carrinhoReducers} from './CarrinhoReducer';
 import {fornecedorReducers} from './FornecedorReducer';
 import {loaderReducers} from './LoaderReducer';
 
+
 export default combineReducers({
   login: loginReducers,
   cadastro: cadastroReducers,

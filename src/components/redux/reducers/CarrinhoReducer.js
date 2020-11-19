@@ -35,6 +35,11 @@ export function carrinhoReducers(state = {}, action) {
         ...state,
         pedidoGerado: action.pedidoGerado
       };
+    case actionTypes.PRODUTO_REMOVIDO_DO_CARRINHO:
+      return {
+        ...state,
+        carrinho: action.carrinho,
+      };
     default:
       return state;
   }

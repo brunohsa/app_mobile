@@ -23,6 +23,13 @@ const carrinhoActions = {
     };
   },
 
+  produtoRemovidoDoCarrinho(carrinho) { 
+    return {
+      type: actionTypes.PRODUTO_REMOVIDO_DO_CARRINHO,
+      carrinho
+    };
+  },
+
   pedidoGerado(pedido) { 
     return {
       type: actionTypes.PEDIDO_GERADO,

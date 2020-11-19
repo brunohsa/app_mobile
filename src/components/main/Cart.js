@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux'
-import {View} from 'react-native';
+import {View, Alert } from 'react-native';
 import {Text, Button, Card} from 'react-native-elements';
 import {ActivityIndicator, Colors} from 'react-native-paper';
 import {Actions} from 'react-native-router-flux';
@@ -19,20 +19,31 @@ class Cart extends React.Component {
     this.props.buscarCarrinho();
   }
 
-  aumentarQuantidade(cardapioId, produtoId) {
-      this.props.atualizarQuantidadeItens(cardapioId, produtoId, 1)
-      
-      let carrinho = carrinhoStore.carrinho ? carrinhoStore.carrinho : null
-      let item = carrinho ? carrinho.itens.filter(item => item.id === produtoId)[0] : null
-      item ? item.quantidade += 1 : null
-
-      this.setState(prevstate => ({ quantidade: prevstate.quantidade + 1, carrinho: carrinho }));
+  dialogRemoverProduto(nomeProduto, idProduto) {
+    Alert.alert(
+      "Informações",
+      `Deseja remover o produto <b> ${nomeProduto} </b> ?`,
+      [
+        {
+          text: "Sair",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Remover", onPress: () => this.props.removerProdutoDoCarrinho(idProduto)}
+      ],
+      { cancelable: false }
+    )
   }
 
-  diminuirQuantidade(cardapioId, produtoId) {
-    if (this.state.quantidade > 1) {
-      this.props.atualizarQuantidadeItens(cardapioId, produtoId, -1)
-      this.setState(prevstate => ({ quantidade: prevstate.quantidade - 1 }));
+  aumentarQuantidade(cardapioId, produtoId) {
+      this.props.atualizarQuantidadeItens(cardapioId, produtoId, 1)
+  }
+
+  diminuirQuantidade(produto, quantidade) {
+    if (quantidade > 1) {
+      this.props.atualizarQuantidadeItens(produto.cardapio_id, produto.id, -1)
+    } else {
+      this.dialogRemoverProduto(produto.nome, produto.id)
     }
   }
 
@@ -110,11 +121,10 @@ class Cart extends React.Component {
                             color: '#000',
                             marginLeft: 25,
                           }}>
-                          Observaçoes:
+                          Preço:
                         </Text>
                         <Text style={{color: '#5E5B5B'}}>
-                          {' '}
-                          {item.observacoes}
+                          R$ {item.produto.valor}
                         </Text>
                       </View>
                       <View
@@ -147,13 +157,21 @@ class Cart extends React.Component {
                             color: '#000',
                             marginLeft: 25,
                           }}>
-                          Preço:
+                          Observaçoes:
                         </Text>
                         <Text style={{color: '#5E5B5B'}}>
-                          R$ {item.produto.valor}
+                          {' '}
+                          {item.observacoes}
                         </Text>
                       </View>
-                      <View style={{flexDirection: 'row', marginTop: 20, marginRight: 30, position: 'absolute', right: 0, color: '#fff'}}>
+                      <View style={{
+                              flexDirection: 'row', 
+                              marginTop: item.observacoes ? 0 : 12, 
+                              marginRight: 30, 
+                              position: 'absolute', 
+                              right: 0, 
+                              color: '#fff'}}
+                      >
                         <Button
                           buttonStyle={{
                             backgroundColor: '#f00',
@@ -178,7 +196,7 @@ class Cart extends React.Component {
                           }}
                           title="-"
                           type="solid"
-                          onPress={() => this.diminuirQuantidade(item.produto.cardapio_id, item.produto.id)} />
+                          onPress={() => this.diminuirQuantidade(item.produto, item.quantidade)} />
                       </View>
                     </View>
                   </Card>
@@ -225,7 +243,7 @@ class Cart extends React.Component {
           disabled={carrinho == null || carrinho == undefined || carrinho.itens.length == 0}
           title="Retornar a loja"
           type="solid"
-          onPress={() => Actions.loja()}
+          onPress={() => Actions.loja({fornecedorUUID: carrinho.fornecedor_uuid})}
         />
       </View>
     );
@@ -246,7 +264,12 @@ const mapDispatchToProps = dispatch => {
       dispatch(carrinhoAPI.buscarCarrinho());
     },
     atualizarQuantidadeItens: (cardapioId, idProduto, quantidade) => {
+      dispatch(loaderAction.startLoader())
       dispatch(carrinhoAPI.adicionarProdutoNoCarrinho(cardapioId, idProduto, quantidade));
+    },
+    removerProdutoDoCarrinho: (idProduto) => {
+      dispatch(loaderAction.startLoader())
+      dispatch(carrinhoAPI.removerProdutoDoCarrinho(idProduto));
     }
   };
 };

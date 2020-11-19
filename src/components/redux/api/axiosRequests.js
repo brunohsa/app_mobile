@@ -2,6 +2,7 @@
 import { AsyncStorage } from 'react-native';
 import erroActions from '../actions/ErroAction';
 import loginActions from '../actions/LoginAction';
+import loaderAction  from '../actions/LoaderAction';
 
 const CODIGO_TOKEN_EXPIRADO = '001';
 
@@ -76,7 +77,7 @@ function tratarErro(response, dispatch) {
   let erro = response.body.erro;
   if (erro) {
      erro.codigo === CODIGO_TOKEN_EXPIRADO ? fazerLogoff(dispatch) : null;
-     console.log(erro.mensagem);
+     dispatch(loaderAction.stopLoader());
      throw Error(erro.mensagem);
   }
 }

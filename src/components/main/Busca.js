@@ -36,7 +36,8 @@ class Busca extends Component {
   }
 
   componentWillReceiveProps() {
-    if(this.props.fornecedorStore.fornecedoresPorCategoria && this.state.index !== 2) {
+    let { fornecedorStore } = this.props
+    if((fornecedorStore.fornecedoresPorCategoria || fornecedorStore.fornecedores) && this.state.index !== 2) {
       this.setState({index: 2})
     } else {
       this.setState({index: 1})

@@ -14,6 +14,7 @@ import Configure from './components/main/Configurar';
 import Loja from './components/main/Loja';
 import Cart from './components/main/Cart';
 import Pagamento from './components/main/Pagamento';
+import Avaliacao from './components/main/Avaliacao';
 import fornecedorAction from './components/redux/actions/FornecedorAction';
 
 class TabIcon extends Component {
@@ -131,6 +132,14 @@ class Routes extends Component {
               key="product"
               title="Produto"
               component={Produto}
+              navTransparent={true}
+              hideNavBar
+              back={false}
+            />
+            <Scene
+              key="avaliacao"
+              title="Aroduto"
+              component={Avaliacao}
               navTransparent={true}
               hideNavBar
               back={false}

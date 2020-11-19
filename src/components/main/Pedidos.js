@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, Text, RefreshControl} from 'react-native';
+import {View, Text, RefreshControl, TouchableOpacity} from 'react-native';
 import {ActivityIndicator, Colors, Provider, Modal} from 'react-native-paper';
 import {Card, Rating} from 'react-native-elements';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -160,21 +160,6 @@ class Pedidos extends Component {
                               </Text>
                             </View>
                           </View>
-                          <View
-                            style={{
-                              alignItems: 'flex-end',
-                              justifyContent: 'flex-end',
-                            }}>
-                            {pedido.status === 'CONCLUIDO' ? (
-                              <Rating
-                                imageSize={20}
-                                fractions={1}
-                                startingValue={0}
-                              />
-                            ) : (
-                              <View />
-                            )}
-                          </View>
                         </View>
                       );
                     })}
@@ -196,6 +181,30 @@ class Pedidos extends Component {
                       }}>
                       {pedido.data_pedido}
                     </Text>
+                    {
+                      pedido.status == 'CONCLUIDO' 
+                      ? <TouchableOpacity onPress={() => { Actions.avaliacao({ pedido: pedido}); }} pointerEvents="none">
+                          <View style={{borderColor: '#DCDCDC', borderStyle: 'solid', borderWidth: 1, marginTop: 10, paddingTop: 8, paddingLeft: 10}}>
+                            <Text
+                              style={{
+                                fontWeight: 'bold',
+                                color: '#000',
+                                marginRight: 45,
+                              }}>
+                              Avaliar
+                            </Text>
+                            <View style={{flex: 1, flexDirection: 'row', paddingBottom: 10, paddingTop: 10}}>
+                              <Rating 
+                                style={{marginLeft: 10}} 
+                                imageSize={25} 
+                                fractions={1} 
+                                startingValue={pedido.avaliacao ? pedido.avaliacao.nota : 0} 
+                                readonly={true} />
+                            </View>
+                          </View>
+                        </TouchableOpacity>
+                      : null
+                    }
                   </Card>
                 </View>
               );
