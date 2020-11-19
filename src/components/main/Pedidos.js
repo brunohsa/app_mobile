@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux'
-import {View, Text} from 'react-native';
-import {ActivityIndicator, Colors} from 'react-native-paper';
-import {Card} from 'react-native-elements';
+import {connect} from 'react-redux';
+import {View, Text, RefreshControl} from 'react-native';
+import {ActivityIndicator, Colors, Provider, Modal} from 'react-native-paper';
+import {Card, Rating} from 'react-native-elements';
 import {ScrollView} from 'react-native-gesture-handler';
-
-import carrinhoAPI  from '../redux/api/carrinhoAPI';
-import loaderAction  from '../redux/actions/LoaderAction';
+import carrinhoAPI from '../redux/api/carrinhoAPI';
+import loaderAction from '../redux/actions/LoaderAction';
+import {Actions} from 'react-native-router-flux';
+import {render} from 'react-dom';
 
 class Pedidos extends Component {
   constructor(props) {
@@ -14,12 +15,13 @@ class Pedidos extends Component {
 
     this.props.buscarPedidos();
   }
-  
-  render() {
-    let { carrinhoStore, loaderStore } = this.props
 
-    let pedidos = carrinhoStore && carrinhoStore.pedidos ? carrinhoStore.pedidos : []
-    
+  render() {
+    let {carrinhoStore, loaderStore} = this.props;
+
+    let pedidos =
+      carrinhoStore && carrinhoStore.pedidos ? carrinhoStore.pedidos : [];
+
     if (loaderStore.loading) {
       return (
         <View style={{flex: 1, justifyContent: 'center', alingItens: 'center'}}>
@@ -34,9 +36,8 @@ class Pedidos extends Component {
     return (
       <View style={{marginBottom: 10}}>
         <ScrollView>
-          {
-            pedidos && pedidos.length > 0
-            ? pedidos.map(pedido => {
+          {pedidos && pedidos.length > 0 ? (
+            pedidos.map(pedido => {
               let status = '';
               let cor = '';
               switch (pedido.status) {
@@ -76,78 +77,103 @@ class Pedidos extends Component {
                     <Text style={{fontWeight: 'bold'}}>{pedido.numero}</Text>
                     {pedido.itens.map(item => {
                       return (
-                        <View key={item.id} style={{marginBottom: 10, marginTop: 10}}>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                          }}>
                           <View
-                            style={{
-                              flexWrap: 'wrap',
-                              alignItems: 'flex-start',
-                              flexDirection: 'row',
-                            }}>
-                            <Text
+                            key={item.id}
+                            style={{marginBottom: 10, marginTop: 10}}>
+                            <View
                               style={{
-                                fontWeight: 'bold',
-                                color: '#000',
-                                marginLeft: 25,
+                                flexWrap: 'wrap',
+                                alignItems: 'flex-start',
+                                flexDirection: 'row',
                               }}>
-                              Item:
-                            </Text>
-                            <Text style={{color: '#5E5B5B'}}> {item.nome}</Text>
+                              <Text
+                                style={{
+                                  fontWeight: 'bold',
+                                  color: '#000',
+                                  marginLeft: 25,
+                                }}>
+                                Item:
+                              </Text>
+                              <Text style={{color: '#5E5B5B'}}>
+                                {' '}
+                                {item.nome}
+                              </Text>
+                            </View>
+                            <View
+                              style={{
+                                flexWrap: 'wrap',
+                                alignItems: 'flex-start',
+                                flexDirection: 'row',
+                              }}>
+                              <Text
+                                style={{
+                                  fontWeight: 'bold',
+                                  color: '#000',
+                                  marginLeft: 25,
+                                }}>
+                                Observaçoes:
+                              </Text>
+                              <Text style={{color: '#5E5B5B'}}>
+                                {' '}
+                                {item.observacoes}
+                              </Text>
+                            </View>
+                            <View
+                              style={{
+                                flexWrap: 'wrap',
+                                alignItems: 'flex-start',
+                                flexDirection: 'row',
+                              }}>
+                              <Text
+                                style={{
+                                  fontWeight: 'bold',
+                                  color: '#000',
+                                  marginLeft: 25,
+                                }}>
+                                Quantidade:
+                              </Text>
+                              <Text style={{color: '#5E5B5B'}}>
+                                {' '}
+                                {item.quantidade}
+                              </Text>
+                            </View>
+                            <View
+                              style={{
+                                flexWrap: 'wrap',
+                                alignItems: 'flex-start',
+                                flexDirection: 'row',
+                              }}>
+                              <Text
+                                style={{
+                                  fontWeight: 'bold',
+                                  color: '#000',
+                                  marginLeft: 25,
+                                }}>
+                                Preço:
+                              </Text>
+                              <Text style={{color: '#5E5B5B'}}>
+                                R$ {item.valor}
+                              </Text>
+                            </View>
                           </View>
                           <View
                             style={{
-                              flexWrap: 'wrap',
-                              alignItems: 'flex-start',
-                              flexDirection: 'row',
+                              alignItems: 'flex-end',
+                              justifyContent: 'flex-end',
                             }}>
-                            <Text
-                              style={{
-                                fontWeight: 'bold',
-                                color: '#000',
-                                marginLeft: 25,
-                              }}>
-                              Observaçoes:
-                            </Text>
-                            <Text style={{color: '#5E5B5B'}}>
-                              {' '}
-                              {item.observacoes}
-                            </Text>
-                          </View>
-                          <View
-                            style={{
-                              flexWrap: 'wrap',
-                              alignItems: 'flex-start',
-                              flexDirection: 'row',
-                            }}>
-                            <Text
-                              style={{
-                                fontWeight: 'bold',
-                                color: '#000',
-                                marginLeft: 25,
-                              }}>
-                              Quantidade:
-                            </Text>
-                            <Text style={{color: '#5E5B5B'}}>
-                              {' '}
-                              {item.quantidade}
-                            </Text>
-                          </View>
-                          <View
-                            style={{
-                              flexWrap: 'wrap',
-                              alignItems: 'flex-start',
-                              flexDirection: 'row',
-                            }}>
-                            <Text
-                              style={{
-                                fontWeight: 'bold',
-                                color: '#000',
-                                marginLeft: 25,
-                              }}>
-                              Preço:
-                            </Text>
-                            <Text style={{color: '#5E5B5B'}}>
-                              R$ {item.valor}
-                            </Text>
+                            {pedido.status === 'CONCLUIDO' ? (
+                              <Rating
+                                imageSize={20}
+                                fractions={1}
+                                startingValue={0}
+                              />
+                            ) : (
+                              <View />
+                            )}
                           </View>
                         </View>
                       );
@@ -174,7 +200,7 @@ class Pedidos extends Component {
                 </View>
               );
             })
-            : (
+          ) : (
             <View />
           )}
         </ScrollView>
@@ -186,7 +212,7 @@ class Pedidos extends Component {
 const mapStateToProps = state => {
   return {
     carrinhoStore: state.carrinho,
-    loaderStore: state.loader
+    loaderStore: state.loader,
   };
 };
 
@@ -195,8 +221,11 @@ const mapDispatchToProps = dispatch => {
     buscarPedidos: () => {
       dispatch(loaderAction.startLoader());
       dispatch(carrinhoAPI.buscarPedidos());
-    }
+    },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pedidos);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Pedidos);
