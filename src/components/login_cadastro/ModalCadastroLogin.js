@@ -65,15 +65,8 @@ function renderLogin(props) {
   const senha = useRef(null);
 
   const FormSchema = Yup.object().shape({
-    email: Yup.string()
-      .required('Campo obrigatório')
-      .matches('^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})'),
-    senha: Yup.string()
-      .required('Campo obrigatório')
-      .min(8, 'Digite pelo menos 8 caracteres')
-      .matches(
-        '^(?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.*[@#$%!:()\\-_?&])(?=\\S+$)',
-      ),
+    email: Yup.string().required('Campo obrigatório'),
+    senha: Yup.string().required('Campo obrigatório'),
   });
 
   if (props.loaderStore && props.loaderStore.loading) {
@@ -94,7 +87,7 @@ function renderLogin(props) {
         senha: '',
       }}
       onSubmit={values => {
-        console.log(values);
+        props.logarComEmail(values.email, values.senha)
       }}
       validationSchema={FormSchema}>
       {({
@@ -142,7 +135,7 @@ function renderLogin(props) {
                 title="Entrar"
                 raised
                 type="solid"
-                onPress={() => props.logarComEmail(values.email, values.senha)}
+                onPress={handleSubmit}
               />
             </View>
           </View>

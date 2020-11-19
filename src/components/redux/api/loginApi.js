@@ -9,8 +9,8 @@ const loginApi = {
 
   fazerLogin(email, senha) {
     let body = JSON.stringify({
-      email: 'brunohsa1@hotmail.com',
-      senha: '123Mudar@',
+      email: email,
+      senha: senha,
     });
     let acao = (response, dispatch) => {
       AsyncStorage.setItem('token', response.headers.get('token'));
